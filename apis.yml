@@ -1,8 +1,19 @@
 aid: archera
 name: Archera
-description: 'Archera is a company surfaced as a portfolio company of amplify-partners and added to the
-  API Evangelist network as a stub for enrichment. Sector: developer-tools. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Archera is a cloud financial operations (FinOps) platform that helps
+  organizations reduce cloud spend by 20-30% through intelligent commitment
+  management and insured, short-term cloud commitments across AWS, Azure, and
+  Google Cloud. Its Guaranteed Commitments (Guaranteed Savings Plans, Guaranteed
+  Reserved Instances, and Guaranteed Committed Use Discounts) provide flexible
+  terms as short as 30 days with risk protection for unused capacity. The
+  Archera Public API exposes commitment plans, commitments, exchanges, metrics,
+  resources, orgs, and uploads over a REST v1 interface authenticated with an
+  API key or OAuth 2.0 (Authorization Code + PKCE), and Archera operates a
+  hosted remote MCP server so AI assistants can query cloud cost data and
+  optimization recommendations directly. A Partner API supports onboarding
+  customers and creating marketplace offers via AWS CPPO, Microsoft MPO, and
+  Google MCPO.
 url: https://raw.githubusercontent.com/api-evangelist/archera/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,13 +21,154 @@ x-backed-by:
 - amplify-partners
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://cdn.prod.website-files.com/66df18fcc90988b3a2c38285/677d4bc397e85ea0e180addb_1654705931-website-link-preview.avif
 tags:
 - Company
 - Developer Tools
-apis: []
+- FinOps
+- Cloud Cost Management
+- Cloud Commitments
+- Cost Optimization
+- MCP
+- AWS
+- Azure
+- Google Cloud
+apis:
+- name: Archera Partner API
+  description: >-
+    Partner API for onboarding customers, managing their optimization strategies, and creating marketplace
+    offers through AWS CPPO, Microsoft MPO / ISV-to-CSP Private Offer, and Google MCPO programs.
+  humanURL: https://docs.archera.ai/api-reference/partner-api/partner-api
+  baseURL: https://api.archera.ai
+  tags:
+  - Partner
+  - Cloud Marketplace
+- aid: archera:archera-commitment-plans-api
+  name: Archera Commitment Plans API
+  description: API for managing commitment plans
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Commitment Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-commitment-plans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-commitments-api
+  name: Archera Commitments API
+  description: >-
+    API for retrieving and analyzing cloud commitment inventory, including Reserved Instances, Savings
+    Plans, and Azure Reserved VM Instances. Provides access to detailed commitment data, utilization metrics,
+    and cost savings information.
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Commitments
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-commitments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-exchanges-api
+  name: Archera Exchanges API
+  description: API for commitment exchange recommendations
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Exchanges
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-exchanges-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-metrics-api
+  name: Archera Metrics API
+  description: High level metrics to track commitment performance.
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-oauth-api
+  name: Archera OAuth API
+  description: OAuth 2.0 authorization endpoints for third-party integrations
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-orgs-api
+  name: Archera Orgs API
+  description: Endpoints for organizations accessible to the authenticated user
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Orgs
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-orgs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-resources-api
+  name: Archera Resources API
+  description: API for retrieving and analyzing infrastructure resources
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-resources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-uploads-api
+  name: Archera Uploads API
+  description: API for uploading billing files for savings analysis
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-uploads-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-well-known-api
+  name: Archera Well-Known API
+  description: OAuth 2.0 discovery endpoints (JWKS and Authorization Server Metadata)
+  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
+  baseURL: https://api.archera.ai
+  tags:
+  - Well-Known
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-well-known-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +177,60 @@ maintainers:
 common:
 - type: Website
   url: https://archera.ai
+- type: DeveloperPortal
+  url: https://docs.archera.ai
+- type: Documentation
+  url: https://docs.archera.ai
+- type: APIReference
+  url: https://docs.archera.ai/api-reference
+- type: GettingStarted
+  url: https://docs.archera.ai/getting-started/how-to-sign-up-with-archera
+- type: Authentication
+  url: authentication/archera-authentication.yml
+- type: OAuthScopes
+  url: scopes/archera-scopes.yml
+- type: MCPServer
+  url: mcp/archera-mcp.yml
+- type: WellKnown
+  url: well-known/archera-well-known.yml
+- type: Conventions
+  url: conventions/archera-conventions.yml
+- type: ErrorCatalog
+  url: errors/archera-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/archera-lifecycle.yml
+- type: Conformance
+  url: conformance/archera-conformance.yml
+- type: Compliance
+  url: https://www.archera.ai/trust
+- type: TrustCenter
+  url: security/archera-trust-center.yml
+- type: DomainSecurity
+  url: security/archera-domain-security.yml
+- type: DataModel
+  url: data-model/archera-data-model.yml
+- type: AgenticAccess
+  url: agentic-access/archera-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/archera-llms.txt
+- type: Blog
+  url: https://www.archera.ai/blog
+- type: Support
+  url: https://help.archera.ai
+- type: Pricing
+  url: https://www.archera.ai/pricing
+- type: SignUp
+  url: https://app.archera.ai/signup
+- type: Login
+  url: https://app.archera.ai/login
+- type: TermsOfService
+  url: https://www.archera.ai/terms
+- type: PrivacyPolicy
+  url: https://www.archera.ai/privacy
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

@@ -1,0 +1,30 @@
+{
+  "provider": "archera",
+  "sources": [
+    "archera-commitment-plans-api-openapi.yml",
+    "archera-commitments-api-openapi.yml",
+    "archera-exchanges-api-openapi.yml",
+    "archera-metrics-api-openapi.yml",
+    "archera-oauth-api-openapi.yml",
+    "archera-orgs-api-openapi.yml",
+    "archera-resources-api-openapi.yml",
+    "archera-uploads-api-openapi.yml",
+    "archera-well-known-api-openapi.yml"
+  ],
+  "outputs": [
+    "archera-commitment-plans-api-openapi.yml",
+    "archera-commitments-api-openapi.yml",
+    "archera-exchanges-api-openapi.yml",
+    "archera-metrics-api-openapi.yml",
+    "archera-oauth-api-openapi.yml",
+    "archera-orgs-api-openapi.yml",
+    "archera-resources-api-openapi.yml",
+    "archera-uploads-api-openapi.yml",
+    "archera-well-known-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  description: '### Welcome to the Archera.ai API documentation.
+
+    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
+
+
+    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
+
+
+    If you have questions or need support, please contact our team at support@archera.ai.
+
+
+    ## API Key Access
+
+
+    To use this API, you need an API key.
+
+
+    ### How to Create an API Key
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > API Access**.
+
+    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
+
+    3. Click **Create New API Key**.
+
+    4. Copy and securely store your new API key.
+
+
+    ### How to Use Your API Key
+
+    Use the `x-api-key` header:
+
+
+    ```bash
+
+    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
+
+    ```
+
+
+    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
+
+    ### How to find your Organization ID
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > Organization**.
+
+    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
+
+
+    '
+  title: Archera.ai Commitment Plans Metrics API
+  version: v1.0.0
+tags:
+- name: Metrics
+  description: High level metrics to track commitment performance.
+paths:
+  /v1/org/{org_id}/metrics:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: provider
+        description: Cloud provider to get metrics for
+        schema:
+          example: aws
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        required: true
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicMetrics'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Metrics
+      summary: /metrics
+      description: Retrieves key performance metrics for cloud commitments (RIs/SPs) for the specified provider. Returns financial data including lifetime and month-to-date savings, automation status, potential missed savings opportunities, commitment coverage, and utilization rates. This endpoint provides a comprehensive overview of commitment performance and automation status.
+components:
+  schemas:
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+    PublicMetrics:
+      type: object
+      properties:
+        lifetime_savings:
+          type: number
+        lifetime_gri_savings:
+          type: number
+        mtd_savings:
+          type: number
+        mtd_gri_savings:
+          type: number
+        purchase_automation_enabled:
+          type: boolean
+        buyback_automation_enabled:
+          type: boolean
+        has_actioned_plan:
+          type: boolean
+        has_pending_actions:
+          type: boolean
+        latest_execution_date:
+          type: string
+          format: date
+        purchase_missed_savings:
+          type: number
+        buyback_missed_savings:
+          type: number
+        total_daily_missed_savings:
+          type: number
+        hourly_missed_savings:
+          type: number
+        missed_savings_start_date:
+          type: string
+          format: date
+        missed_savings_end_date:
+          type: string
+          format: date
+        expiring_savings:
+          type: number
+        coverage:
+          type: number
+        utilization:
+          type: number
+      required:
+      - buyback_automation_enabled
+      - buyback_missed_savings
+      - coverage
+      - expiring_savings
+      - has_actioned_plan
+      - has_pending_actions
+      - hourly_missed_savings
+      - latest_execution_date
+      - lifetime_gri_savings
+      - lifetime_savings
+      - missed_savings_end_date
+      - missed_savings_start_date
+      - mtd_gri_savings
+      - mtd_savings
+      - purchase_automation_enabled
+      - purchase_missed_savings
+      - total_daily_missed_savings
+      - utilization
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+  responses:
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

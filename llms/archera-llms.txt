@@ -1,0 +1,280 @@
+# Archera
+
+## Home
+
+- [What is Archera?](https://docs.archera.ai/readme.md): Cloud cost optimization platform that reduces spending by 20-30% through intelligent commitment management
+- [Rate Optimization](https://docs.archera.ai/rate-optimization.md): Understanding cloud rate optimization strategies and how to achieve significant cost savings without impacting your infrastructure
+- [Insured Commitments](https://docs.archera.ai/insured-commitments.md): Learn about Archera’s Guaranteed Commitments that provide short-term insured cloud commitments with maximum flexibility and risk protection
+- [How to Sign Up with Archera](https://docs.archera.ai/getting-started/how-to-sign-up-with-archera.md): Get started with Archera’s platform to begin optimizing your cloud costs through intelligent commitment management
+- [Supported Reservable Services](https://docs.archera.ai/getting-started/supported-reservable-services.md): Comprehensive list of all cloud services supported by Archera’s platform across AWS, Azure, and Google Cloud
+
+## API & MCP Reference
+
+- [API & MCP Reference](https://docs.archera.ai/api-reference/readme.md): View our public API reference to access Archera's platform programmatically
+- [MCP Server](https://docs.archera.ai/api-reference/mcp-server/mcp.md)
+- [Public API Reference](https://docs.archera.ai/api-reference/public-api/public-api-reference.md)
+- [API Key Access](https://docs.archera.ai/api-reference/public-api/api-key-access.md)
+- [Commitment Plans](https://docs.archera.ai/api-reference/public-api/commitment-plans.md)
+- [Commitments](https://docs.archera.ai/api-reference/public-api/commitments.md)
+- [Exchanges](https://docs.archera.ai/api-reference/public-api/exchanges.md)
+- [Metrics](https://docs.archera.ai/api-reference/public-api/metrics.md)
+- [Orgs](https://docs.archera.ai/api-reference/public-api/orgs.md)
+- [Resources](https://docs.archera.ai/api-reference/public-api/resources.md)
+- [Uploads](https://docs.archera.ai/api-reference/public-api/uploads.md)
+- [Well Known](https://docs.archera.ai/api-reference/public-api/well-known.md)
+- [OAuth](https://docs.archera.ai/api-reference/public-api/oauth.md)
+- [Models](https://docs.archera.ai/api-reference/public-api/models.md)
+- [Partner API](https://docs.archera.ai/api-reference/partner-api/partner-api.md)
+- [Organizations](https://docs.archera.ai/api-reference/partner-api/organizations.md)
+- [Partners](https://docs.archera.ai/api-reference/partner-api/partners.md)
+- [Models](https://docs.archera.ai/api-reference/partner-api/models.md)
+- [Beta API](https://docs.archera.ai/api-reference/beta-api/partner-api.md)
+- [API Key Access](https://docs.archera.ai/api-reference/beta-api/api-key-access.md)
+- [Units Convention](https://docs.archera.ai/api-reference/beta-api/units-convention.md)
+- [Reports](https://docs.archera.ai/api-reference/beta-api/reports.md)
+- [Allocation Reports (Beta)](https://docs.archera.ai/api-reference/beta-api/allocation-reports-beta.md)
+- [Commitment Plans (Beta)](https://docs.archera.ai/api-reference/beta-api/commitment-plans-beta.md)
+- [Commitment Plan Templates (Beta)](https://docs.archera.ai/api-reference/beta-api/commitment-plan-templates-beta.md)
+- [Commitment Types (Beta)](https://docs.archera.ai/api-reference/beta-api/commitment-types-beta.md)
+- [Commitments (Beta)](https://docs.archera.ai/api-reference/beta-api/commitments-beta.md)
+- [Metrics (Beta)](https://docs.archera.ai/api-reference/beta-api/metrics-beta.md)
+- [Moneyback Guarantees (Beta)](https://docs.archera.ai/api-reference/beta-api/moneyback-guarantees-beta.md)
+- [Segments (Beta)](https://docs.archera.ai/api-reference/beta-api/segments-beta.md)
+- [Invoices (Beta)](https://docs.archera.ai/api-reference/beta-api/invoices-beta.md)
+- [Cost Explorer (Beta)](https://docs.archera.ai/api-reference/beta-api/cost-explorer-beta.md)
+- [Exchanges (Beta)](https://docs.archera.ai/api-reference/beta-api/exchanges-beta.md)
+- [Integrations (Beta)](https://docs.archera.ai/api-reference/beta-api/integrations-beta.md)
+- [Resources (Beta)](https://docs.archera.ai/api-reference/beta-api/resources-beta.md)
+- [Catalog (Beta)](https://docs.archera.ai/api-reference/beta-api/catalog-beta.md)
+- [Organizations (Beta)](https://docs.archera.ai/api-reference/beta-api/organizations-beta.md)
+- [Models](https://docs.archera.ai/api-reference/beta-api/models.md)
+
+## Help Center
+
+- [Help Center](https://docs.archera.ai/help-center/readme.md)
+- [What is Archera?](https://docs.archera.ai/help-center/what-is-archera.md): Cloud cost optimization platform that reduces spending by 20-30% through intelligent commitment management
+- [How to Sign Up with Archera](https://docs.archera.ai/help-center/getting-started/how-to-sign-up-with-archera.md): Get started with Archera’s platform to begin optimizing your cloud costs through intelligent commitment management
+- [Supported Reservable Services](https://docs.archera.ai/help-center/getting-started/supported-reservable-services.md): Comprehensive list of all cloud services supported by Archera’s platform across AWS, Azure, and Google Cloud
+- [Archera Overview](https://docs.archera.ai/help-center/getting-started/archera-overview.md)
+- [Product Overview](https://docs.archera.ai/help-center/getting-started/product-overview.md)
+- [Platform Features & Modules](https://docs.archera.ai/help-center/getting-started/platform-features.md)
+- [What Cloud Services Does Archera Support?](https://docs.archera.ai/help-center/getting-started/supported-services.md)
+- [What Category Is Archera In?](https://docs.archera.ai/help-center/getting-started/archera-category.md)
+- [User Guide](https://docs.archera.ai/help-center/user-guide/user-guide.md)
+- [Archera QuickStart Guide (AWS)](https://docs.archera.ai/help-center/user-guide/quickstart-aws.md)
+- [Segment Dashboard - Overview](https://docs.archera.ai/help-center/user-guide/segment-dashboard.md)
+- [Infrastructure History - Overview](https://docs.archera.ai/help-center/user-guide/infrastructure-history.md)
+- [Resource Recommendations - Overview](https://docs.archera.ai/help-center/user-guide/resource-recommendations.md)
+- [Commitment Planner - Overview](https://docs.archera.ai/help-center/user-guide/commitment-planner.md)
+- [Commitment Inventory](https://docs.archera.ai/help-center/user-guide/commitment-inventory.md)
+- [Settings & Integrations - Section Overview](https://docs.archera.ai/help-center/user-guide/settings-integrations.md)
+- [How to Create a Custom Purchase or Renewal Plan](https://docs.archera.ai/help-center/user-guide/how-to-create-custom-plan.md)
+- [How Does Archera Calculate Commitment Coverage](https://docs.archera.ai/help-center/user-guide/commitment-coverage.md)
+- [How Does Commitment Discount Attribution Work](https://docs.archera.ai/help-center/user-guide/commitment-attribution.md)
+- [Invite Users and Onboarding Troubleshooting](https://docs.archera.ai/help-center/user-guide/invite-users.md)
+- [How Do I Remove or Add a User?](https://docs.archera.ai/help-center/user-guide/add-remove-users.md)
+- [What is the Lookback Period?](https://docs.archera.ai/help-center/user-guide/lookback-period.md)
+- [What Contract Terms Are Available for AWS?](https://docs.archera.ai/help-center/user-guide/contract-terms-aws.md)
+- [Archera's Savings Options](https://docs.archera.ai/help-center/user-guide/savings-options.md)
+- [Recommended Plan: Flexible Savings, Minimal Commitment](https://docs.archera.ai/help-center/user-guide/recommended-plan.md)
+- [Why is my Dashboard a Day or Two Behind?](https://docs.archera.ai/help-center/user-guide/dashboard-day-behind.md)
+- [Guaranteed Commitments](https://docs.archera.ai/help-center/guaranteed-commitments/guaranteed-commitments.md)
+- [What are Guaranteed Commitments?](https://docs.archera.ai/help-center/guaranteed-commitments/what-are-guaranteed-commitments.md)
+- [Premiums and Term Lengths](https://docs.archera.ai/help-center/guaranteed-commitments/premiums-and-terms.md)
+- [What are Guaranteed Commitment Allowances?](https://docs.archera.ai/help-center/guaranteed-commitments/allowances.md)
+- [How Can I Raise My Allowances?](https://docs.archera.ai/help-center/guaranteed-commitments/raise-allowances.md)
+- [Why Are Allowances for Certain Types Lower?](https://docs.archera.ai/help-center/guaranteed-commitments/allowances-lower-types.md)
+- [How Does Guaranteed Commitment Pricing Work?](https://docs.archera.ai/help-center/guaranteed-commitments/pricing.md)
+- [Do Guaranteed Commitments Work with AWS GovCloud?](https://docs.archera.ai/help-center/guaranteed-commitments/govcloud.md)
+- [Low Capacity Instances (GPUs)](https://docs.archera.ai/help-center/guaranteed-commitments/low-capacity-instances.md)
+- [Billing Options if Still on AWS Credits](https://docs.archera.ai/help-center/guaranteed-commitments/billing-options-aws-credits.md)
+- [3rd-Party Insurance](https://docs.archera.ai/help-center/guaranteed-commitments/third-party-insurance.md)
+- [How Does the AWS RI Marketplace Restriction Affect Archera?](https://docs.archera.ai/help-center/guaranteed-commitments/ri-marketplace.md)
+- [How to Enable EC2 RI Marketplace](https://docs.archera.ai/help-center/guaranteed-commitments/enable-ri-marketplace.md)
+- [How do Rebate Insured Commitments Work?](https://docs.archera.ai/help-center/guaranteed-commitments/rebate-insured-commitments.md)
+- [How Can I Change My Term Length?](https://docs.archera.ai/help-center/guaranteed-commitments/change-term-length.md)
+- [How does the Buyback/Rebate Guarantee Mechanic Work?](https://docs.archera.ai/help-center/guaranteed-commitments/buyback-rebate-mechanic.md)
+- [Commitment Automation](https://docs.archera.ai/help-center/commitment-automation/commitment-automation.md): How commitment laddering, convertible RI exchange, and insurance-backed management compare — and why Archera includes automation tools that others charge for.
+- [What is Commitment Automation?](https://docs.archera.ai/help-center/commitment-automation/commitment-automation-explained.md): What commitment laddering and convertible RI exchange automation are, why an entire vendor category was built around them, and why Archera includes both for free.
+- [Software-Only vs. Insurance-Backed Commitment Management](https://docs.archera.ai/help-center/commitment-automation/software-vs-insurance.md): A structural comparison of software-only commitment automation tools and Archera's insurance-backed approach — what each can and cannot do, and why the distinction matters.
+- [Billing](https://docs.archera.ai/help-center/billing/billing.md)
+- [Billing and Guaranteed Commitments](https://docs.archera.ai/help-center/billing/billing-and-gris.md)
+- [How Customers Pay Archera](https://docs.archera.ai/help-center/billing/how-customers-pay.md)
+- [AWS Billing](https://docs.archera.ai/help-center/billing/aws-billing.md)
+- [Azure Billing](https://docs.archera.ai/help-center/billing/azure-billing.md)
+- [How Do I Apply AWS Credits?](https://docs.archera.ai/help-center/billing/aws-credits.md)
+- [How Does Discount Attribution Work?](https://docs.archera.ai/help-center/billing/discount-attribution.md)
+- [Invoices](https://docs.archera.ai/help-center/billing/invoices.md)
+- [Security](https://docs.archera.ai/help-center/security/security.md)
+- [How Does Archera Access my AWS Environment?](https://docs.archera.ai/help-center/security/aws-access.md)
+- [How Does Archera Access My Azure Environment?](https://docs.archera.ai/help-center/security/azure-access.md)
+- [Do I Need to Grant Access to My GovCloud Account?](https://docs.archera.ai/help-center/security/govcloud-access.md)
+- [How Long Is My Data Retained?](https://docs.archera.ai/help-center/security/data-retention.md)
+- [How Do I Configure SSO for Azure AD?](https://docs.archera.ai/help-center/security/configure-sso-azure-ad.md)
+- [AWS Onboarding](https://docs.archera.ai/help-center/aws-onboarding/aws.md)
+- [What IAM Permissions Does the Trial Deployment Require?](https://docs.archera.ai/help-center/aws-onboarding/iam-permissions-trial.md)
+- [What IAM Permissions Does the Production Deployment Require?](https://docs.archera.ai/help-center/aws-onboarding/iam-permissions-production.md)
+- [What is the Archera AWS Account ID?](https://docs.archera.ai/help-center/aws-onboarding/aws-account-id.md)
+- [Can I Test Archera in an AWS Sub-Account?](https://docs.archera.ai/help-center/aws-onboarding/test-in-subaccount.md)
+- [How and Why Do I Connect My AWS CUR to Archera?](https://docs.archera.ai/help-center/aws-onboarding/connect-cur.md)
+- [Onboarding Archera on GCP](https://docs.archera.ai/help-center/gcp-onboarding/gcp.md)
+- [What Permissions Does the GCP Deployment Require?](https://docs.archera.ai/help-center/gcp-onboarding/required-permissions.md)
+- [Azure Onboarding](https://docs.archera.ai/help-center/azure-onboarding/azure.md)
+- [Technical Onboarding](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding.md)
+- [What Information Does Archera Require to Connect to My Azure Account?](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/required-information.md)
+- [Supported Account / Subscription Types](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/supported-account-types.md)
+- [Prerequisite Checklist](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/prerequisite-checklist.md)
+- [Manual CLI Setup](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/manual-cli-setup.md)
+- [Required Permissions](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/required-permissions.md)
+- [Azure Onboarding Features](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/features.md)
+- [Enabling Custom Price Sheet Downloads](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/ea-custom-price-sheet.md)
+- [Onboarding using Azure CLI](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/onboarding-using-azure-cli.md)
+- [Add a New Subscription to an Existing Integration](https://docs.archera.ai/help-center/azure-onboarding/technical-onboarding/add-a-new-subscription-to-an-existing-integration.md)
+- [Services Supported](https://docs.archera.ai/help-center/azure-onboarding/services-supported.md)
+- [What Reservable Azure Services Does Archera Insure?](https://docs.archera.ai/help-center/azure-onboarding/services-supported/reservable-services.md)
+- [Does Archera Support Reservations for Azure Storage Disks?](https://docs.archera.ai/help-center/azure-onboarding/services-supported/storage-disks.md)
+- [Troubleshooting](https://docs.archera.ai/help-center/azure-onboarding/troubleshooting.md)
+- [Azure Storage Recommendations Not Showing](https://docs.archera.ai/help-center/azure-onboarding/troubleshooting/storage-recommendations.md)
+- [Other FAQ](https://docs.archera.ai/help-center/azure-onboarding/other-faq.md)
+- [What does Azure RI 'Instance Size Flexibility' Mean?](https://docs.archera.ai/help-center/azure-onboarding/other-faq/instance-size-flexibility.md)
+- [Does Archera Rely on Azure Exchanges or Returns Policy?](https://docs.archera.ai/help-center/azure-onboarding/other-faq/exchanges-returns-policy.md)
+- [Offboarding](https://docs.archera.ai/help-center/azure-onboarding/offboarding.md)
+- [Azure Offboarding](https://docs.archera.ai/help-center/azure-onboarding/offboarding/offboarding.md)
+- [Partner Platform Integration](https://docs.archera.ai/help-center/archera-embedded/partner-platform-integration.md): Embed Archera’s commitment capabilities directly into your platform - keep customers in your ecosystem while providing more savings and adding new revenue streams
+- [Onboard a Customer via AWS](https://docs.archera.ai/help-center/archera-embedded/onboard-a-customer-via-aws.md): Register a customer organization and set up AWS cloud integration using the Archera Partner API
+- [Onboard a Customer via Azure](https://docs.archera.ai/help-center/archera-embedded/onboard-a-customer-via-azure.md): Register a customer organization and set up Azure cloud integration using the Archera Partner API
+- [Purchase Commitments](https://docs.archera.ai/help-center/archera-embedded/purchase-commitments.md): Purchase cloud commitments to optimize costs for your customers using the Archera Partner API
+- [FAQ](https://docs.archera.ai/help-center/faq/faq.md)
+- [Does Archera Help with Underutilized Infrastructure & Right-Sizing?](https://docs.archera.ai/help-center/faq/underutilized-rightsizing.md)
+- [Does Archera Offer Professional Services?](https://docs.archera.ai/help-center/faq/professional-services.md)
+- [Could Archera Change or Impact My Application?](https://docs.archera.ai/help-center/faq/could-impact-application.md)
+- [How Do I Audit Archera?](https://docs.archera.ai/help-center/faq/audit.md)
+- [Do Plan Recommendations Account for Previously Submitted Plans?](https://docs.archera.ai/help-center/faq/plan-recommendations.md)
+- [Does Archera Support On Capacity Demand Reservations (OCDR)?](https://docs.archera.ai/help-center/faq/ocdr.md)
+- [How Does Archera Underwrite?](https://docs.archera.ai/help-center/faq/how-archera-underwrites.md)
+- [Archera MCP Server — Connect in Claude](https://docs.archera.ai/help-center/faq/mcp-server.md)
+- [Adjusting Ownership of Guaranteed Commitment Account on AWS](https://docs.archera.ai/help-center/faq/adjust-commitment-ownership.md)
+- [Archera for AWS CSPPA and ESPPA](https://docs.archera.ai/help-center/faq/aws-csppa-esppa.md)
+- [AWS PPA/EDP Insurance & Shortfall FAQs](https://docs.archera.ai/help-center/faq/aws-ppa-edp-insurance.md)
+- [Cloud Service Intelligence](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence.md): This page provides details and nuance around reservable services
+- [Azure](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure.md): Azure Reservation and Savings Plan coverage briefs for reservable Azure services
+- [Compute](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute.md)
+- [Virtual Machines](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute/virtual-machines.md)
+- [Dedicated Host](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute/dedicated-host.md)
+- [App Service Plans](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute/app-service-plans.md)
+- [Container Instances](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute/container-instances.md)
+- [Azure VMware Solution](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute/azure-vmware-solution.md)
+- [Azure Red Hat OpenShift](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute/red-hat-openshift.md)
+- [Azure Spring Apps](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/compute/azure-spring-apps.md)
+- [Database](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/database.md)
+- [Azure SQL DB](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/database/azure-sql-db.md)
+- [Database for MySQL](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/database/database-for-mysql.md)
+- [Database for PostgreSQL](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/database/database-for-postgresql.md)
+- [Cosmos DB](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/database/cosmos-db.md)
+- [Cache for Redis](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/database/cache-for-redis.md)
+- [Storage](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/storage.md)
+- [Blob Storage](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/storage/blob-storage.md)
+- [Azure Files](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/storage/azure-files.md)
+- [Managed Disks](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/storage/managed-disks.md)
+- [Azure NetApp Files](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/storage/azure-netapp-files.md)
+- [Advanced Services](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services.md)
+- [Synapse Analytics](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/synapse-analytics.md)
+- [Azure Databricks](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/azure-databricks.md)
+- [Data Factory](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/azure-data-factory.md)
+- [HDInsight](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/hdinsight.md)
+- [Machine Learning](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/machine-learning.md)
+- [Microsoft Sentinel](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/microsoft-sentinel.md): Azure reservation and savings plan coverage brief for Microsoft Sentinel
+- [Azure AI Foundry / OpenAI](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/azure-ai-foundry-openai.md)
+- [Microsoft Fabric](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/azure/advanced-services/microsoft-fabric.md)
+- [AWS](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws.md): AWS Reserved Instance and Savings Plan coverage briefs for reservable AWS services
+- [Compute](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/compute.md)
+- [EC2](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/compute/ec2.md)
+- [Lambda](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/compute/lambda.md)
+- [Fargate](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/compute/fargate.md)
+- [Database](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database.md)
+- [RDS](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database/rds.md)
+- [Aurora](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database/aurora.md)
+- [ElastiCache](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database/elasticache.md)
+- [DynamoDB](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database/dynamodb.md)
+- [DocumentDB](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database/documentdb.md)
+- [Neptune](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database/neptune.md)
+- [MemoryDB](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/database/memorydb.md)
+- [Advanced Services](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/advanced-services.md)
+- [Redshift](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/advanced-services/redshift.md)
+- [OpenSearch Service](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/advanced-services/opensearch.md)
+- [EMR](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/advanced-services/emr.md)
+- [SageMaker](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/aws/advanced-services/sagemaker.md)
+- [GCP](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp.md): GCP Committed Use Discount coverage briefs for reservable Google Cloud services
+- [Compute](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/compute.md)
+- [Compute Engine](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/compute/compute-engine.md)
+- [Google Kubernetes Engine](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/compute/gke.md)
+- [Cloud Run](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/compute/cloud-run.md)
+- [Google Cloud VMware Engine](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/compute/gcve.md)
+- [Bare Metal Solution](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/compute/bare-metal.md)
+- [Database](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/database.md)
+- [Cloud SQL](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/database/cloud-sql.md)
+- [Cloud Spanner](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/database/cloud-spanner.md)
+- [Cloud Bigtable](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/database/cloud-bigtable.md)
+- [Memorystore](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/database/memorystore.md)
+- [Advanced Services](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/advanced-services.md)
+- [Vertex AI](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/advanced-services/vertex-ai.md)
+- [BigQuery](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/advanced-services/bigquery.md)
+- [Dataproc](https://docs.archera.ai/help-center/cloud-service-intelligence/cloud-service-intelligence/gcp/advanced-services/dataproc.md)
+- [AWS FAQ](https://docs.archera.ai/help-center/aws-faq/aws.md)
+- [How Can I Set Up a Bank Account to Enable the AWS Marketplace?](https://docs.archera.ai/help-center/aws-faq/bank-account-setup.md)
+- [What does AWS RI 'Instance Size Flexibility' Mean?](https://docs.archera.ai/help-center/aws-faq/instance-size-flexibility.md)
+- [How Does Archera Help Navigate AWS EC2 Standard RI Marketplace Limits?](https://docs.archera.ai/help-center/aws-faq/ec2-ri-marketplace-limits.md)
+- [Can Archera Help Resell or Manage Underutilized AWS Convertible RIs?](https://docs.archera.ai/help-center/aws-faq/convertible-ris.md)
+- [Why Not Just Use AWS Cost Explorer?](https://docs.archera.ai/help-center/aws-faq/why-not-cost-explorer.md)
+- [Why is My Cost Explorer Empty After Leaving an MSP?](https://docs.archera.ai/help-center/aws-faq/cost-explorer-empty-msp.md)
+- [Archera's Compliance with the Updated AWS RI and SP Sharing Policy](https://docs.archera.ai/help-center/aws-faq/ri-sp-sharing-policy.md)
+- [How Do I Get Started as an AWS Archera Channel Partner?](https://docs.archera.ai/help-center/aws-faq/channel-partner.md)
+- [Why Does AWS Cost Explorer Show a Cost Increase After Commitment Purchases?](https://docs.archera.ai/help-center/aws-faq/cost-explorer-increase.md)
+- [Why Are My AWS Tags Not Showing Up in the Dashboard?](https://docs.archera.ai/help-center/aws-faq/tags-not-showing.md)
+- [Can I Use Archera if I'm Under an AWS Reseller's Consolidated Billing?](https://docs.archera.ai/help-center/aws-faq/consolidated-billing.md)
+- [Why Do I See New Monthly Charges from AWS Cost Explorer?](https://docs.archera.ai/help-center/aws-faq/cost-explorer-charges.md)
+- [What are "EC2-Other" AWS Costs on Cost Explorer?](https://docs.archera.ai/help-center/aws-faq/ec2-other-costs.md)
+- [How Long Does It Take for Changes to My AWS Resources to Reflect in Archera?](https://docs.archera.ai/help-center/aws-faq/resource-lag.md)
+- [Why Did the AWS Sub-Account Connection Script Fail?](https://docs.archera.ai/help-center/aws-faq/sub-account-script-failure.md)
+- [Does Archera Support Multiple AWS Accounts in a Consolidated Billing Family?](https://docs.archera.ai/help-center/aws-faq/consolidated-billing-multiple-accounts.md)
+- [Create CPPO Offers for Archera Subscription](https://docs.archera.ai/help-center/partner-guides/create-cppo-offers-for-archera-subscription.md): Create Channel Partner Private Offers (CPPO) for Archera’s existing AWS Marketplace subscription listing
+- [Claude MCP Integration](https://docs.archera.ai/help-center/partner-guides/claude-mcp-integration.md): Set up the Archera MCP custom connector in Claude to ask Archera-specific questions and perform actions
+- [Cloud Commitment Fundamentals for Sales](https://docs.archera.ai/help-center/cloud-finance-certifications/cloud-commitment-fundamentals-for-sales.md): Time: ≤15 minutes | Audience: Sales reps at ISVs and MSPs
+- [Cloud Commitment Management for Technical and Customer Teams](https://docs.archera.ai/help-center/cloud-finance-certifications/cloud-commitment-management-for-technical-and-customer-teams.md): Time: ≤30 minutes | Audience: Solutions Architects, Account Managers, Customer Success at MSPs
+
+## Partners
+
+- [Archera Partner Wiki](https://docs.archera.ai/partners/readme.md)
+- [How to Work with Archera](https://docs.archera.ai/partners/how-to-work-with-archera.md)
+- [Core Concepts](https://docs.archera.ai/partners/archera-overview/core-concepts.md)
+- [Insured Commitments](https://docs.archera.ai/partners/archera-overview/insured-commitments.md)
+- [Supported Services](https://docs.archera.ai/partners/archera-overview/supported-services.md)
+- [Acronyms](https://docs.archera.ai/partners/archera-overview/acronyms.md)
+- [Sales Quickstart Guide](https://docs.archera.ai/partners/sales-quickstart/sales-quickstart-guide.md)
+- [Discovery Questions](https://docs.archera.ai/partners/sales-quickstart/discovery-questions.md)
+- [List of Common Scenarios & Questions](https://docs.archera.ai/partners/customer-success-quickstart/list-of-common-scenarios-and-questions.md)
+- [Partner Portal](https://docs.archera.ai/partners/partner-administration/partner-portal.md)
+- [AWS CPPO Basics and How to Extend them to Customers](https://docs.archera.ai/partners/partner-administration/aws-cppo-basics.md)
+- [Platform Walkthroughs](https://docs.archera.ai/partners/platform-walkthroughs/platform-walkthroughs.md)
+- [Collateral](https://docs.archera.ai/partners/collateral/collateral.md)
+
+## Blog
+
+- [Blog](https://docs.archera.ai/blog/readme.md): Latest updates, engineering insights, and product announcements from Archera
+- [Streamlined AWS Onboarding with IAM Temporary Delegation](https://docs.archera.ai/blog/articles/aws-iam-delegation-onboarding.md)
+
+
+---
+
+# Agent Instructions
+This documentation is published with GitBook. GitBook is the documentation platform designed so that both humans and AI agents can read, navigate, and reason over technical content effectively. Learn more at gitbook.com.
+
+## Querying This Documentation
+If you need additional information, you can query the documentation dynamically by asking a question.
+Perform an HTTP GET request on a page URL with the `ask` query parameter:
+```
+GET https://docs.archera.ai/readme.md?ask=<question>
+```
+The question should be specific, self-contained, and written in natural language.
+The response will contain a direct answer to the question and relevant excerpts and sources from the documentation.
+Use this mechanism when the answer is not explicitly present in the current page, you need clarification or additional context, or you want to retrieve related documentation sections.

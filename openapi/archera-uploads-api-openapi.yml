@@ -1,0 +1,344 @@
+openapi: 3.1.0
+info:
+  description: '### Welcome to the Archera.ai API documentation.
+
+    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
+
+
+    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
+
+
+    If you have questions or need support, please contact our team at support@archera.ai.
+
+
+    ## API Key Access
+
+
+    To use this API, you need an API key.
+
+
+    ### How to Create an API Key
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > API Access**.
+
+    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
+
+    3. Click **Create New API Key**.
+
+    4. Copy and securely store your new API key.
+
+
+    ### How to Use Your API Key
+
+    Use the `x-api-key` header:
+
+
+    ```bash
+
+    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
+
+    ```
+
+
+    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
+
+    ### How to find your Organization ID
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > Organization**.
+
+    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
+
+
+    '
+  title: Archera.ai Commitment Plans Uploads API
+  version: v1.0.0
+tags:
+- name: Uploads
+  description: API for uploading billing files for savings analysis
+paths:
+  /v1/org/{org_id}/uploads:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicUpload'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreatePublicUpload'
+      tags:
+      - Uploads
+      summary: Upload a billing file for savings analysis
+      description: 'Accepts a multipart PDF or CSV billing file, stores it in Archera''s invoice upload bucket, and returns an upload ID. Use this upload ID when invoking the Savings Analysis MCP tool. The upload status workflow is: PENDING before storage begins, PROCESSING while the file is being transferred, COMPLETE once it is available for analysis, and ERROR if storage fails.'
+  /v1/org/{org_id}/uploads/{upload_id}:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: upload_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicUpload'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Uploads
+      summary: Get uploaded billing file status
+      description: Returns metadata and upload status for a partner API upload. Clients can poll this endpoint until upload_status is COMPLETE, then pass the upload ID to the Savings Analysis MCP tool.
+components:
+  schemas:
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+    CreatePublicUpload:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          description: Optional partner-supplied context for the uploaded billing file
+        file:
+          writeOnly: true
+          description: Billing PDF or CSV file to upload for savings analysis
+          type: string
+          format: binary
+      required:
+      - file
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+    PublicUpload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        org_id:
+          type: string
+          readOnly: true
+          maxLength: 50
+        file_name:
+          type: string
+          readOnly: true
+          maxLength: 255
+        content_type:
+          type: string
+          readOnly: true
+          maxLength: 255
+        size_bytes:
+          type: integer
+          readOnly: true
+        description:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          maxLength: 255
+        upload_status:
+          readOnly: true
+          type: string
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETE
+          - ERROR
+        source:
+          readOnly: true
+          enum:
+          - agent_upload
+          - attachment
+          - partner_api
+        detected_type:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          maxLength: 64
+        available_actions:
+          type: array
+          readOnly: true
+          items:
+            type: string
+      required:
+      - content_type
+      - created_at
+      - description
+      - detected_type
+      - file_name
+      - id
+      - org_id
+      - size_bytes
+      - source
+      - upload_status
+      additionalProperties: false
+  responses:
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

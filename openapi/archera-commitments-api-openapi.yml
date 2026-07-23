@@ -1,0 +1,944 @@
+openapi: 3.1.0
+info:
+  description: '### Welcome to the Archera.ai API documentation.
+
+    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
+
+
+    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
+
+
+    If you have questions or need support, please contact our team at support@archera.ai.
+
+
+    ## API Key Access
+
+
+    To use this API, you need an API key.
+
+
+    ### How to Create an API Key
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > API Access**.
+
+    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
+
+    3. Click **Create New API Key**.
+
+    4. Copy and securely store your new API key.
+
+
+    ### How to Use Your API Key
+
+    Use the `x-api-key` header:
+
+
+    ```bash
+
+    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
+
+    ```
+
+
+    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
+
+    ### How to find your Organization ID
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > Organization**.
+
+    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
+
+
+    '
+  title: Archera.ai Commitment Plans Commitments API
+  version: v1.0.0
+tags:
+- name: Commitments
+  description: API for retrieving and analyzing cloud commitment inventory, including Reserved Instances, Savings Plans, and Azure Reserved VM Instances. Provides access to detailed commitment data, utilization metrics, and cost savings information.
+paths:
+  /v1/org/{org_id}/commitments:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        minLength: 1
+    get:
+      parameters:
+      - in: query
+        name: search
+        description: Text to search across multiple columns (case-insensitive partial match)
+        schema:
+          type: string
+          example: us-east-1
+        required: false
+      - in: query
+        name: filter
+        description: JSON object specifying field-specific filter criteria
+        schema:
+          type:
+          - object
+          - 'null'
+          example: '{"field": "type", "op": "=", "value": "Standard"}'
+          additionalProperties: {}
+        required: false
+      - in: query
+        name: desc
+        description: Sort in descending order if true
+        schema:
+          type: boolean
+          default: true
+          example: 'true'
+        required: false
+      - in: query
+        name: order_by
+        description: Field to order results by
+        schema:
+          type:
+          - string
+          - 'null'
+          default: end_date
+          enum:
+          - duration_seconds
+          - start_date
+          - end_date
+          - upfront_cost
+          - amortized_cost
+          - recurring_cost
+          - created_at
+          - updated_at
+          - is_leased
+          - account_id
+          - type
+          - status
+          - scope
+          - reservation_end
+          - utilization
+          - monthly_savings
+          - null
+          example: created_at
+        required: false
+      - in: query
+        name: provider
+        description: Cloud provider to filter commitments by
+        schema:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          example: aws
+        required: true
+      - in: query
+        name: start_date
+        description: Start date for the commitment period (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+          example: '2023-01-01'
+        required: true
+      - in: query
+        name: end_date
+        description: End date for the commitment period (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+          example: '2023-12-31'
+        required: true
+      - in: query
+        name: page
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        required: false
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 10000
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicCommitment'
+          headers:
+            X-Pagination:
+              $ref: '#/components/headers/PAGINATION'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Commitments
+      summary: /commitments
+      description: Retrieves a paginated list of commitments for the specified organization and time period. Returns detailed information about each commitment including utilization, savings, and status. Results can be filtered by provider, search term, and custom criteria, and sorted by various attributes.
+  /v1/org/{org_id}/commitments/ids:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        minLength: 1
+    get:
+      parameters:
+      - in: query
+        name: search
+        description: Text to search across multiple columns (case-insensitive partial match)
+        schema:
+          type: string
+          example: us-east-1
+        required: false
+      - in: query
+        name: filter
+        description: JSON object specifying field-specific filter criteria
+        schema:
+          type:
+          - object
+          - 'null'
+          example: '{"field": "type", "op": "=", "value": "Standard"}'
+          additionalProperties: {}
+        required: false
+      - in: query
+        name: desc
+        description: Sort in descending order if true
+        schema:
+          type: boolean
+          default: true
+          example: 'true'
+        required: false
+      - in: query
+        name: order_by
+        description: Field to order results by
+        schema:
+          type:
+          - string
+          - 'null'
+          default: end_date
+          enum:
+          - duration_seconds
+          - start_date
+          - end_date
+          - upfront_cost
+          - amortized_cost
+          - recurring_cost
+          - created_at
+          - updated_at
+          - is_leased
+          - account_id
+          - type
+          - status
+          - scope
+          - reservation_end
+          - utilization
+          - monthly_savings
+          - null
+          example: created_at
+        required: false
+      - in: query
+        name: provider
+        description: Cloud provider to filter commitments by
+        schema:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          example: aws
+        required: true
+      - in: query
+        name: start_date
+        description: Start date for the commitment period (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+          example: '2023-01-01'
+        required: true
+      - in: query
+        name: end_date
+        description: End date for the commitment period (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+          example: '2023-12-31'
+        required: true
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdsResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Commitments
+  /v1/org/{org_id}/commitments/chart:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        minLength: 1
+    get:
+      parameters:
+      - in: query
+        name: filter
+        description: Optional JSON filter criteria for commitment data
+        schema:
+          type:
+          - object
+          - 'null'
+          example: '{"field": "type", "op": "=", "value": "Compute Instance"}'
+          additionalProperties: {}
+        required: false
+      - in: query
+        name: provider
+        description: Cloud provider to filter commitments by
+        schema:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          example: aws
+        required: true
+      - in: query
+        name: start_date
+        description: Start date for the chart data (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+          example: '2023-01-01'
+        required: true
+      - in: query
+        name: end_date
+        description: End date for the chart data (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+          example: '2023-12-31'
+        required: true
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PubChartResponse'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Commitments
+      summary: /commitments/chart
+      description: "Generates time-series chart data for commitment metrics over the specified time period. The data includes daily or monthly values for commitment spend, utilization, locked vs unlocked commitments, and realized savings. Results are aggregated by day or month depending on the date range selected. \n\n**Future Projections:** When the end_date extends into the future, the API returns projected values based on current commitment utilization patterns. Each data point includes an `is_projection` field that indicates whether the values are historical (false) or projected (true). Projected values assume that active commitments will continue with their current utilization rates through their expiration dates. This is useful for forecasting future commitment costs and savings based on existing commitments."
+components:
+  schemas:
+    PubChartResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPoint'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+    IdsResponse:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+      required:
+      - ids
+      additionalProperties: false
+    LeaseMenuItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        fee_type:
+          type: string
+        fee_rate:
+          type: number
+        is_rebate:
+          type: boolean
+        lockin_months:
+          type: integer
+        term_months:
+          type: integer
+      required:
+      - fee_rate
+      - fee_type
+      - is_rebate
+      - lockin_months
+      - term_months
+      additionalProperties: false
+    DataPoint:
+      type: object
+      properties:
+        date:
+          type: string
+        remaining_commit:
+          type: number
+        locked_commit:
+          type: number
+        unlocked_commit:
+          type: number
+        savings:
+          type: number
+        net_savings:
+          type: number
+        utilization:
+          type: number
+        unutilized_commit:
+          type: number
+        is_projection:
+          type: boolean
+          description: Indicates whether this data point is a projection based on current commitment utilization patterns. Historical data (is_projection=false) reflects actual recorded metrics, while projected data (is_projection=true) represents estimated future values assuming commitments continue with their current utilization rates.
+      required:
+      - date
+      - is_projection
+      - locked_commit
+      - net_savings
+      - remaining_commit
+      - savings
+      - unlocked_commit
+      - unutilized_commit
+      - utilization
+      additionalProperties: false
+    PaginationMetadata:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of items.
+        total_pages:
+          type: integer
+          description: Total number of pages.
+        first_page:
+          type: integer
+          description: First available page number.
+        last_page:
+          type: integer
+          description: Last available page number.
+        page:
+          type: integer
+          description: Current page number.
+        previous_page:
+          type: integer
+          description: Previous page number.
+        next_page:
+          type: integer
+          description: Next page number.
+      additionalProperties: false
+    DailyUtilization:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        reservation_utilization:
+          type: number
+        covered_cost:
+          type: number
+        cost:
+          type: number
+        potential_savings:
+          type:
+          - number
+          - 'null'
+        running_hours:
+          type:
+          - number
+          - 'null'
+        savings:
+          type: number
+        unutilized_commit:
+          type: number
+        gri_fees:
+          type: number
+        net_savings:
+          type: number
+      required:
+      - cost
+      - covered_cost
+      - date
+      - gri_fees
+      - net_savings
+      - potential_savings
+      - reservation_utilization
+      - running_hours
+      - savings
+      - unutilized_commit
+      additionalProperties: false
+    PublicCommitment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        provider:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        display_name:
+          type: string
+        leased_display_name:
+          type: string
+        provider_reservation_id:
+          type: string
+        account_id:
+          type:
+          - string
+          - 'null'
+        master_account_id:
+          readOnly: true
+          deprecated: true
+          type:
+          - string
+          - 'null'
+        billing_account_id:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+        region:
+          type:
+          - string
+          - 'null'
+        duration_seconds:
+          type:
+          - integer
+          - 'null'
+        reservation_end:
+          type:
+          - string
+          - 'null'
+        reservation_start:
+          type:
+          - string
+          - 'null'
+        transfer_reservation_start:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        transfer_reservation_end:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        end_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        status:
+          enum:
+          - active
+          - locked
+          - new
+          - reselling
+          - unlocked
+          - unknown
+          - cancelled
+          - expired
+          - recently_expired
+          - resold
+          - removed
+        is_leased:
+          type: boolean
+        is_active:
+          type: boolean
+        lease:
+          anyOf:
+          - $ref: '#/components/schemas/LeaseMenuItem'
+          - type: 'null'
+        lease_start:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lease_lockin_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        upfront_cost:
+          type: number
+        recurring_cost:
+          type: number
+        is_flexible:
+          type:
+          - boolean
+          - 'null'
+        payment_option:
+          enum:
+          - No Upfront
+          - Partial Upfront
+          - All Upfront
+          - null
+        offering_class:
+          enum:
+          - standard
+          - convertible
+          - null
+        offering_id:
+          type:
+          - string
+          - 'null'
+        instance_count:
+          type:
+          - integer
+          - 'null'
+        effective_instance_count:
+          type:
+          - integer
+          - 'null'
+        product_description:
+          type:
+          - string
+          - 'null'
+        instance_family:
+          type:
+          - string
+          - 'null'
+        instance_type:
+          type:
+          - string
+          - 'null'
+        tenancy:
+          type:
+          - string
+          - 'null'
+        az:
+          type:
+          - string
+          - 'null'
+        is_multi_az:
+          type:
+          - boolean
+          - 'null'
+        plan_type:
+          type:
+          - string
+          - 'null'
+        scope:
+          enum:
+          - shared
+          - subscription
+          - resource_group
+          - management_group
+          - null
+        name:
+          type:
+          - string
+          - 'null'
+        order_id:
+          type:
+          - string
+          - 'null'
+        resource_group:
+          type:
+          - string
+          - 'null'
+        instance_flexibility:
+          type:
+          - boolean
+          - 'null'
+        savings:
+          type:
+          - number
+          - 'null'
+        monthly_savings:
+          type:
+          - number
+          - 'null'
+        net_savings:
+          type:
+          - number
+          - 'null'
+        utilization:
+          type:
+          - number
+          - 'null'
+        potential_savings:
+          type:
+          - number
+          - 'null'
+        running_hours:
+          type:
+          - number
+          - 'null'
+        amortized_cost:
+          type:
+          - number
+          - 'null'
+        daily_utilizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyUtilization'
+      required:
+      - account_id
+      - amortized_cost
+      - az
+      - billing_account_id
+      - daily_utilizations
+      - display_name
+      - duration_seconds
+      - effective_instance_count
+      - end_date
+      - id
+      - instance_count
+      - instance_family
+      - instance_flexibility
+      - instance_type
+      - is_active
+      - is_flexible
+      - is_leased
+      - is_multi_az
+      - lease
+      - lease_lockin_date
+      - lease_start
+      - leased_display_name
+      - master_account_id
+      - monthly_savings
+      - name
+      - net_savings
+      - offering_class
+      - offering_id
+      - order_id
+      - payment_option
+      - plan_type
+      - potential_savings
+      - product_description
+      - provider
+      - provider_reservation_id
+      - recurring_cost
+      - region
+      - reservation_end
+      - reservation_start
+      - resource_group
+      - running_hours
+      - savings
+      - scope
+      - start_date
+      - status
+      - tenancy
+      - transfer_reservation_end
+      - transfer_reservation_start
+      - type
+      - upfront_cost
+      - utilization
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  headers:
+    PAGINATION:
+      description: Pagination metadata
+      schema:
+        $ref: '#/components/schemas/PaginationMetadata'

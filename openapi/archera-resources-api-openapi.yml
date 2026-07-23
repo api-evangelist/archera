@@ -1,0 +1,662 @@
+openapi: 3.1.0
+info:
+  description: '### Welcome to the Archera.ai API documentation.
+
+    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
+
+
+    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
+
+
+    If you have questions or need support, please contact our team at support@archera.ai.
+
+
+    ## API Key Access
+
+
+    To use this API, you need an API key.
+
+
+    ### How to Create an API Key
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > API Access**.
+
+    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
+
+    3. Click **Create New API Key**.
+
+    4. Copy and securely store your new API key.
+
+
+    ### How to Use Your API Key
+
+    Use the `x-api-key` header:
+
+
+    ```bash
+
+    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
+
+    ```
+
+
+    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
+
+    ### How to find your Organization ID
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > Organization**.
+
+    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
+
+
+    '
+  title: Archera.ai Commitment Plans Resources API
+  version: v1.0.0
+tags:
+- name: Resources
+  description: API for retrieving and analyzing infrastructure resources
+paths:
+  /v1/org/{org_id}/resources:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: provider
+        description: Filter by provider
+        schema:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          example: aws
+        required: false
+      - in: query
+        name: segment_id
+        description: Filter by segment ID
+        schema:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        required: false
+      - in: query
+        name: search
+        description: Text to search across multiple columns (case-insensitive partial match)
+        schema:
+          type: string
+          example: us-east-1
+        required: false
+      - in: query
+        name: desc
+        description: Sort in descending order if true
+        schema:
+          type:
+          - boolean
+          - 'null'
+          default: null
+          example: 'true'
+        required: false
+      - in: query
+        name: order_by
+        description: Field to order results by
+        schema:
+          type:
+          - string
+          - 'null'
+          default: id
+          enum:
+          - id
+          - usage_start
+          - null
+          example: id
+        required: false
+      - in: query
+        name: page
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        required: false
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResourceSKU'
+          headers:
+            X-Pagination:
+              $ref: '#/components/headers/PAGINATION'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Resources
+      summary: /resources
+      description: Retrieves a list of infrastructure resources for the organization, including compute instances, databases, and other services with their current status and costs.
+  /v1/org/{org_id}/resources/{resource_id}/daily-usage:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - in: path
+      name: resource_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: start_date
+        description: Start date for the date range filter (inclusive)
+        schema:
+          type: string
+          format: date
+          example: '2024-01-01'
+        required: true
+      - in: query
+        name: end_date
+        description: End date for the date range filter (inclusive)
+        schema:
+          type: string
+          format: date
+          example: '2024-01-31'
+        required: true
+      - in: query
+        name: catalog_sku_id
+        description: Optional catalog SKU ID to filter daily usage records for a specific SKU
+        schema:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        required: false
+      - in: query
+        name: page
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        required: false
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          default: 100
+          minimum: 1
+          maximum: 10000
+        required: false
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SKUUsageDaily'
+          headers:
+            X-Pagination:
+              $ref: '#/components/headers/PAGINATION'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Resources
+      summary: /resources/{resource_id}/daily-usage
+      description: Retrieves daily usage data for a specific resource within the specified date range. Optionally filter by catalog_sku_id to get usage for a specific SKU. Including usage metrics, costs, and coverage information.
+components:
+  schemas:
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+    ResourceSKU:
+      type: object
+      properties:
+        id:
+          type: string
+        resource_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the underlying resource
+        provider:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        provider_resource_id:
+          type: string
+          description: Provider's unique identifier (e.g., ARN for AWS)
+          example: arn:aws:ec2:us-west-2:123456789012:instance/i-1234567890abcdef0
+        is_spot:
+          type: boolean
+          description: Whether this is a spot instance (a way to utilize unused instances)
+        name:
+          type:
+          - string
+          - 'null'
+        resource_group:
+          type:
+          - string
+          - 'null'
+          description: Azure resource group
+        usage_end:
+          type: string
+          format: date
+          description: Last date this resource had usage
+        usage_start:
+          type: string
+          format: date
+          description: First date this resource had usage
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date
+        updated_at:
+          type: string
+          format: date
+        instance_id:
+          readOnly: true
+          type: string
+        billing_account_id:
+          type: string
+          description: Management account ID (AWS) or billing account ID (Azure/GCP)
+        sub_account_id:
+          type: string
+          description: Account ID where the resource is running
+        management_account_id:
+          readOnly: true
+          description: Management account ID (AWS) or billing account ID (Azure/GCP)
+          deprecated: true
+          type: string
+        owner_account_id:
+          readOnly: true
+          description: Account ID where the resource is running
+          deprecated: true
+          type: string
+        sku_title:
+          readOnly: true
+          type: string
+        sku_name:
+          type:
+          - string
+          - 'null'
+        availability_zone:
+          type:
+          - string
+          - 'null'
+        cache_engine:
+          type:
+          - string
+          - 'null'
+          description: Cache engine type (e.g., Redis, Memcached)
+        database_engine:
+          type:
+          - string
+          - 'null'
+          description: Database engine type (e.g., MySQL, PostgreSQL)
+        description:
+          type:
+          - string
+          - 'null'
+        family:
+          type:
+          - string
+          - 'null'
+          description: Service or product family (e.g., 'Compute', 'Storage')
+        full_region_name:
+          type:
+          - string
+          - 'null'
+        has_ondemand_terms:
+          type:
+          - boolean
+          - 'null'
+          description: Whether on-demand pricing is available for this SKU
+        instance_type:
+          type:
+          - string
+          - 'null'
+          description: Instance type (e.g., 'm5.large', 'Standard_D4s_v3')
+        instance_type_family:
+          type:
+          - string
+          - 'null'
+          description: Instance family (e.g., 'm5', 'Standard_D')
+        is_reservable:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this resource type supports reservations/commitments
+        license_model:
+          type:
+          - string
+          - 'null'
+        location_type:
+          type:
+          - string
+          - 'null'
+        normalization_size_factor:
+          type:
+          - string
+          - 'null'
+        operating_system:
+          type:
+          - string
+          - 'null'
+        pre_installed_sw:
+          type:
+          - string
+          - 'null'
+        price_currency:
+          type:
+          - string
+          - 'null'
+        provider_service:
+          type:
+          - string
+          - 'null'
+        provider_sku_id:
+          type:
+          - string
+          - 'null'
+        publication_date:
+          type:
+          - string
+          - 'null'
+        region:
+          type:
+          - string
+          - 'null'
+        service:
+          type:
+          - string
+          - 'null'
+          description: Service name (e.g., 'Amazon Elastic Compute Cloud')
+        tenancy:
+          type:
+          - string
+          - 'null'
+        usage_type:
+          type:
+          - string
+          - 'null'
+        version:
+          type:
+          - string
+          - 'null'
+        vpc_networking_support:
+          type:
+          - boolean
+          - 'null'
+        ondemand_usage_unit:
+          type:
+          - string
+          - 'null'
+      required:
+      - billing_account_id
+      - created_at
+      - id
+      - is_spot
+      - management_account_id
+      - owner_account_id
+      - provider
+      - provider_resource_id
+      - resource_id
+      - sub_account_id
+      - tags
+      - updated_at
+      - usage_end
+      - usage_start
+      additionalProperties: false
+    PaginationMetadata:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of items.
+        total_pages:
+          type: integer
+          description: Total number of pages.
+        first_page:
+          type: integer
+          description: First available page number.
+        last_page:
+          type: integer
+          description: Last available page number.
+        page:
+          type: integer
+          description: Current page number.
+        previous_page:
+          type: integer
+          description: Previous page number.
+        next_page:
+          type: integer
+          description: Next page number.
+      additionalProperties: false
+    SKUUsageDaily:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        usage_account_id:
+          readOnly: true
+          deprecated: true
+          type: string
+        sub_account_id:
+          type: string
+        usage:
+          type: number
+        reservation_usage:
+          type: number
+        free_tier_usage:
+          type: number
+        ondemand_cost:
+          type: number
+        reserved_cost:
+          type: number
+        if_all_ondemand_cost:
+          type: number
+        spot_cost:
+          type: number
+        free_tier_savings:
+          type: number
+        usage_type:
+          type:
+          - string
+          - 'null'
+        common_usage_type:
+          type:
+          - string
+          - 'null'
+        covered_usage:
+          type: number
+        uptime:
+          type: number
+      required:
+      - common_usage_type
+      - covered_usage
+      - date
+      - free_tier_savings
+      - free_tier_usage
+      - if_all_ondemand_cost
+      - ondemand_cost
+      - reservation_usage
+      - reserved_cost
+      - spot_cost
+      - sub_account_id
+      - uptime
+      - usage
+      - usage_account_id
+      - usage_type
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+  responses:
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  headers:
+    PAGINATION:
+      description: Pagination metadata
+      schema:
+        $ref: '#/components/schemas/PaginationMetadata'

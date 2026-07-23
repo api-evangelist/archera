@@ -1,0 +1,961 @@
+openapi: 3.1.0
+info:
+  description: '### Welcome to the Archera.ai API documentation.
+
+    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
+
+
+    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
+
+
+    If you have questions or need support, please contact our team at support@archera.ai.
+
+
+    ## API Key Access
+
+
+    To use this API, you need an API key.
+
+
+    ### How to Create an API Key
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > API Access**.
+
+    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
+
+    3. Click **Create New API Key**.
+
+    4. Copy and securely store your new API key.
+
+
+    ### How to Use Your API Key
+
+    Use the `x-api-key` header:
+
+
+    ```bash
+
+    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
+
+    ```
+
+
+    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
+
+    ### How to find your Organization ID
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > Organization**.
+
+    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
+
+
+    '
+  title: Archera.ai Commitment Plans Exchanges API
+  version: v1.0.0
+tags:
+- name: Exchanges
+  description: API for commitment exchange recommendations
+paths:
+  /v1/org/{org_id}/exchanges/recommendations:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      parameters:
+      - in: query
+        name: provider
+        description: Cloud provider (aws, azure, gcp)
+        schema:
+          example: aws
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        required: true
+      - in: query
+        name: plan_id
+        description: Optional commitment plan ID to use for plan-derived exchange purchases. When omitted, the endpoint prefers the latest calculated 'Recommended RIs Only' default plan for the provider-resources segment — a twin of the Recommended plan without savings plans, which cannot be exchanged — falling back to the same Recommended default plan selected by GET /commitment-plans/recommended when that plan does not exist yet. Responses may also include non-plan-derived native-to-GRI exchanges.
+        schema:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        required: false
+      - in: query
+        name: commitment_ids
+        description: Optional explicit Azure commitment IDs to consider returning. When omitted, the exchanger detects underutilized exchange candidates from the default 3-day DailyUtilization lookback. Explicit commitments without utilization rows in that lookback are excluded. Mutually exclusive with plan_id.
+        schema:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            type: string
+            format: uuid
+        required: false
+        explode: true
+        style: form
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRecommendationsResponse'
+        '400':
+          description: Bad Request
+        '204':
+          description: No Content
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Exchanges
+      summary: Get Azure exchange recommendations
+      description: Returns Azure reservation exchange recommendations using the same recommendation logic as the beta exchange endpoint, including plan-derived exchanges and eligible same-SKU 1-year native to 1-year GRI exchanges. When plan_id is omitted, the endpoint prefers the latest calculated 'Recommended RIs Only' default plan for the provider-resources segment (a twin of the Recommended plan without savings plans, which cannot be exchanged), falling back to the Recommended default plan when that plan does not exist yet. Currently only provider=azure is supported.
+  /v1/org/{org_id}/exchanges/recommendations/apply:
+    parameters:
+    - in: path
+      name: org_id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      responses:
+        '422':
+          $ref: '#/components/responses/UNPROCESSABLE_CONTENT'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplyExchangeRecommendationsResponse'
+        '400':
+          description: Bad Request
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyExchangeRecommendationsArgs'
+      tags:
+      - Exchanges
+      summary: Apply Azure exchange recommendations
+      description: Requests application of one Azure reservation exchange recommendation using the same explicit purchase and return item body as the beta exchange endpoint. Currently only provider=azure is supported.
+components:
+  schemas:
+    ExchangeReturnedCommitmentDailyUtilization:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: DailyUtilization date.
+        utilization:
+          type: number
+          description: Whole-commitment utilization of the returned commitments for this date (0-1), dollar weighted by each return's commitment cost.
+      required:
+      - date
+      - utilization
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+    CommitmentCostBreakdown:
+      type: object
+      properties:
+        cloud_provider_cost:
+          $ref: '#/components/schemas/CloudProviderCost'
+        archera_premium:
+          type: number
+          description: Archera premium — paid to Archera, equal to a portion of the savings Archera generates for this commitment (fee_rate * gross savings, only charged when gross > 0). Already included in commitment_cost.total (don't add on top). Because premium is only a fraction of gross, whenever archera_premium > 0 the commitment is net-positive after the fee. Native (non-Archera) commitments have premium = 0 and offer no such guarantee; an underutilized guaranteed commitment pre-lockin can also show net < 0 (the rebate that covers this kicks in post-lockin).
+      additionalProperties: false
+    ApplyExchangePurchase:
+      type: object
+      properties:
+        offer_id:
+          type: string
+          format: uuid
+          description: Azure reservation offer ID to purchase.
+        quantity:
+          type: integer
+          minimum: 1
+          description: Quantity of this offer to purchase.
+      required:
+      - offer_id
+      - quantity
+      additionalProperties: false
+    ExchangePurchase:
+      type: object
+      properties:
+        account_id:
+          type:
+          - string
+          - 'null'
+          description: Target cloud account/subscription for the purchase.
+        contract_term:
+          description: User-facing purchase commitment term. For leased/guaranteed purchases this is the lease lock-in term; for native purchases it is the offer duration.
+          type:
+          - string
+          - 'null'
+          enum:
+          - one_year_gris
+          - thirty_day_gris
+          - two_month_gris
+          - three_month_gris
+          - four_month_gris
+          - five_month_gris
+          - six_month_gris
+          - seven_month_gris
+          - eight_month_gris
+          - nine_month_gris
+          - ten_month_gris
+          - eleven_month_gris
+          - twelve_month_gris
+          - thirteen_month_gris
+          - fourteen_month_gris
+          - fifteen_month_gris
+          - sixteen_month_gris
+          - seventeen_month_gris
+          - eighteen_month_gris
+          - nineteen_month_gris
+          - twenty_month_gris
+          - twenty_one_month_gris
+          - twenty_two_month_gris
+          - twenty_three_month_gris
+          - twenty_four_month_gris
+          - twenty_five_month_gris
+          - twenty_six_month_gris
+          - twenty_seven_month_gris
+          - twenty_eight_month_gris
+          - twenty_nine_month_gris
+          - thirty_month_gris
+          - thirty_one_month_gris
+          - thirty_two_month_gris
+          - thirty_three_month_gris
+          - thirty_four_month_gris
+          - thirty_five_month_gris
+          - one_year
+          - two_year
+          - three_year
+          - five_year
+          - zero_day
+          - thirty_day
+          - two_month
+          - three_month
+          - four_month
+          - five_month
+          - six_month
+          - seven_month
+          - eight_month
+          - nine_month
+          - ten_month
+          - eleven_month
+          - thirteen_month
+          - fourteen_month
+          - fifteen_month
+          - sixteen_month
+          - seventeen_month
+          - eighteen_month
+          - nineteen_month
+          - twenty_month
+          - twenty_one_month
+          - twenty_two_month
+          - twenty_three_month
+          - twenty_five_month
+          - twenty_six_month
+          - twenty_seven_month
+          - twenty_eight_month
+          - twenty_nine_month
+          - thirty_month
+          - thirty_one_month
+          - thirty_two_month
+          - thirty_three_month
+          - thirty_four_month
+          - thirty_five_month
+          - null
+        lease_menu_item_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Lease menu item attached to the purchase side, or null for native purchases.
+        quantity:
+          type: integer
+          description: Quantity of the Azure reservation to purchase.
+        offer:
+          description: Azure reservation offer being purchased.
+          $ref: '#/components/schemas/CommitmentOffer'
+        commitment_upfront_cost:
+          type: number
+          description: One-time upfront dollars required at signing for the purchase side. NOT a monthly rate.
+        commitment_financials_monthly_rate:
+          description: Purchase-side plan line item economics as 730-hour monthly rates.
+          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
+      required:
+      - commitment_financials_monthly_rate
+      - commitment_upfront_cost
+      - offer
+      - quantity
+      additionalProperties: false
+    Commitment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique commitment identifier
+        provider_reservation_id:
+          type: string
+          description: Cloud provider's ID for this commitment (e.g. AWS reservation ID)
+        provider:
+          description: Cloud provider (aws, azure, gcp)
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        display_name:
+          type: string
+          description: Human-readable commitment name
+        guaranteed_display_name:
+          type: string
+          description: Commitment name when held as an Archera Guaranteed Commitment
+        type:
+          type: string
+          description: Commitment type (e.g. 'Compute', 'EC2Instance', 'RDS')
+        status:
+          description: Commitment status (e.g. 'active', 'expired', 'queued')
+          type: string
+          enum:
+          - active
+          - locked
+          - new
+          - reselling
+          - unlocked
+          - unknown
+          - cancelled
+          - expired
+          - recently_expired
+          - resold
+          - removed
+        is_active:
+          type: boolean
+          description: Whether the commitment is currently active
+        is_archera_guaranteed:
+          type: boolean
+          description: Whether this is an Archera Guaranteed Commitment
+        account_id:
+          type:
+          - string
+          - 'null'
+          description: Cloud account ID this commitment is in
+        billing_account_id:
+          type:
+          - string
+          - 'null'
+          description: Billing/management account ID
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the commitment started
+        end_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the commitment expires
+        duration_seconds:
+          type:
+          - integer
+          - 'null'
+          description: Total commitment duration in seconds
+        guarantee_start:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the Archera guarantee period started
+        guarantee_lockin_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the Archera guarantee lock-in period ends
+        guarantee_method:
+          readOnly: true
+          description: 'How the Archera guarantee is delivered. ''rebate'': Archera rebates the cost of the unused commitment directly to the user (as cash or credit toward Archera premiums). ''release'': Archera takes over the commitment along with remaining payment obligations. Null for non-guaranteed commitments.'
+        region:
+          type:
+          - string
+          - 'null'
+          description: Cloud region (e.g. 'us-east-1')
+        instance_type:
+          type:
+          - string
+          - 'null'
+          description: Instance type (e.g. 'm5.xlarge')
+        instance_family:
+          type:
+          - string
+          - 'null'
+          description: Instance family (e.g. 'm5')
+        plan_type:
+          type:
+          - string
+          - 'null'
+          description: Plan type (e.g. 'Compute', 'EC2Instance')
+        payment_option:
+          description: Payment option (e.g. 'no_upfront', 'partial_upfront', 'all_upfront')
+          type:
+          - string
+          - 'null'
+          enum:
+          - no_upfront
+          - partial_upfront
+          - all_upfront
+          - null
+        offering_class:
+          description: Offering class (e.g. 'standard', 'convertible')
+          type:
+          - string
+          - 'null'
+          enum:
+          - standard
+          - convertible
+          - null
+        is_flexible:
+          type:
+          - boolean
+          - 'null'
+          description: Whether the commitment has instance size flexibility
+        instance_count:
+          type:
+          - integer
+          - 'null'
+          description: Number of instances covered
+        contract_term:
+          description: Contract term (e.g. 'thirty_day_gris', 'one_year')
+          type:
+          - string
+          - 'null'
+          enum:
+          - one_year_gris
+          - thirty_day_gris
+          - two_month_gris
+          - three_month_gris
+          - four_month_gris
+          - five_month_gris
+          - six_month_gris
+          - seven_month_gris
+          - eight_month_gris
+          - nine_month_gris
+          - ten_month_gris
+          - eleven_month_gris
+          - twelve_month_gris
+          - thirteen_month_gris
+          - fourteen_month_gris
+          - fifteen_month_gris
+          - sixteen_month_gris
+          - seventeen_month_gris
+          - eighteen_month_gris
+          - nineteen_month_gris
+          - twenty_month_gris
+          - twenty_one_month_gris
+          - twenty_two_month_gris
+          - twenty_three_month_gris
+          - twenty_four_month_gris
+          - twenty_five_month_gris
+          - twenty_six_month_gris
+          - twenty_seven_month_gris
+          - twenty_eight_month_gris
+          - twenty_nine_month_gris
+          - thirty_month_gris
+          - thirty_one_month_gris
+          - thirty_two_month_gris
+          - thirty_three_month_gris
+          - thirty_four_month_gris
+          - thirty_five_month_gris
+          - one_year
+          - two_year
+          - three_year
+          - five_year
+          - zero_day
+          - thirty_day
+          - two_month
+          - three_month
+          - four_month
+          - five_month
+          - six_month
+          - seven_month
+          - eight_month
+          - nine_month
+          - ten_month
+          - eleven_month
+          - thirteen_month
+          - fourteen_month
+          - fifteen_month
+          - sixteen_month
+          - seventeen_month
+          - eighteen_month
+          - nineteen_month
+          - twenty_month
+          - twenty_one_month
+          - twenty_two_month
+          - twenty_three_month
+          - twenty_five_month
+          - twenty_six_month
+          - twenty_seven_month
+          - twenty_eight_month
+          - twenty_nine_month
+          - thirty_month
+          - thirty_one_month
+          - thirty_two_month
+          - thirty_three_month
+          - thirty_four_month
+          - thirty_five_month
+          - null
+      required:
+      - id
+      - provider
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+    CloudProviderCost:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Amortized cost paid to the cloud provider. Sums with archera_premium to reach cost.total.
+        breakdown:
+          description: Optional. Additive payment-cadence decomposition of total (recurring + amortized_upfront). Present only when purchase-term structure is known (individual commitment or plan).
+          $ref: '#/components/schemas/CloudProviderCostBreakdown'
+      additionalProperties: false
+    ApplyExchangeRecommendationsArgs:
+      type: object
+      properties:
+        provider:
+          description: Cloud provider (aws, azure, gcp)
+          example: aws
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        purchases:
+          type: array
+          minItems: 1
+          description: Explicit purchase-side line items for one exchange recommendation.
+          items:
+            $ref: '#/components/schemas/ApplyExchangePurchase'
+        returns:
+          type: array
+          minItems: 1
+          description: Explicit return-side line items for one exchange recommendation.
+          items:
+            $ref: '#/components/schemas/ApplyExchangeReturn'
+      required:
+      - provider
+      - purchases
+      - returns
+      additionalProperties: false
+    ApplyExchangeReturn:
+      type: object
+      properties:
+        commitment_id:
+          type: string
+          format: uuid
+          description: Existing Azure commitment ID to return.
+        quantity:
+          type: integer
+          minimum: 1
+          description: Quantity of this commitment to return.
+      required:
+      - commitment_id
+      - quantity
+      additionalProperties: false
+    CommitmentCost:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Total paid (cloud_provider_cost.total + archera_premium). Headline 'cost'.
+        breakdown:
+          $ref: '#/components/schemas/CommitmentCostBreakdown'
+      additionalProperties: false
+    CommitmentSavings_Exclude_Rebate:
+      type: object
+      properties:
+        net:
+          type: number
+          description: Net savings after Archera premium, including any rebate. Actual bill reduction. Headline 'savings'.
+        gross:
+          type: number
+          description: Savings before Archera premium. Equals covered_ondemand_cost - commitment_cost.breakdown.cloud_provider_cost.total.
+      additionalProperties: false
+    ExchangeRecommendationDelta:
+      type: object
+      properties:
+        monthly_net_savings:
+          type: number
+          description: Purchase monthly net savings minus returned commitments' monthly net savings. Positive means the exchange purchase saves more per 730-hour month.
+        monthly_commitment_cost:
+          type: number
+          description: Purchase monthly commitment cost minus returned commitments' monthly commitment cost. Positive means more monthly commitment spend.
+        purchase_upfront_cost:
+          type: number
+          description: Purchase-side one-time upfront cost only. Not netted against returned commitments because returned financials are monthly-rate utilization actuals and have no upfront component. NOT a rate.
+      required:
+      - monthly_commitment_cost
+      - monthly_net_savings
+      - purchase_upfront_cost
+      additionalProperties: false
+    ApplyExchangeRecommendationsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Application status for the exchange recommendations.
+        recommendation_count:
+          type: integer
+          description: Number of exchange recommendations applied.
+      required:
+      - recommendation_count
+      - status
+      additionalProperties: false
+    ExchangeRecommendation:
+      type: object
+      properties:
+        purchase_lifetime_commitment:
+          type: number
+          description: Lifetime Azure commitment value of the purchase side.
+        returned_lifetime_commitment:
+          type: number
+          description: Lifetime Azure commitment value returned by the exchange.
+        additional_lifetime_commitment:
+          type: number
+          description: Purchase lifetime commitment minus returned lifetime commitment. Azure exchange policy requires this to be non-negative.
+        purchase:
+          $ref: '#/components/schemas/ExchangePurchase'
+        returns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExchangeReturn'
+        purchase_commitment_financials_monthly_rate:
+          description: Purchase-side monthly-rate financials.
+          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
+        returned_commitment_financials_monthly_rate:
+          description: Returned commitments' rolled-up monthly-rate financials for the selected integer return quantities. Cost comes from DailyUtilization commitment cost, and savings are computed after assigning as much utilization as possible to the quantity that remains committed. Rebate and Archera premium are excluded from exchange recommendations and are not included in net savings.
+          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
+        returned_commitment_daily_utilizations:
+          type: array
+          description: Daily whole-commitment utilization for the returned commitments, dollar weighted by each return's commitment cost. Use this for exchange-level utilization charts.
+          items:
+            $ref: '#/components/schemas/ExchangeReturnedCommitmentDailyUtilization'
+        reason:
+          type:
+          - string
+          - 'null'
+          description: Short human-readable reason this exchange was recommended, based on how the exchanger generated it.
+        delta_vs_returned:
+          description: Purchase-side economics compared with returned-commitment economics. Monthly fields are purchase-side minus returned-side; purchase_upfront_cost is purchase-side one-time upfront only and is not netted. Purchase financials come from plan-amortized line item financials; returned financials come from DailyUtilization cost and covered usage for the selected integer return quantities, normalized to 730-hour monthly rates.
+          $ref: '#/components/schemas/ExchangeRecommendationDelta'
+      required:
+      - additional_lifetime_commitment
+      - delta_vs_returned
+      - purchase
+      - purchase_commitment_financials_monthly_rate
+      - purchase_lifetime_commitment
+      - returned_commitment_daily_utilizations
+      - returned_commitment_financials_monthly_rate
+      - returned_lifetime_commitment
+      - returns
+      additionalProperties: false
+    CommitmentOffer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Offer identifier
+        provider:
+          description: Cloud provider (aws, azure, gcp)
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        type:
+          type: string
+          description: Commitment type (e.g. 'ri', 'savings_plan', 'cud')
+        region:
+          type:
+          - string
+          - 'null'
+          description: Cloud region (e.g. 'us-east-1')
+        duration_seconds:
+          type: integer
+          description: Total commitment duration in seconds
+        instance_type:
+          type:
+          - string
+          - 'null'
+          description: Instance type (e.g. 'm5.xlarge'), null for Savings Plans
+        instance_family:
+          type:
+          - string
+          - 'null'
+          description: Instance family (e.g. 'm5'), null for some commitment types
+        offering_class:
+          description: Offering class (e.g. 'standard', 'convertible')
+          type:
+          - string
+          - 'null'
+          enum:
+          - standard
+          - convertible
+          - null
+        payment_option:
+          description: Payment option (e.g. 'no_upfront', 'partial_upfront', 'all_upfront')
+          type:
+          - string
+          - 'null'
+          enum:
+          - no_upfront
+          - partial_upfront
+          - all_upfront
+          - null
+        plan_type:
+          type:
+          - string
+          - 'null'
+          description: Plan type (e.g. 'Compute', 'EC2Instance')
+        product_description:
+          type:
+          - string
+          - 'null'
+          description: Product description (e.g. 'Linux/UNIX')
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable offer name
+        guaranteed_display_name:
+          type:
+          - string
+          - 'null'
+          description: Offer name when purchased as an Archera Guaranteed Commitment
+        is_flexible:
+          type:
+          - boolean
+          - 'null'
+          description: Whether the commitment has instance size flexibility
+      additionalProperties: false
+    CommitmentFinancialsNoRebate:
+      type: object
+      properties:
+        commitment_cost:
+          $ref: '#/components/schemas/CommitmentCost'
+        commitment_savings:
+          $ref: '#/components/schemas/CommitmentSavings_Exclude_Rebate'
+        covered_ondemand_cost:
+          type: number
+          description: On-demand cost of usage covered by commitments — baseline for savings. NOT a cost paid by the user. Equals commitment_cost.breakdown.cloud_provider_cost.total + commitment_savings.gross.
+      additionalProperties: false
+    ExchangeRecommendationsResponse:
+      type: object
+      properties:
+        current_utilization_lookback_days:
+          type: integer
+          description: Number of trailing days of DailyUtilization used for returned-commitment utilization and financials.
+        data:
+          type: array
+          description: Azure exchange recommendations.
+          items:
+            $ref: '#/components/schemas/ExchangeRecommendation'
+      required:
+      - current_utilization_lookback_days
+      - data
+      additionalProperties: false
+    CloudProviderCostBreakdown:
+      type: object
+      properties:
+        recurring:
+          type: number
+          description: Recurring monthly payment to the cloud provider.
+        amortized_upfront:
+          type: number
+          description: Monthly share of the upfront payment, amortized over the term.
+      additionalProperties: false
+    ExchangeReturn:
+      type: object
+      properties:
+        commitment:
+          description: Azure commitment proposed to return in the exchange.
+          $ref: '#/components/schemas/Commitment'
+        quantity:
+          type: integer
+          description: Quantity of this commitment proposed for return.
+        remaining_lifetime_commitment:
+          type: number
+          description: Remaining Azure commitment value returned for this commitment quantity. This is lifetime exchange value, not a monthly rate.
+        utilization:
+          type: number
+          description: Whole-commitment utilization of the returned commitment over the DailyUtilization period (0-1).
+        underutilized_commitment_cost:
+          type: number
+          description: Estimated underutilized commitment cost over the DailyUtilization period. This is a period total, not a monthly rate.
+        utilization_days:
+          type: integer
+          description: Number of DailyUtilization days behind the utilization fields.
+        reservation_resource_id:
+          type: string
+          description: Azure reservation resource ID required by Azure exchange APIs.
+        commitment_financials_monthly_rate:
+          description: Returned commitment economics as a 730-hour monthly rate for the selected integer return quantity. Cost comes from DailyUtilization commitment cost for the response period, scaled to the returned quantity. Savings are computed after assigning as much utilization as possible to the quantity that remains committed, so returned fully-utilized quantities can have positive savings and underutilized quantities have negative savings. Archera premium and rebate are excluded from exchange recommendations and are not included in net savings.
+          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
+      required:
+      - commitment
+      - commitment_financials_monthly_rate
+      - quantity
+      - remaining_lifetime_commitment
+      - reservation_resource_id
+      - underutilized_commitment_cost
+      - utilization
+      - utilization_days
+      additionalProperties: false
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

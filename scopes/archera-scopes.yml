@@ -1,0 +1,34 @@
+generated: '2026-07-18'
+method: searched
+source: https://api.archera.ai/.well-known/oauth-authorization-server
+docs: https://docs.archera.ai/api-reference/public-api/oauth
+description: >-
+  OAuth 2.0 scopes advertised by the Archera authorization server
+  (scopes_supported) and echoed by the MCP protected-resource metadata at
+  https://mcp.archera.ai/.well-known/oauth-protected-resource/mcp. The OpenAPI
+  does not enumerate per-operation scope requirements, so scope-to-operation
+  mapping is inferred from the read/write naming convention.
+schemes:
+- name: oauth2
+  source: https://api.archera.ai/.well-known/oauth-authorization-server
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.archera.ai/oauth/authorize
+    tokenUrl: https://api.archera.ai/oauth/token
+scopes:
+- scope: archera:read
+  description: Read access to Archera resources (commitment plans, commitments, metrics, resources, orgs).
+  flows: [authorizationCode]
+  sources: [https://api.archera.ai/.well-known/oauth-authorization-server]
+- scope: archera:write
+  description: Write access to Archera resources (apply commitment plans, apply exchange recommendations, uploads).
+  flows: [authorizationCode]
+  sources: [https://api.archera.ai/.well-known/oauth-authorization-server]
+- scope: archera:admin
+  description: Administrative access to the Archera organization.
+  flows: [authorizationCode]
+  sources: [https://api.archera.ai/.well-known/oauth-authorization-server]
+- scope: archera:analytics
+  description: Access to analytics and reporting data.
+  flows: [authorizationCode]
+  sources: [https://api.archera.ai/.well-known/oauth-authorization-server]

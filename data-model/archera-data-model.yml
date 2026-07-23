@@ -1,0 +1,84 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/archera-openapi-original.json
+description: >-
+  Entity-relationship graph derived from the Archera OpenAPI schemas and path
+  parameters. The Organization (org) is the root tenant; commitment plans,
+  commitments, resources, metrics, and uploads all belong to an org and are
+  addressed under /v1/org/{org_id}/. Id-reference fields on each schema imply the
+  relationships below.
+entities:
+- name: Org
+  schema: Org
+  key: org_id
+  addressed_by: /v1/orgs
+  description: The root tenant/organization; all other resources are scoped to it.
+- name: CommitmentPlan
+  schema: CommitmentPlan
+  key: id
+  addressed_by: /v1/org/{org_id}/commitment-plans/{plan_id}
+  description: A recommended or default plan of commitments to purchase; has line items, resource matches, and comparisons.
+- name: CommitmentPlanLineItem
+  schema: CommitmentPlanLineItem_Exclude_CoveredServices
+  key: id
+  description: A single line item within a commitment plan.
+- name: Commitment
+  schema: PublicCommitment
+  key: id
+  addressed_by: /v1/org/{org_id}/commitments
+  description: A purchased Reserved Instance, Savings Plan, or Archera Insured Commitment.
+- name: ExchangeRecommendation
+  schema: ExchangeRecommendation
+  addressed_by: /v1/org/{org_id}/exchanges/recommendations
+  description: A recommended exchange (return + purchase) of existing commitments.
+- name: Resource
+  schema: ResourceSKU
+  key: id
+  addressed_by: /v1/org/{org_id}/resources
+  description: A cloud resource/SKU with usage; has daily-usage time series.
+- name: Metrics
+  schema: PublicMetrics
+  addressed_by: /v1/org/{org_id}/metrics
+  description: Aggregate savings/coverage/utilization metrics for an org.
+- name: Upload
+  schema: PublicUpload
+  key: id
+  addressed_by: /v1/org/{org_id}/uploads
+  description: A data upload (e.g. billing/usage) submitted to Archera.
+relationships:
+- from: CommitmentPlan
+  to: Org
+  type: belongs_to
+  via: org_id
+- from: CommitmentPlanLineItem
+  to: CommitmentPlan
+  type: belongs_to
+  via: plan_id
+- from: Commitment
+  to: Org
+  type: belongs_to
+  via: org_id (path)
+- from: ExchangeRecommendation
+  to: Org
+  type: belongs_to
+  via: org_id (path)
+- from: Resource
+  to: Org
+  type: belongs_to
+  via: org_id (path)
+- from: Upload
+  to: Org
+  type: belongs_to
+  via: org_id
+- from: Org
+  to: CommitmentPlan
+  type: has_many
+  via: /v1/org/{org_id}/commitment-plans
+- from: Org
+  to: Commitment
+  type: has_many
+  via: /v1/org/{org_id}/commitments
+- from: Org
+  to: Resource
+  type: has_many
+  via: /v1/org/{org_id}/resources

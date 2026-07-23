@@ -1,0 +1,46 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/archera-openapi-original.json
+format: custom
+description: >-
+  Error catalog derived from the 4xx/5xx responses declared across the Archera
+  OpenAPI. Errors are NOT RFC 9457 problem+json; they use a custom JSON envelope
+  (ApiErrorResponse). Two envelope shapes appear in components.schemas: Error
+  {code:int, status, message, errors} and ApiErrorResponse {message, detail,
+  code, url, timestamp, type}.
+envelope:
+  content_type: application/json
+  schema: ApiErrorResponse
+  fields:
+    message: Human-readable error message (required)
+    detail: Additional error detail (any)
+    code: Error code string or null
+    url: Related URL or null
+    timestamp: ISO timestamp (required)
+    type: Error type identifier (required)
+  alternate_schema: Error {code:int, status:string, message:string, errors:object}
+problems:
+- status: 400
+  title: Bad request
+  meaning: The request was malformed or failed validation.
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid API key / OAuth token.
+- status: 403
+  title: Forbidden
+  meaning: Authenticated but not permitted for this organization or resource.
+- status: 404
+  title: Not Found
+  meaning: The requested resource (org, plan, commitment, resource, upload) does not exist.
+- status: 405
+  title: Method not allowed
+  meaning: The HTTP method is not supported for this path.
+- status: 409
+  title: Conflict
+  meaning: The request conflicts with the current state (e.g. applying a plan/exchange).
+- status: 422
+  title: Unprocessable entity
+  meaning: The request was well-formed but semantically invalid.
+- status: 500
+  title: Internal server error
+  meaning: An unexpected server-side error occurred.

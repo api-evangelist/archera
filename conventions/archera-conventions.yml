@@ -1,0 +1,47 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  https://docs.archera.ai/api-reference/public-api + openapi/archera-openapi-original.json
+description: >-
+  Cross-cutting request/response conventions for the Archera Public API,
+  captured from the docs and derived from the OpenAPI. Covers authentication,
+  pagination, error envelope, versioning, and multi-tenancy (org scoping).
+base_url: https://api.archera.ai
+api_style: REST over HTTPS, JSON responses
+authentication:
+  scheme: API key (x-api-key header) OR OAuth 2.0 Authorization Code + PKCE
+  detail: authentication/archera-authentication.yml
+multi_tenancy:
+  org_scoping: Most operations are scoped by an org_id path segment (/v1/org/{org_id}/...).
+  org_discovery: GET /v1/orgs lists organizations; org_id also appears in the app URL as &orgId=<org_id>.
+idempotency:
+  supported: false
+  note: No idempotency-key header/parameter is documented or present in the OpenAPI.
+pagination:
+  style: page-number
+  request_params:
+    page: Page number to fetch.
+    page_size: Number of items per page.
+  additional_list_params: [search, filter, desc, order_by, provider, start_date, end_date]
+  response_object: PaginationMetadata
+  response_fields:
+    total: Total number of items.
+    total_pages: Total number of pages.
+    first_page: First available page number.
+    last_page: Last available page number.
+    page: Current page number.
+    previous_page: Previous page number.
+    next_page: Next page number.
+error_envelope:
+  content_type: application/json
+  schema: ApiErrorResponse (message, detail, code, url, timestamp, type)
+  detail: errors/archera-problem-types.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  detail: lifecycle/archera-lifecycle.yml
+rate_limiting:
+  documented: true
+  note: >-
+    The docs describe the Public API as providing "secure, rate-limited access";
+    specific limits and rate-limit response headers are not published.

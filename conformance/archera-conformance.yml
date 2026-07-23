@@ -1,0 +1,41 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  openapi/archera-openapi-original.json,
+  https://api.archera.ai/.well-known/oauth-authorization-server, and
+  https://www.archera.ai/trust (compliance program).
+description: >-
+  Cross-cutting and industry standards the Archera API conforms to. Security
+  compliance (SOC 2 Type II, ISO/IEC 27001:2022) is a published program via the
+  Drata trust center; the rest are derived from the OpenAPI and OAuth metadata.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OAuth 2.0 Authorization Code flow with authorize/token/revoke/register endpoints.
+- id: oauth2-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = [S256] in authorization-server metadata.
+- id: rfc8414-oauth-as-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns RFC 8414 metadata.
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: MCP host publishes /.well-known/oauth-protected-resource/mcp.
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint https://api.archera.ai/oauth/register; MCP docs cite DCR.
+- id: jwks
+  conforms: true
+  evidence: /.well-known/jwks.json publishes signing keys.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom ApiErrorResponse envelope, not application/problem+json.
+- id: soc2-type-ii
+  conforms: true
+  evidence: AICPA SOC 2 Type II (published via Drata trust center, www.archera.ai/trust).
+- id: iso-27001
+  conforms: true
+  evidence: ISO/IEC 27001:2022 ISMS (published via Drata trust center).
+- id: openapi-3-1
+  conforms: true
+  evidence: openapi/archera-openapi-original.json declares openapi 3.1.0.

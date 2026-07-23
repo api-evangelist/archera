@@ -1,0 +1,46 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Archera Public API
+  version: 1.0.0
+extends: openapi/archera-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-rating: 4
+    x-apievangelist-notes: >-
+      Live OpenAPI 3.1 harvested from https://api.archera.ai/openapi.json. Gaps
+      observed for a follow-up with the provider: operations lack operationIds;
+      components.securitySchemes is empty (auth is documented but not modeled in
+      the spec — API key x-api-key + OAuth2 Authorization Code/PKCE); no
+      per-operation security[] requirements. See authentication/ and scopes/ for
+      the captured auth model.
+- target: $.servers
+  update:
+  - url: https://api.archera.ai
+    description: Production (added by API Evangelist — the harvested spec omits servers[])
+- target: $.components
+  update:
+    securitySchemes:
+      apiKeyAuth:
+        type: apiKey
+        in: header
+        name: x-api-key
+        description: >-
+          Archera API key (User Settings > API Access). Documented at
+          https://docs.archera.ai/api-reference/public-api/api-key-access —
+          added by API Evangelist; absent from the harvested spec.
+      oauth2:
+        type: oauth2
+        description: >-
+          OAuth 2.0 Authorization Code with PKCE — added by API Evangelist from
+          https://api.archera.ai/.well-known/oauth-authorization-server.
+        flows:
+          authorizationCode:
+            authorizationUrl: https://api.archera.ai/oauth/authorize
+            tokenUrl: https://api.archera.ai/oauth/token
+            refreshUrl: https://api.archera.ai/oauth/token
+            scopes:
+              archera:read: Read access to Archera resources
+              archera:write: Write access to Archera resources
+              archera:admin: Administrative access
+              archera:analytics: Analytics and reporting access

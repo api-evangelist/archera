@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/archera-openapi-original.json
+note: >-
+  The Archera OpenAPI declares no operationIds, so each skill grounds its steps
+  in the verified HTTP method + path (all confirmed present in the spec).
+skills:
+- file: archera-review-commitment-coverage.md
+  name: Review cloud commitment coverage and savings
+  api: openapi/archera-openapi-original.json
+  operations:
+  - GET /v1/orgs
+  - GET /v1/org/{org_id}/metrics
+  - GET /v1/org/{org_id}/commitments
+  - GET /v1/org/{org_id}/commitments/chart
+- file: archera-apply-recommended-plan.md
+  name: Review and apply a recommended commitment plan
+  api: openapi/archera-openapi-original.json
+  operations:
+  - GET /v1/org/{org_id}/commitment-plans/recommended
+  - GET /v1/org/{org_id}/commitment-plans/{plan_id}/line-items
+  - GET /v1/org/{org_id}/commitment-plans/{plan_id}/comparison
+  - POST /v1/org/{org_id}/commitment-plans/{plan_id}/apply
+- file: archera-optimize-exchanges.md
+  name: Optimize commitments via exchange recommendations
+  api: openapi/archera-openapi-original.json
+  operations:
+  - GET /v1/org/{org_id}/exchanges/recommendations
+  - POST /v1/org/{org_id}/exchanges/recommendations/apply

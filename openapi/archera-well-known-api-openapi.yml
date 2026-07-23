@@ -1,0 +1,322 @@
+openapi: 3.1.0
+info:
+  description: '### Welcome to the Archera.ai API documentation.
+
+    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
+
+
+    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
+
+
+    If you have questions or need support, please contact our team at support@archera.ai.
+
+
+    ## API Key Access
+
+
+    To use this API, you need an API key.
+
+
+    ### How to Create an API Key
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > API Access**.
+
+    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
+
+    3. Click **Create New API Key**.
+
+    4. Copy and securely store your new API key.
+
+
+    ### How to Use Your API Key
+
+    Use the `x-api-key` header:
+
+
+    ```bash
+
+    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
+
+    ```
+
+
+    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
+
+    ### How to find your Organization ID
+
+    1. Log in to the Archera.ai web application.
+
+    2. Navigate to **User Settings > Organization**.
+
+    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
+
+
+    '
+  title: Archera.ai Commitment Plans Well-Known API
+  version: v1.0.0
+tags:
+- name: Well-Known
+  description: OAuth 2.0 discovery endpoints (JWKS and Authorization Server Metadata)
+paths:
+  /.well-known/jwks.json:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWKS'
+        '500':
+          description: Failed to load keys
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Well-Known
+      summary: /.well-known/jwks.json
+      description: Returns the JSON Web Key Set (JWKS) containing public keys used to verify JWT tokens issued by Archera. This endpoint follows the RFC 7517 standard for JWK and is used by clients to validate JWT signatures. No authentication is required as this endpoint provides public cryptographic keys.
+  /.well-known/oauth-authorization-server:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthMetadata'
+        default:
+          $ref: '#/components/responses/DEFAULT_ERROR'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      tags:
+      - Well-Known
+      summary: /.well-known/oauth-authorization-server
+      description: Returns OAuth 2.0 Authorization Server Metadata as specified in RFC 8414. This endpoint provides automatic discovery of the authorization server's configuration, including supported endpoints, grant types, response types, PKCE methods, and available scopes. OAuth client libraries can use this endpoint to automatically configure themselves without manual endpoint configuration. No authentication is required as this is a public discovery endpoint.
+components:
+  schemas:
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+    OAuthMetadata:
+      type: object
+      properties:
+        issuer:
+          type: string
+          description: The authorization server's issuer identifier URL
+        authorization_endpoint:
+          type: string
+          description: URL of the OAuth 2.0 authorization endpoint
+        token_endpoint:
+          type: string
+          description: URL of the OAuth 2.0 token endpoint
+        revocation_endpoint:
+          type: string
+          description: URL of the OAuth 2.0 token revocation endpoint (RFC 7009)
+        registration_endpoint:
+          type: string
+          description: URL of the OAuth 2.0 dynamic client registration endpoint (RFC 7591)
+        jwks_uri:
+          type: string
+          description: URL of the JSON Web Key Set document
+        response_types_supported:
+          type: array
+          description: OAuth 2.0 response_type values supported
+          items:
+            type: string
+        grant_types_supported:
+          type: array
+          description: OAuth 2.0 grant type values supported
+          items:
+            type: string
+        code_challenge_methods_supported:
+          type: array
+          description: PKCE code challenge methods supported
+          items:
+            type: string
+        token_endpoint_auth_methods_supported:
+          type: array
+          description: Client authentication methods supported at token endpoint
+          items:
+            type: string
+        scopes_supported:
+          type: array
+          description: OAuth 2.0 scope values supported
+          items:
+            type: string
+        service_documentation:
+          type: string
+          description: URL of service documentation for developers
+      required:
+      - authorization_endpoint
+      - code_challenge_methods_supported
+      - grant_types_supported
+      - issuer
+      - jwks_uri
+      - registration_endpoint
+      - response_types_supported
+      - revocation_endpoint
+      - scopes_supported
+      - token_endpoint
+      - token_endpoint_auth_methods_supported
+      additionalProperties: false
+    JWK:
+      type: object
+      properties:
+        kty:
+          type: string
+          description: Key type (e.g., 'RSA')
+        use:
+          type: string
+          description: Public key use (e.g., 'sig' for signature)
+        kid:
+          type: string
+          description: Key ID for identifying the key
+        alg:
+          type: string
+          description: Algorithm (e.g., 'RS256')
+        n:
+          type: string
+          description: RSA modulus (base64url encoded)
+        e:
+          type: string
+          description: RSA public exponent (base64url encoded)
+      required:
+      - alg
+      - e
+      - kid
+      - kty
+      - n
+      - use
+      additionalProperties: false
+    JWKS:
+      type: object
+      properties:
+        keys:
+          type: array
+          description: Array of JSON Web Keys
+          items:
+            $ref: '#/components/schemas/JWK'
+      required:
+      - keys
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

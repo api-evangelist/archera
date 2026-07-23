@@ -1,0 +1,24 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  https://docs.archera.ai/api-reference (versioning) +
+  https://api.archera.ai/openapi.json (info.version). No public status page
+  (status.archera.ai does not resolve) and no published deprecation policy or
+  Sunset/Deprecation header support were found at capture time.
+versioning:
+  scheme: uri-path
+  current: v1
+  spec_version: v1.0.0
+  detail: >-
+    All Public API paths are prefixed /v1/. A separate Beta API surface is
+    documented under docs.archera.ai/api-reference/beta-api for pre-release
+    endpoints (reports, allocation reports, cost explorer, invoices, segments).
+  docs: https://docs.archera.ai/api-reference
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation policy or RFC 8594 Sunset support found at capture time.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []

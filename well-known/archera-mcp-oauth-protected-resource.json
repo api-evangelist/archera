@@ -1,0 +1,1 @@
+{"resource":"https://mcp.archera.ai/mcp","authorization_servers":["https://api.archera.ai"],"bearer_methods_supported":["header"],"scopes_supported":["archera:read","archera:write","archera:admin","archera:analytics"]}

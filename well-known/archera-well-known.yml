@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface for the Archera hosts
+  in apis.yml and the OpenAPI base host (https://api.archera.ai). Documents that
+  returned a real payload were saved verbatim. The API host publishes RFC 8414
+  OAuth authorization-server metadata and a JWKS; the MCP host publishes RFC
+  9728 protected-resource metadata.
+hosts:
+- host: https://api.archera.ai
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    type: application/json
+    file: archera-oauth-authorization-server.json
+  - path: /.well-known/jwks.json
+    status: 200
+    type: application/json
+    file: archera-jwks.json
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://mcp.archera.ai
+  documents:
+  - path: /.well-known/oauth-protected-resource/mcp
+    status: 200
+    type: application/json
+    file: archera-mcp-oauth-protected-resource.json
+- host: https://www.archera.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
