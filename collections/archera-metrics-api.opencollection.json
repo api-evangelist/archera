@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans Metrics API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/metrics",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Cloud provider to get metrics for"
+              }
+            ]
+          },
+          "docs": "Retrieves key performance metrics for cloud commitments (RIs/SPs) for the specified provider. Returns financial data including lifetime and month-to-date savings, automation status, potential missed savings opportunities, commitment coverage, and utilization rates. This endpoint provides a comprehensive overview of commitment performance and automation status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

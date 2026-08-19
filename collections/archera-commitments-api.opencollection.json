@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans Commitments API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Commitments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/commitments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitments",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Text to search across multiple columns (case-insensitive partial match)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "JSON object specifying field-specific filter criteria"
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order if true"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to order results by"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Cloud provider to filter commitments by"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the commitment period (YYYY-MM-DD)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for the commitment period (YYYY-MM-DD)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of commitments for the specified organization and time period. Returns detailed information about each commitment including utilization, savings, and status. Results can be filtered by provider, search term, and custom criteria, and sorted by various attributes."
+        },
+        {
+          "info": {
+            "name": "GET /v1/org/{org_id}/commitments/ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitments/ids",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Text to search across multiple columns (case-insensitive partial match)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "JSON object specifying field-specific filter criteria"
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order if true"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to order results by"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Cloud provider to filter commitments by"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the commitment period (YYYY-MM-DD)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for the commitment period (YYYY-MM-DD)"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "/commitments/chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitments/chart",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Optional JSON filter criteria for commitment data"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Cloud provider to filter commitments by"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the chart data (YYYY-MM-DD)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for the chart data (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Generates time-series chart data for commitment metrics over the specified time period. The data includes daily or monthly values for commitment spend, utilization, locked vs unlocked commitments, and realized savings. Results are aggregated by day or month depending on the date range selected. \n\n**Future Projections:** When the end_date extends into the future, the API returns projected values based on current commitment utilization patterns. Each data point includes an `is_projection` field th"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

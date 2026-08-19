@@ -1,0 +1,2652 @@
+{
+  "item": [
+    {
+      "id": "30f66efb-c31c-4a7c-8ae3-010c209d980f",
+      "name": "Commitments",
+      "description": {
+        "content": "API for retrieving and analyzing cloud commitment inventory, including Reserved Instances, Savings Plans, and Azure Reserved VM Instances. Provides access to detailed commitment data, utilization metrics, and cost savings information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73a2e3d8-2f7b-494f-bdc4-8845c0777332",
+          "name": "/commitments",
+          "request": {
+            "name": "/commitments",
+            "description": {
+              "content": "Retrieves a paginated list of commitments for the specified organization and time period. Returns detailed information about each commitment including utilization, savings, and status. Results can be filtered by provider, search term, and custom criteria, and sorted by various attributes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                ":org_id",
+                "commitments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Text to search across multiple columns (case-insensitive partial match)"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}",
+                  "description": "JSON object specifying field-specific filter criteria"
+                },
+                {
+                  "disabled": false,
+                  "key": "desc",
+                  "value": "true",
+                  "description": "Sort in descending order if true"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "end_date",
+                  "description": "Field to order results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "(Required) Cloud provider to filter commitments by"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the commitment period (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the commitment period (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51c9d68c-20c0-4366-89f4-430857874e5a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Pagination metadata",
+                  "key": "X-Pagination",
+                  "value": "total,9956,total_pages,3868,first_page,9283,last_page,4068,page,5029,previous_page,2986,next_page,8888"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account_id\": \"string\",\n    \"amortized_cost\": 2201.584152134085,\n    \"az\": \"string\",\n    \"billing_account_id\": \"string\",\n    \"daily_utilizations\": [\n      {\n        \"cost\": 4263.822980611838,\n        \"covered_cost\": 9605.634473367181,\n        \"date\": \"1963-03-27\",\n        \"gri_fees\": 7582.435763581847,\n        \"net_savings\": 5402.061547805052,\n        \"potential_savings\": 4235.021430429513,\n        \"reservation_utilization\": 4235.623893012059,\n        \"running_hours\": 7640.416807861533,\n        \"savings\": 6103.076126526422,\n        \"unutilized_commit\": 1214.7236498358582\n      },\n      {\n        \"cost\": 9946.25165707199,\n        \"covered_cost\": 4659.679621676618,\n        \"date\": \"1960-07-13\",\n        \"gri_fees\": 5125.131831139082,\n        \"net_savings\": 3039.6648997900165,\n        \"potential_savings\": 5302.799467232714,\n        \"reservation_utilization\": 2794.3792189055525,\n        \"running_hours\": 1339.4510799300297,\n        \"savings\": 9591.12893367279,\n        \"unutilized_commit\": 4816.14620359168\n      }\n    ],\n    \"display_name\": \"string\",\n    \"duration_seconds\": 9104,\n    \"effective_instance_count\": 3185,\n    \"end_date\": \"2000-07-07T18:46:17.846Z\",\n    \"id\": \"b8aaf319-1b05-dc15-f45e-9d64b2f235e5\",\n    \"instance_count\": 2068,\n    \"instance_family\": \"string\",\n    \"instance_flexibility\": true,\n    \"instance_type\": \"string\",\n    \"is_active\": true,\n    \"is_flexible\": true,\n    \"is_leased\": true,\n    \"is_multi_az\": true,\n    \"lease\": {\n      \"fee_rate\": 2841.509358358577,\n      \"fee_type\": \"string\",\n      \"is_rebate\": false,\n      \"lockin_months\": 3548,\n      \"term_months\": 9669,\n      \"id\": \"1fb101fb-328e-9868-8c3e-915df05e4066\"\n    },\n    \"lease_lockin_date\": \"1962-01-22T21:45:08.586Z\",\n    \"lease_start\": \"1991-04-11T10:19:22.526Z\",\n    \"leased_display_name\": \"string\",\n    \"master_account_id\": \"string\",\n    \"monthly_savings\": 1549.2555598172453,\n    \"name\": \"string\",\n    \"net_savings\": 2517.460334350159,\n    \"offering_class\": \"string\",\n    \"offering_id\": \"string\",\n    \"order_id\": \"string\",\n    \"payment_option\": \"string\",\n    \"plan_type\": \"string\",\n    \"potential_savings\": 8750.615872404975,\n    \"product_description\": \"string\",\n    \"provider\": \"aws\",\n    \"provider_reservation_id\": \"string\",\n    \"recurring_cost\": 5385.36562348028,\n    \"region\": \"string\",\n    \"reservation_end\": \"string\",\n    \"reservation_start\": \"string\",\n    \"resource_group\": \"string\",\n    \"running_hours\": 4237.911215631138,\n    \"savings\": 2290.4458682813743,\n    \"scope\": \"string\",\n    \"start_date\": \"2019-04-09T14:34:52.750Z\",\n    \"status\": \"string\",\n    \"tenancy\": \"string\",\n    \"transfer_reservation_end\": \"1988-08-13T10:16:46.105Z\",\n    \"transfer_reservation_start\": \"1980-08-07T05:58:15.362Z\",\n    \"type\": \"string\",\n    \"upfront_cost\": 1849.652663452026,\n    \"utilization\": 5615.871703897452\n  },\n  {\n    \"account_id\": \"string\",\n    \"amortized_cost\": 6314.842800170628,\n    \"az\": \"string\",\n    \"billing_account_id\": \"string\",\n    \"daily_utilizations\": [\n      {\n        \"cost\": 1460.3551986490459,\n        \"covered_cost\": 1843.3051186948169,\n        \"date\": \"1971-04-07\",\n        \"gri_fees\": 8116.160551079901,\n        \"net_savings\": 2661.51916026896,\n        \"potential_savings\": 2935.124920312018,\n        \"reservation_utilization\": 2355.819016049602,\n        \"running_hours\": 1499.9370411856994,\n        \"savings\": 934.6000487514005,\n        \"unutilized_commit\": 3529.331611381671\n      },\n      {\n        \"cost\": 695.8911031298986,\n        \"covered_cost\": 7651.966422987778,\n        \"date\": \"1957-09-29\",\n        \"gri_fees\": 6918.776056200639,\n        \"net_savings\": 8430.608368493327,\n        \"potential_savings\": 6985.4149541845,\n        \"reservation_utilization\": 6553.266142050405,\n        \"running_hours\": 6036.964745632781,\n        \"savings\": 885.2151762410887,\n        \"unutilized_commit\": 9191.821642208635\n      }\n    ],\n    \"display_name\": \"string\",\n    \"duration_seconds\": 6718,\n    \"effective_instance_count\": 4360,\n    \"end_date\": \"1967-01-31T14:37:01.450Z\",\n    \"id\": \"c7b3b3f4-9e63-6819-fbe1-23c107f28549\",\n    \"instance_count\": 7403,\n    \"instance_family\": \"string\",\n    \"instance_flexibility\": true,\n    \"instance_type\": \"string\",\n    \"is_active\": true,\n    \"is_flexible\": false,\n    \"is_leased\": true,\n    \"is_multi_az\": false,\n    \"lease\": {\n      \"fee_rate\": 4869.460908807866,\n      \"fee_type\": \"string\",\n      \"is_rebate\": false,\n      \"lockin_months\": 9544,\n      \"term_months\": 1246,\n      \"id\": \"58102df1-18eb-dbe5-3bf6-fee8da17eecd\"\n    },\n    \"lease_lockin_date\": \"2016-12-20T05:05:02.861Z\",\n    \"lease_start\": \"1998-12-02T00:52:05.717Z\",\n    \"leased_display_name\": \"string\",\n    \"master_account_id\": \"string\",\n    \"monthly_savings\": 3068.042758338796,\n    \"name\": \"string\",\n    \"net_savings\": 9219.560268141184,\n    \"offering_class\": \"string\",\n    \"offering_id\": \"string\",\n    \"order_id\": \"string\",\n    \"payment_option\": \"string\",\n    \"plan_type\": \"string\",\n    \"potential_savings\": 6131.379882581655,\n    \"product_description\": \"string\",\n    \"provider\": \"aws\",\n    \"provider_reservation_id\": \"string\",\n    \"recurring_cost\": 6904.7972589028195,\n    \"region\": \"string\",\n    \"reservation_end\": \"string\",\n    \"reservation_start\": \"string\",\n    \"resource_group\": \"string\",\n    \"running_hours\": 7912.027750512099,\n    \"savings\": 6672.510104478131,\n    \"scope\": \"string\",\n    \"start_date\": \"1973-02-08T22:42:13.801Z\",\n    \"status\": \"string\",\n    \"tenancy\": \"string\",\n    \"transfer_reservation_end\": \"2011-09-11T00:54:38.761Z\",\n    \"transfer_reservation_start\": \"1982-03-16T11:02:18.782Z\",\n    \"type\": \"string\",\n    \"upfront_cost\": 7811.150439160374,\n    \"utilization\": 9422.18868817354\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d6badf2-4b94-4a5a-a81c-4ef3efd3925d",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93832b68-8687-4979-9613-2cda944c446e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b9d0445-110c-4437-a8d9-32cf0915b8fb",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e456035-4906-40ef-8770-06502a337628",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fb41a0a-bd16-441c-abc6-fd8cfde34244",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae5da446-8c33-4cbd-8b5d-f3fc7e439ab1",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab5b56cb-fe43-415f-98cf-0e04e9612aca",
+              "name": "Unprocessable Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5376,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32159a03-65d5-4853-b45b-6ca75efc723a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69d7374f-02e3-4ef4-87b3-785381cf3555",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5376,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "348282d7-646f-4e32-83c3-86cd098be2be",
+          "name": "/v1/org/:org_id/commitments/ids",
+          "request": {
+            "name": "/v1/org/:org_id/commitments/ids",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                ":org_id",
+                "commitments",
+                "ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Text to search across multiple columns (case-insensitive partial match)"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}",
+                  "description": "JSON object specifying field-specific filter criteria"
+                },
+                {
+                  "disabled": false,
+                  "key": "desc",
+                  "value": "true",
+                  "description": "Sort in descending order if true"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "end_date",
+                  "description": "Field to order results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "(Required) Cloud provider to filter commitments by"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the commitment period (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the commitment period (YYYY-MM-DD)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1789859-d605-438e-80b7-2244d58b35f3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ids\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38c73c7e-83ed-458e-b77c-9dee12cf7ed1",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27f73148-2b9b-4dde-8813-7838526f3e81",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4d721dd-16a6-48fe-9d37-cf0622bdb65a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c9c8f12-239b-494e-a847-f0098affdb06",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5632da77-e4c9-4b9d-801b-d54c8abf43d0",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0e51257-9372-4291-9288-d175e0cd2e49",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd96d59f-d7b4-4553-ac6e-ba6021c8ab9c",
+              "name": "Unprocessable Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5376,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54740608-0004-41c8-8597-d3917226c028",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f70996c-dfc2-4ab2-9f9b-44a1846578ba",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "us-east-1"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "desc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5376,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce3ceea4-4241-4f27-a244-d719276914c4",
+          "name": "/commitments/chart",
+          "request": {
+            "name": "/commitments/chart",
+            "description": {
+              "content": "Generates time-series chart data for commitment metrics over the specified time period. The data includes daily or monthly values for commitment spend, utilization, locked vs unlocked commitments, and realized savings. Results are aggregated by day or month depending on the date range selected. \n\n**Future Projections:** When the end_date extends into the future, the API returns projected values based on current commitment utilization patterns. Each data point includes an `is_projection` field that indicates whether the values are historical (false) or projected (true). Projected values assume that active commitments will continue with their current utilization rates through their expiration dates. This is useful for forecasting future commitment costs and savings based on existing commitments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                ":org_id",
+                "commitments",
+                "chart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}",
+                  "description": "Optional JSON filter criteria for commitment data"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_1",
+                  "value": "{}",
+                  "description": "Optional JSON filter criteria for commitment data"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "(Required) Cloud provider to filter commitments by"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Start date for the chart data (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) End date for the chart data (YYYY-MM-DD)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51ced1c1-54b3-4c20-b3a2-4da930da40f7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"date\": \"string\",\n      \"is_projection\": false,\n      \"locked_commit\": 2305.7274627428446,\n      \"net_savings\": 3983.60917836965,\n      \"remaining_commit\": 3311.6745587010387,\n      \"savings\": 6428.762167193649,\n      \"unlocked_commit\": 238.79686965248115,\n      \"unutilized_commit\": 5624.069517073002,\n      \"utilization\": 9357.209185712416\n    },\n    {\n      \"date\": \"string\",\n      \"is_projection\": true,\n      \"locked_commit\": 5973.643331514091,\n      \"net_savings\": 6593.4061374212315,\n      \"remaining_commit\": 7205.258375132509,\n      \"savings\": 7294.189796813378,\n      \"unlocked_commit\": 6269.231142279441,\n      \"unutilized_commit\": 3617.718265069252,\n      \"utilization\": 5470.3587572109345\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "967f1839-ffb4-421b-836f-a707cceabe90",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48314f77-e78e-4961-b742-9974e88c4a25",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef8f7952-4384-4b08-977b-9b38770b90e1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84835846-85f2-4ff3-96c8-183cbcb38322",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8a108ea-d83b-4c18-a319-0b1ee812abf4",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ac40a8d-3d93-4675-a5a5-54766b26f96b",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d93ac506-8bdc-4346-8dcd-8ff9ae9688b1",
+              "name": "Unprocessable Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5376,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c5b7875-172f-4bdc-af5b-9e8d3ad6e440",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58b0f05a-4587-4d44-83d5-17ea7c21feb1",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "commitments",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "[object Object]"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2023-01-01"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-31"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5376,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e2387a75-12c4-4b1a-94e3-31d7639434f0",
+    "name": "Archera.ai Commitment Plans Commitments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "### Welcome to the Archera.ai API documentation.\nArchera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.\n\nWhether you're building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.\n\nIf you have questions or need support, please contact our team at support@archera.ai.\n\n## API Key Access\n\nTo use this API, you need an API key.\n\n### How to Create an API Key\n1. Log in to the Archera.ai web application.\n2. Navigate to **User Settings > API Access**.\n<a href=\"https://app.archera.ai/settings?tab=api&section=user\" target=\"_blank\" rel=\"noopener noreferrer\">Open Settings</a>\n3. Click **Create New API Key**.\n4. Copy and securely store your new API key.\n\n### How to Use Your API Key\nUse the `x-api-key` header:\n\n```bash\ncurl -H 'x-api-key: YOUR_API_KEY' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws\n```\n\nKeep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.\n### How to find your Organization ID\n1. Log in to the Archera.ai web application.\n2. Navigate to **User Settings > Organization**.\n3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`\n\n",
+      "type": "text/plain"
+    }
+  }
+}

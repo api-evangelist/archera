@@ -2,14 +2,11 @@ generated: '2026-07-18'
 method: searched
 status: published
 source: https://docs.archera.ai/api-reference/mcp-server/mcp
-description: >-
-  Archera operates and hosts a remote MCP (Model Context Protocol) server that
-  connects an AI assistant to a user's Archera account — cloud commitments, cost
-  data, and optimization recommendations. Streamable HTTP transport, OAuth
-  Authorization Code with PKCE, and Dynamic Client Registration (clients
-  register themselves during setup). The published documentation describes tool
-  capability groups rather than individual tool names, so tools below are the
-  documented capability areas, marked as categories.
+description: Archera operates and hosts a remote MCP (Model Context Protocol) server that connects an
+  AI assistant to a user's Archera account — cloud commitments, cost data, and optimization recommendations.
+  Streamable HTTP transport, OAuth Authorization Code with PKCE, and Dynamic Client Registration (clients
+  register themselves during setup). The published documentation describes tool capability groups rather
+  than individual tool names, so tools below are the documented capability areas, marked as categories.
 server:
   name: archera
   transport: http
@@ -22,7 +19,11 @@ server:
     protected_resource_metadata: https://mcp.archera.ai/.well-known/oauth-protected-resource/mcp
     authorization_server_metadata: https://api.archera.ai/.well-known/oauth-authorization-server
     dynamic_client_registration: https://api.archera.ai/oauth/register
-  scopes: [archera:read, archera:write, archera:admin, archera:analytics]
+  scopes:
+  - archera:read
+  - archera:write
+  - archera:admin
+  - archera:analytics
 clients_documented:
 - Claude Code
 - Claude Desktop
@@ -38,24 +39,25 @@ clients_documented:
 - Amp
 tool_categories:
 - name: commitment_management
-  description: >-
-    View and manage the full portfolio of Reserved Instances, Savings Plans, and
-    Archera Insured Commitments across linked cloud accounts — status, term
-    lengths, payment options, renewal dates.
+  description: View and manage the full portfolio of Reserved Instances, Savings Plans, and Archera Insured
+    Commitments across linked cloud accounts — status, term lengths, payment options, renewal dates.
 - name: coverage_utilization
-  description: >-
-    Analyze how well existing commitments are used — underutilized reservations,
-    coverage gaps by service or region, accounts with high on-demand spend.
+  description: Analyze how well existing commitments are used — underutilized reservations, coverage gaps
+    by service or region, accounts with high on-demand spend.
 - name: recommendations_planning
-  description: >-
-    Generate commitment plans and savings recommendations from actual usage;
-    model scenarios (term length, payment type, coverage targets).
+  description: Generate commitment plans and savings recommendations from actual usage; model scenarios
+    (term length, payment type, coverage targets).
 - name: spend_forecasting
-  description: >-
-    Query historical cost data by account/service/region/commitment type and get
-    projected spend estimates from current commitments and usage trends.
+  description: Query historical cost data by account/service/region/commitment type and get projected
+    spend estimates from current commitments and usage trends.
 - name: account_management
-  description: >-
-    View linked cloud accounts, coverage summaries, and commitment activity
-    across the Archera organization.
+  description: View linked cloud accounts, coverage summaries, and commitment activity across the Archera
+    organization.
 support: support@archera.ai
+deployment:
+  mode: remote
+  endpoint: https://mcp.archera.ai/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

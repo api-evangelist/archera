@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans Resources API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/resources",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Filter by provider"
+              },
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by segment ID"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Text to search across multiple columns (case-insensitive partial match)"
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order if true"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to order results by"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of infrastructure resources for the organization, including compute instances, databases, and other services with their current status and costs."
+        },
+        {
+          "info": {
+            "name": "/resources/{resource_id}/daily-usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/resources/:resource_id/daily-usage",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the date range filter (inclusive)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for the date range filter (inclusive)"
+              },
+              {
+                "name": "catalog_sku_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional catalog SKU ID to filter daily usage records for a specific SKU"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves daily usage data for a specific resource within the specified date range. Optionally filter by catalog_sku_id to get usage for a specific SKU. Including usage metrics, costs, and coverage information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans OAuth API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OAuth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Redirect to React consent page.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/oauth/authorize"
+          },
+          "docs": "Query Parameters (handled by Authlib):\n    client_id: OAuth client identifier\n    redirect_uri: Where to redirect after authorization\n    response_type: Must be 'code'\n    scope: Space-separated list of requested scopes\n    state: CSRF protection token (optional but recommended)\n    code_challenge: PKCE code challenge\n    code_challenge_method: PKCE method (usually 'S256')\n\nReturns:\n    Redirect to React consent page with OAuth params and client info"
+        },
+        {
+          "info": {
+            "name": "Handle user authorization decision from React consent page.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/oauth/authorize"
+          },
+          "docs": "Query Parameters:\n    All OAuth params from GET (client_id, redirect_uri, state, etc.)\n\nForm Parameters:\n    confirm: 'yes' to authorize, 'no' to deny\n\nReturns:\n    Redirect to client with authorization code or error"
+        },
+        {
+          "info": {
+            "name": "Issue access tokens.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/oauth/token"
+          },
+          "docs": "Form Parameters (authorization_code grant):\n    grant_type: Must be 'authorization_code'\n    code: Authorization code from /authorize\n    redirect_uri: Must match original request\n    client_id: OAuth client identifier\n    code_verifier: PKCE code verifier\n\nForm Parameters (refresh_token grant):\n    grant_type: Must be 'refresh_token'\n    refresh_token: Valid refresh token\n    client_id: OAuth client identifier\n\nReturns:\n    JSON response with access_token (JWT), refresh_token, expires_in, etc."
+        },
+        {
+          "info": {
+            "name": "List all active OAuth sessions for the current user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/oauth/sessions"
+          },
+          "docs": "Returns:\nList of active sessions including client info, creation time, and scope"
+        },
+        {
+          "info": {
+            "name": "Revoke a specific OAuth session by token ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/oauth/sessions/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Args:\n    token_id: UUID of the OAuth token to revoke\n\nReturns:\n    204 No Content on success\n    404 Not Found if session doesn't exist or doesn't belong to user"
+        },
+        {
+          "info": {
+            "name": "Revoke all OAuth sessions (refresh tokens) for the current user across all clients.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/oauth/revoke-all"
+          },
+          "docs": "Returns:\nJSON with message and count of revoked sessions"
+        },
+        {
+          "info": {
+            "name": "Revoke an access token or refresh token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/oauth/revoke"
+          },
+          "docs": "Form Parameters:\n    token: The token to revoke (access_token or refresh_token)\n    token_type_hint: Optional hint about token type ('access_token' or 'refresh_token')\n\nReturns:\n    200 response (always returns 200 per RFC 7009, even for invalid tokens)"
+        },
+        {
+          "info": {
+            "name": "POST /oauth/register",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/oauth/register"
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

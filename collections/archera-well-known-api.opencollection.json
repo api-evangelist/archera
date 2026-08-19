@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans Well-Known API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Well-Known",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/.well-known/jwks.json",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/.well-known/jwks.json"
+          },
+          "docs": "Returns the JSON Web Key Set (JWKS) containing public keys used to verify JWT tokens issued by Archera. This endpoint follows the RFC 7517 standard for JWK and is used by clients to validate JWT signatures. No authentication is required as this endpoint provides public cryptographic keys."
+        },
+        {
+          "info": {
+            "name": "/.well-known/oauth-authorization-server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/.well-known/oauth-authorization-server"
+          },
+          "docs": "Returns OAuth 2.0 Authorization Server Metadata as specified in RFC 8414. This endpoint provides automatic discovery of the authorization server's configuration, including supported endpoints, grant types, response types, PKCE methods, and available scopes. OAuth client libraries can use this endpoint to automatically configure themselves without manual endpoint configuration. No authentication is required as this is a public discovery endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans Exchanges API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchanges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Azure exchange recommendations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/exchanges/recommendations",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Cloud provider (aws, azure, gcp)"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional commitment plan ID to use for plan-derived exchange purchases. When omitted, the endpoint prefers the latest calculated 'Recommended RIs Only' default plan for the provider-resources segment — a twin of the Recommended plan without savings plans, which cannot be exchanged — falling back to the same Recommended default plan selected by GET /commitment-plans/recommended when that plan does not exist yet. Responses may also include non-plan-derived native-to-GRI exchanges."
+              },
+              {
+                "name": "commitment_ids",
+                "value": "",
+                "type": "query",
+                "description": "Optional explicit Azure commitment IDs to consider returning. When omitted, the exchanger detects underutilized exchange candidates from the default 3-day DailyUtilization lookback. Explicit commitments without utilization rows in that lookback are excluded. Mutually exclusive with plan_id."
+              }
+            ]
+          },
+          "docs": "Returns Azure reservation exchange recommendations using the same recommendation logic as the beta exchange endpoint, including plan-derived exchanges and eligible same-SKU 1-year native to 1-year GRI exchanges. When plan_id is omitted, the endpoint prefers the latest calculated 'Recommended RIs Only' default plan for the provider-resources segment (a twin of the Recommended plan without savings plans, which cannot be exchanged), falling back to the Recommended default plan when that plan does n"
+        },
+        {
+          "info": {
+            "name": "Apply Azure exchange recommendations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/org/:org_id/exchanges/recommendations/apply",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests application of one Azure reservation exchange recommendation using the same explicit purchase and return item body as the beta exchange endpoint. Currently only provider=azure is supported."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans Uploads API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a billing file for savings analysis",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/org/:org_id/uploads",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Accepts a multipart PDF or CSV billing file, stores it in Archera's invoice upload bucket, and returns an upload ID. Use this upload ID when invoking the Savings Analysis MCP tool. The upload status workflow is: PENDING before storage begins, PROCESSING while the file is being transferred, COMPLETE once it is available for analysis, and ERROR if storage fails."
+        },
+        {
+          "info": {
+            "name": "Get uploaded billing file status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/uploads/:upload_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "upload_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns metadata and upload status for a partner API upload. Clients can poll this endpoint until upload_status is COMPLETE, then pass the upload ID to the Savings Analysis MCP tool."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

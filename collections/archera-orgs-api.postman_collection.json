@@ -1,0 +1,392 @@
+{
+  "item": [
+    {
+      "id": "d3daf2a3-b9b6-45a9-a3c7-c49642e10bfd",
+      "name": "Orgs",
+      "description": {
+        "content": "Endpoints for organizations accessible to the authenticated user",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f99ad81b-3d0c-4a07-b1fa-bcdfd6b302b3",
+          "name": "List accessible organizations",
+          "request": {
+            "name": "List accessible organizations",
+            "description": {
+              "content": "Returns the list of organizations that the authenticated user has access to. This includes:\n\n- Organizations where the user is a direct member (kind: 'direct')\n- Child organizations if the user belongs to a partner organization (kind: 'partnership')\n- All active organizations if the user is an Archera staff member (kind: 'staff')\n\nEach organization includes the user's role and membership kind.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a57cc13-8aed-4437-bed6-8a278e67c8d7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"kind\": \"string\",\n    \"name\": \"string\",\n    \"org_id\": \"c6d75e53-2bb8-4ef5-bb9e-85ad0e8c3f67Z\",\n    \"role\": \"cloud_rep\"\n  },\n  {\n    \"kind\": \"string\",\n    \"name\": \"string\",\n    \"org_id\": \"3f087ef3-fd22-44f6-b045-b55fdcda3757Z\",\n    \"role\": \"restricted_user\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5179bb2-a7b7-403e-b568-84d5b6bee963",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e86694b-7fb0-4327-a3c0-49f073b3db24",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f58ebf6-0f33-46e1-9c20-edcea89a124b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3157bcc-d210-4750-a052-2546dfb682b7",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b1fe7ac-217a-4a7e-92e3-8a511714836e",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d73a9f4f-caf1-414b-83ab-474097e12784",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d97e11d4-1f86-405f-8978-71aebbbd9698",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ba070bd-4724-4788-8a4a-052314a15924",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7552,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {},\n    \"key_3\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ae99630e-8925-4452-9576-8faf0ed92848",
+    "name": "Archera.ai Commitment Plans Orgs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "### Welcome to the Archera.ai API documentation.\nArchera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.\n\nWhether you're building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.\n\nIf you have questions or need support, please contact our team at support@archera.ai.\n\n## API Key Access\n\nTo use this API, you need an API key.\n\n### How to Create an API Key\n1. Log in to the Archera.ai web application.\n2. Navigate to **User Settings > API Access**.\n<a href=\"https://app.archera.ai/settings?tab=api&section=user\" target=\"_blank\" rel=\"noopener noreferrer\">Open Settings</a>\n3. Click **Create New API Key**.\n4. Copy and securely store your new API key.\n\n### How to Use Your API Key\nUse the `x-api-key` header:\n\n```bash\ncurl -H 'x-api-key: YOUR_API_KEY' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws\n```\n\nKeep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.\n### How to find your Organization ID\n1. Log in to the Archera.ai web application.\n2. Navigate to **User Settings > Organization**.\n3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`\n\n",
+      "type": "text/plain"
+    }
+  }
+}

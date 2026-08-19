@@ -1,0 +1,1361 @@
+{
+  "item": [
+    {
+      "id": "a07e68fb-4812-4440-b3b2-1fd867480f87",
+      "name": "Exchanges",
+      "description": {
+        "content": "API for commitment exchange recommendations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f8dbc8c9-409b-4846-ae62-f0f2d64b1328",
+          "name": "Get Azure exchange recommendations",
+          "request": {
+            "name": "Get Azure exchange recommendations",
+            "description": {
+              "content": "Returns Azure reservation exchange recommendations using the same recommendation logic as the beta exchange endpoint, including plan-derived exchanges and eligible same-SKU 1-year native to 1-year GRI exchanges. When plan_id is omitted, the endpoint prefers the latest calculated 'Recommended RIs Only' default plan for the provider-resources segment (a twin of the Recommended plan without savings plans, which cannot be exchanged), falling back to the Recommended default plan when that plan does not exist yet. Currently only provider=azure is supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                ":org_id",
+                "exchanges",
+                "recommendations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "(Required) Cloud provider (aws, azure, gcp)"
+                },
+                {
+                  "disabled": false,
+                  "key": "plan_id",
+                  "value": "",
+                  "description": "Optional commitment plan ID to use for plan-derived exchange purchases. When omitted, the endpoint prefers the latest calculated 'Recommended RIs Only' default plan for the provider-resources segment — a twin of the Recommended plan without savings plans, which cannot be exchanged — falling back to the same Recommended default plan selected by GET /commitment-plans/recommended when that plan does not exist yet. Responses may also include non-plan-derived native-to-GRI exchanges."
+                },
+                {
+                  "disabled": false,
+                  "key": "commitment_ids",
+                  "value": "",
+                  "description": "Optional explicit Azure commitment IDs to consider returning. When omitted, the exchanger detects underutilized exchange candidates from the default 3-day DailyUtilization lookback. Explicit commitments without utilization rows in that lookback are excluded. Mutually exclusive with plan_id."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e6a5841-76de-4dbf-a451-be1cf7ae5708",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_utilization_lookback_days\": 730,\n  \"data\": [\n    {\n      \"additional_lifetime_commitment\": 5546.728707203948,\n      \"delta_vs_returned\": {\n        \"monthly_commitment_cost\": 7908.413568105628,\n        \"monthly_net_savings\": 9599.72233964968,\n        \"purchase_upfront_cost\": 5303.369035672513\n      },\n      \"purchase\": {\n        \"commitment_financials_monthly_rate\": {\n          \"commitment_cost\": {\n            \"total\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"breakdown\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"commitment_savings\": {\n            \"net\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gross\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"covered_ondemand_cost\": 3914.725001461532\n        },\n        \"commitment_upfront_cost\": 8845.84003804002,\n        \"offer\": {\n          \"id\": \"b2b17d3a-edda-7bf0-03f0-a4805a6e99c6\",\n          \"provider\": \"gcp\",\n          \"type\": \"string\",\n          \"region\": \"string\",\n          \"duration_seconds\": 7612,\n          \"instance_type\": \"string\",\n          \"instance_family\": \"string\",\n          \"offering_class\": \"null\",\n          \"payment_option\": \"partial_upfront\",\n          \"plan_type\": \"string\",\n          \"product_description\": \"string\",\n          \"display_name\": \"string\",\n          \"guaranteed_display_name\": \"string\",\n          \"is_flexible\": false\n        },\n        \"quantity\": 9503,\n        \"account_id\": \"string\",\n        \"contract_term\": \"eight_month_gris\",\n        \"lease_menu_item_id\": \"417151f2-9a58-0e76-d7de-a41d4c7e2d34\"\n      },\n      \"purchase_commitment_financials_monthly_rate\": {\n        \"commitment_cost\": {\n          \"total\": 2780.48100707436,\n          \"breakdown\": {\n            \"cloud_provider_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archera_premium\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"commitment_savings\": {\n          \"net\": 5527.393446856805,\n          \"gross\": 8274.354373259166\n        },\n        \"covered_ondemand_cost\": 8252.904013157708\n      },\n      \"purchase_lifetime_commitment\": 2629.801627556013,\n      \"returned_commitment_daily_utilizations\": [\n        {\n          \"date\": \"1969-01-29\",\n          \"utilization\": 3474.3552067368687\n        },\n        {\n          \"date\": \"2018-08-21\",\n          \"utilization\": 8483.687192053556\n        }\n      ],\n      \"returned_commitment_financials_monthly_rate\": {\n        \"commitment_cost\": {\n          \"total\": 801.3332357177383,\n          \"breakdown\": {\n            \"cloud_provider_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archera_premium\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"commitment_savings\": {\n          \"net\": 4310.724373941628,\n          \"gross\": 3454.0426411253998\n        },\n        \"covered_ondemand_cost\": 9655.505911236643\n      },\n      \"returned_lifetime_commitment\": 3812.2691260323195,\n      \"returns\": [\n        {\n          \"commitment\": {\n            \"id\": \"46a8178d-da1d-b695-2220-c586bfecedbf\",\n            \"provider\": \"azure\",\n            \"provider_reservation_id\": \"string\",\n            \"display_name\": \"string\",\n            \"guaranteed_display_name\": \"string\",\n            \"type\": \"string\",\n            \"status\": \"removed\",\n            \"is_active\": false,\n            \"is_archera_guaranteed\": false,\n            \"account_id\": \"string\",\n            \"billing_account_id\": \"string\",\n            \"start_date\": \"1973-02-01T01:44:26.101Z\",\n            \"end_date\": \"1963-03-23T22:40:34.719Z\",\n            \"duration_seconds\": 9964,\n            \"guarantee_start\": \"2006-10-30T17:28:42.288Z\",\n            \"guarantee_lockin_date\": \"2001-12-03T00:18:19.305Z\",\n            \"guarantee_method\": {},\n            \"region\": \"string\",\n            \"instance_type\": \"string\",\n            \"instance_family\": \"string\",\n            \"plan_type\": \"string\",\n            \"payment_option\": \"all_upfront\",\n            \"offering_class\": \"standard\",\n            \"is_flexible\": false,\n            \"instance_count\": 7177,\n            \"contract_term\": \"fifteen_month_gris\"\n          },\n          \"commitment_financials_monthly_rate\": {\n            \"commitment_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"commitment_savings\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"covered_ondemand_cost\": 5271.345350752048\n          },\n          \"quantity\": 4313,\n          \"remaining_lifetime_commitment\": 9289.665194745989,\n          \"reservation_resource_id\": \"string\",\n          \"underutilized_commitment_cost\": 2876.0657282895418,\n          \"utilization\": 8431.642646819526,\n          \"utilization_days\": 7262\n        },\n        {\n          \"commitment\": {\n            \"id\": \"ff32ce68-95d1-3458-8c42-cc89934e41ac\",\n            \"provider\": \"azure\",\n            \"provider_reservation_id\": \"string\",\n            \"display_name\": \"string\",\n            \"guaranteed_display_name\": \"string\",\n            \"type\": \"string\",\n            \"status\": \"reselling\",\n            \"is_active\": false,\n            \"is_archera_guaranteed\": true,\n            \"account_id\": \"string\",\n            \"billing_account_id\": \"string\",\n            \"start_date\": \"2019-06-04T23:44:07.234Z\",\n            \"end_date\": \"2021-12-09T03:34:05.766Z\",\n            \"duration_seconds\": 5471,\n            \"guarantee_start\": \"1978-10-03T21:27:56.429Z\",\n            \"guarantee_lockin_date\": \"1989-10-25T13:50:37.085Z\",\n            \"guarantee_method\": {},\n            \"region\": \"string\",\n            \"instance_type\": \"string\",\n            \"instance_family\": \"string\",\n            \"plan_type\": \"string\",\n            \"payment_option\": \"partial_upfront\",\n            \"offering_class\": \"null\",\n            \"is_flexible\": false,\n            \"instance_count\": 1487,\n            \"contract_term\": \"zero_day\"\n          },\n          \"commitment_financials_monthly_rate\": {\n            \"commitment_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"commitment_savings\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"covered_ondemand_cost\": 8553.81867902557\n          },\n          \"quantity\": 5098,\n          \"remaining_lifetime_commitment\": 2675.2563204343005,\n          \"reservation_resource_id\": \"string\",\n          \"underutilized_commitment_cost\": 3153.9473434104525,\n          \"utilization\": 2327.652652772405,\n          \"utilization_days\": 3405\n        }\n      ],\n      \"reason\": \"string\"\n    },\n    {\n      \"additional_lifetime_commitment\": 4359.042108167758,\n      \"delta_vs_returned\": {\n        \"monthly_commitment_cost\": 7855.261833664742,\n        \"monthly_net_savings\": 154.39928616971966,\n        \"purchase_upfront_cost\": 4489.484200075069\n      },\n      \"purchase\": {\n        \"commitment_financials_monthly_rate\": {\n          \"commitment_cost\": {\n            \"total\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"breakdown\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"commitment_savings\": {\n            \"net\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"gross\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"covered_ondemand_cost\": 2217.0871734148823\n        },\n        \"commitment_upfront_cost\": 7994.10770444201,\n        \"offer\": {\n          \"id\": \"d63b51ef-e999-461f-69be-803e688415f4\",\n          \"provider\": \"gcp\",\n          \"type\": \"string\",\n          \"region\": \"string\",\n          \"duration_seconds\": 8596,\n          \"instance_type\": \"string\",\n          \"instance_family\": \"string\",\n          \"offering_class\": \"convertible\",\n          \"payment_option\": \"partial_upfront\",\n          \"plan_type\": \"string\",\n          \"product_description\": \"string\",\n          \"display_name\": \"string\",\n          \"guaranteed_display_name\": \"string\",\n          \"is_flexible\": false\n        },\n        \"quantity\": 8311,\n        \"account_id\": \"string\",\n        \"contract_term\": \"twenty_six_month_gris\",\n        \"lease_menu_item_id\": \"06791fb7-c05c-7eaa-cf36-320a0c721818\"\n      },\n      \"purchase_commitment_financials_monthly_rate\": {\n        \"commitment_cost\": {\n          \"total\": 9151.932584886772,\n          \"breakdown\": {\n            \"cloud_provider_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archera_premium\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"commitment_savings\": {\n          \"net\": 5212.47009644695,\n          \"gross\": 3240.1305477912056\n        },\n        \"covered_ondemand_cost\": 4953.724771012634\n      },\n      \"purchase_lifetime_commitment\": 4204.582989151278,\n      \"returned_commitment_daily_utilizations\": [\n        {\n          \"date\": \"2019-10-02\",\n          \"utilization\": 7270.663255625971\n        },\n        {\n          \"date\": \"1975-03-04\",\n          \"utilization\": 7181.602029539553\n        }\n      ],\n      \"returned_commitment_financials_monthly_rate\": {\n        \"commitment_cost\": {\n          \"total\": 900.8013974098361,\n          \"breakdown\": {\n            \"cloud_provider_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archera_premium\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"commitment_savings\": {\n          \"net\": 4831.072454138041,\n          \"gross\": 7289.022254177695\n        },\n        \"covered_ondemand_cost\": 7257.53036984582\n      },\n      \"returned_lifetime_commitment\": 3585.575518521934,\n      \"returns\": [\n        {\n          \"commitment\": {\n            \"id\": \"20fa7f1e-f30a-6f31-b4aa-8edf4892e7b4\",\n            \"provider\": \"aws\",\n            \"provider_reservation_id\": \"string\",\n            \"display_name\": \"string\",\n            \"guaranteed_display_name\": \"string\",\n            \"type\": \"string\",\n            \"status\": \"unlocked\",\n            \"is_active\": true,\n            \"is_archera_guaranteed\": false,\n            \"account_id\": \"string\",\n            \"billing_account_id\": \"string\",\n            \"start_date\": \"2009-03-09T10:13:39.302Z\",\n            \"end_date\": \"2002-03-04T01:08:31.619Z\",\n            \"duration_seconds\": 3729,\n            \"guarantee_start\": \"2026-04-19T02:28:07.451Z\",\n            \"guarantee_lockin_date\": \"2021-03-15T16:20:37.909Z\",\n            \"guarantee_method\": {},\n            \"region\": \"string\",\n            \"instance_type\": \"string\",\n            \"instance_family\": \"string\",\n            \"plan_type\": \"string\",\n            \"payment_option\": \"all_upfront\",\n            \"offering_class\": \"standard\",\n            \"is_flexible\": true,\n            \"instance_count\": 1369,\n            \"contract_term\": \"thirty_month_gris\"\n          },\n          \"commitment_financials_monthly_rate\": {\n            \"commitment_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"commitment_savings\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"covered_ondemand_cost\": 9810.174553491835\n          },\n          \"quantity\": 2566,\n          \"remaining_lifetime_commitment\": 4507.47349293045,\n          \"reservation_resource_id\": \"string\",\n          \"underutilized_commitment_cost\": 5247.302685786514,\n          \"utilization\": 505.24807120090884,\n          \"utilization_days\": 3600\n        },\n        {\n          \"commitment\": {\n            \"id\": \"49b76e96-04a9-1145-ee71-3d5ecf4f358c\",\n            \"provider\": \"gcp\",\n            \"provider_reservation_id\": \"string\",\n            \"display_name\": \"string\",\n            \"guaranteed_display_name\": \"string\",\n            \"type\": \"string\",\n            \"status\": \"unknown\",\n            \"is_active\": false,\n            \"is_archera_guaranteed\": false,\n            \"account_id\": \"string\",\n            \"billing_account_id\": \"string\",\n            \"start_date\": \"2012-08-14T07:56:05.988Z\",\n            \"end_date\": \"1988-09-15T09:07:22.597Z\",\n            \"duration_seconds\": 6779,\n            \"guarantee_start\": \"1997-01-14T03:59:39.001Z\",\n            \"guarantee_lockin_date\": \"1987-08-04T06:41:50.564Z\",\n            \"guarantee_method\": {},\n            \"region\": \"string\",\n            \"instance_type\": \"string\",\n            \"instance_family\": \"string\",\n            \"plan_type\": \"string\",\n            \"payment_option\": \"partial_upfront\",\n            \"offering_class\": \"null\",\n            \"is_flexible\": false,\n            \"instance_count\": 3775,\n            \"contract_term\": \"eleven_month_gris\"\n          },\n          \"commitment_financials_monthly_rate\": {\n            \"commitment_cost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"commitment_savings\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"covered_ondemand_cost\": 8643.76306143502\n          },\n          \"quantity\": 2020,\n          \"remaining_lifetime_commitment\": 9893.796845139612,\n          \"reservation_resource_id\": \"string\",\n          \"underutilized_commitment_cost\": 6494.38551228137,\n          \"utilization\": 1497.6164686531902,\n          \"utilization_days\": 9138\n        }\n      ],\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81fb3399-ad39-4eb8-88eb-b48fd07af7c2",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3e3896bb-5f7a-4048-9e95-74e5f8733bd7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ffdc82b7-624c-4ffa-ab83-822a7e006cac",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e87d70c7-645b-4a1a-b37b-01b7e8289f09",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b6ab5c1-25ec-4674-bad4-6ac2ffb69503",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42f08679-dd55-4f1c-879b-34194a3d9a11",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a837bb3-6263-46e8-8209-e5c797b2b7a7",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be42cfc7-fb84-4f6a-9222-5eff0b2fc960",
+              "name": "Unprocessable Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2578,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48803229-6a93-49e9-94e3-c47170f5abe3",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c966e20-2de7-4a1b-8aa5-9a9b9d76cfbe",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "aws"
+                    },
+                    {
+                      "key": "plan_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "commitment_ids",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2578,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "700831b0-adc9-4e5f-b133-b6e152b3be38",
+          "name": "Apply Azure exchange recommendations",
+          "request": {
+            "name": "Apply Azure exchange recommendations",
+            "description": {
+              "content": "Requests application of one Azure reservation exchange recommendation using the same explicit purchase and return item body as the beta exchange endpoint. Currently only provider=azure is supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "org",
+                ":org_id",
+                "exchanges",
+                "recommendations",
+                "apply"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"<string>\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"<uuid>\",\n      \"quantity\": \"<integer>\"\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"<uuid>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d246775d-1910-4c75-ad17-60420835fcf9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recommendation_count\": 2045,\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cf42e30-4725-44f6-8349-79d4334c6155",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14787a99-94af-4b8c-aeb4-bde5d904d3cf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ba9a252-fb4f-4165-a302-443d479cf606",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d8292b4-b6e9-44c8-b655-18a393c5b6d3",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1760036-b020-467a-b8bd-3a572fb356f0",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc49c9dc-b97f-4126-bfe7-067455110154",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c859a8e7-5094-4da2-aee3-f92f5974228e",
+              "name": "Unprocessable Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2578,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a12a7380-4e09-4153-830f-78743df1fa5b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"timestamp\": \"string\",\n  \"type\": \"string\",\n  \"detail\": \"\",\n  \"code\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14277a7c-0d33-424e-9493-ef3d953cfb71",
+              "name": "Default error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "org",
+                    ":org_id",
+                    "exchanges",
+                    "recommendations",
+                    "apply"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"aws\",\n  \"purchases\": [\n    {\n      \"offer_id\": \"4baf6a70-6fcd-fc96-71c3-9648f5a478f8\",\n      \"quantity\": 2837\n    }\n  ],\n  \"returns\": [\n    {\n      \"commitment_id\": \"69e8a30e-e403-d1c7-f188-d719a4c5f125\",\n      \"quantity\": 6134\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2578,\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4d03b649-d54e-45cd-aeba-5bd6d11f777d",
+    "name": "Archera.ai Commitment Plans Exchanges API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "### Welcome to the Archera.ai API documentation.\nArchera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.\n\nWhether you're building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.\n\nIf you have questions or need support, please contact our team at support@archera.ai.\n\n## API Key Access\n\nTo use this API, you need an API key.\n\n### How to Create an API Key\n1. Log in to the Archera.ai web application.\n2. Navigate to **User Settings > API Access**.\n<a href=\"https://app.archera.ai/settings?tab=api&section=user\" target=\"_blank\" rel=\"noopener noreferrer\">Open Settings</a>\n3. Click **Create New API Key**.\n4. Copy and securely store your new API key.\n\n### How to Use Your API Key\nUse the `x-api-key` header:\n\n```bash\ncurl -H 'x-api-key: YOUR_API_KEY' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws\n```\n\nKeep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.\n### How to find your Organization ID\n1. Log in to the Archera.ai web application.\n2. Navigate to **User Settings > Organization**.\n3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`\n\n",
+      "type": "text/plain"
+    }
+  }
+}

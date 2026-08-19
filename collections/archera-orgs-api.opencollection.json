@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans Orgs API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accessible organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs"
+          },
+          "docs": "Returns the list of organizations that the authenticated user has access to. This includes:\n\n- Organizations where the user is a direct member (kind: 'direct')\n- Child organizations if the user belongs to a partner organization (kind: 'partnership')\n- All active organizations if the user is an Archera staff member (kind: 'staff')\n\nEach organization includes the user's role and membership kind."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

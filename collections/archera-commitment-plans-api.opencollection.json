@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Archera.ai Commitment Plans API",
+    "version": "v1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Commitment Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/commitment-plans/{plan_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitment-plans/:plan_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific commitment plan, including costs, savings projections, and commitment coverage."
+        },
+        {
+          "info": {
+            "name": "/commitment-plans/{plan_id}/apply",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitment-plans/:plan_id/apply",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Executes a commitment purchase plan, initiating the commitment purchase process. This action will mark the plan as edited and record the user who initiated the purchase. The plan will then be processed for actual commitment purchases according to the plan specifications."
+        },
+        {
+          "info": {
+            "name": "/commitment-plans/default",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitment-plans/default",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Cloud provider to get default plans for"
+              }
+            ]
+          },
+          "docs": "Retrieves the three default Archera commitment plans (High Savings, Balanced, Recommended) for the specified cloud provider. These plans are automatically generated based on the organization's usage patterns. Each plan offers different trade-offs between cost savings and flexibility."
+        },
+        {
+          "info": {
+            "name": "/commitment-plans/recommended",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitment-plans/recommended",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Cloud provider to get the recommended plan for"
+              }
+            ]
+          },
+          "docs": "Retrieves only the recommended Archera commitment plan for the specified cloud provider. This is the optimal plan automatically selected based on the organization's usage patterns, balancing cost savings with flexibility. Returns a 204 No Content response if no recommended plan is available for the specified provider."
+        },
+        {
+          "info": {
+            "name": "/commitment-plans/{plan_id}/line-items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitment-plans/:plan_id/line-items",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to order results by"
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order if true"
+              },
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter line items by segment ID"
+              },
+              {
+                "name": "resource_match_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter line items by specific resource match IDs"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves line items for a specific commitment plan, including offer details, costs, and savings information. Line items represent individual commitment purchases within the plan."
+        },
+        {
+          "info": {
+            "name": "/commitment-plans/{plan_id}/resource-matches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitment-plans/:plan_id/resource-matches",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to order results by"
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order if true"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for resource usage data"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for resource usage data"
+              },
+              {
+                "name": "line_item_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific line item IDs"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves resource matches for a specific commitment plan, showing how resources map to commitment purchases with cost and usage details."
+        },
+        {
+          "info": {
+            "name": "/commitment-plans/{plan_id}/comparison",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/org/:org_id/commitment-plans/:plan_id/comparison",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "plan_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "line_item_ids",
+                "value": "",
+                "type": "query",
+                "description": "Optional subset of line items to compare. If omitted, defaults to all selected line items in the plan."
+              },
+              {
+                "name": "contract_terms",
+                "value": "",
+                "type": "query",
+                "description": "Optional list of target terms to roll up. If omitted, the response includes a hypothetical for every distinct contract_term that appears in any line item's candidates after the payment-option filter."
+              },
+              {
+                "name": "payment_options",
+                "value": "",
+                "type": "query",
+                "description": "Payment options to include. Defaults to no_upfront only — most users are uncomfortable with cash at signing, so this matches the default framing for plan comparisons. Pass partial_upfront / all_upfront explicitly to surface those."
+              }
+            ]
+          },
+          "docs": "Returns per-line-item offer alternatives plus plan-wide rollups for each (contract_term, payment_option) hypothetical. Designed to answer 'what would the plan look like at 3-year' in a single call: hypothetical_totals carries the rolled-up financials and delta_vs_current, with per-line-item resolution exposed for transparency. Each line item lands at the target term when available, else the longest available term <= target with the same payment option (GRI preferred within tier), else its curren"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
