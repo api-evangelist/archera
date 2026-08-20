@@ -115,6 +115,8 @@ apis:
   humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
   baseURL: https://api.archera.ai
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -127,6 +129,8 @@ apis:
   humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
   baseURL: https://api.archera.ai
   tags:
+  - Organization
+  tags_raw:
   - Orgs
   properties:
   - type: OpenAPI
@@ -163,6 +167,8 @@ apis:
   humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
   baseURL: https://api.archera.ai
   tags:
+  - .well Known
+  tags_raw:
   - Well-Known
   properties:
   - type: OpenAPI
