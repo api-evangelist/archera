@@ -179,7 +179,7 @@ apis:
   humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
   baseURL: https://api.archera.ai
   tags:
-  - .well Known
+  - Well-Known
   tags_raw:
   - Well-Known
   properties:
