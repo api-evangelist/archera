@@ -121,20 +121,6 @@ apis:
     url: openapi/archera-metrics-api-openapi.yml
   - type: Documentation
     url: https://docs.archera.ai/api-reference/public-api/public-api-reference
-- aid: archera:archera-oauth-api
-  name: Archera OAuth API
-  description: OAuth 2.0 authorization endpoints for third-party integrations
-  humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
-  baseURL: https://api.archera.ai
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/archera-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
 - aid: archera:archera-orgs-api
   name: Archera Orgs API
   description: Endpoints for organizations accessible to the authenticated user
@@ -185,6 +171,18 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/archera-well-known-api-openapi.yml
+  - type: Documentation
+    url: https://docs.archera.ai/api-reference/public-api/public-api-reference
+- aid: archera:archera-oauth-api
+  name: Archera O Auth API
+  description: OAuth 2.0 authorization endpoints for third-party integrations
+  humanURL: https://docs.archera.ai/api-reference/partner-api/partner-api
+  baseURL: https://api.archera.ai
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/archera-oauth-api-openapi.yml
   - type: Documentation
     url: https://docs.archera.ai/api-reference/public-api/public-api-reference
 maintainers:
