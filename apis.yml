@@ -68,6 +68,9 @@ apis:
   humanURL: https://docs.archera.ai/api-reference/partner-api/partner-api
   baseURL: https://api.archera.ai
   tags:
+  - Partners
+  - Cloud Marketplace
+  tags_raw:
   - Partner
   - Cloud Marketplace
 - aid: archera:archera-commitment-plans-api
@@ -103,6 +106,8 @@ apis:
   humanURL: https://docs.archera.ai/api-reference/public-api/public-api-reference
   baseURL: https://api.archera.ai
   tags:
+  - Exchange
+  tags_raw:
   - Exchanges
   properties:
   - type: OpenAPI
@@ -179,6 +184,8 @@ apis:
   humanURL: https://docs.archera.ai/api-reference/partner-api/partner-api
   baseURL: https://api.archera.ai
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
