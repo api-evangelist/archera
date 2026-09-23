@@ -1,59 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '### Welcome to the Archera.ai API documentation.
-
-    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
-
-
-    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
-
-
-    If you have questions or need support, please contact our team at support@archera.ai.
-
-
-    ## API Key Access
-
-
-    To use this API, you need an API key.
-
-
-    ### How to Create an API Key
-
-    1. Log in to the Archera.ai web application.
-
-    2. Navigate to **User Settings > API Access**.
-
-    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
-
-    3. Click **Create New API Key**.
-
-    4. Copy and securely store your new API key.
-
-
-    ### How to Use Your API Key
-
-    Use the `x-api-key` header:
-
-
-    ```bash
-
-    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
-
-    ```
-
-
-    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
-
-    ### How to find your Organization ID
-
-    1. Log in to the Archera.ai web application.
-
-    2. Navigate to **User Settings > Organization**.
-
-    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
-
-
-    '
+  description: '### Welcome to the Archera.ai API documentation.'
   title: Archera.ai Commitment Plans API
   version: v1.0.0
 tags:
@@ -126,6 +73,8 @@ paths:
       - Commitment Plans
       summary: /commitment-plans/{plan_id}
       description: Retrieves detailed information about a specific commitment plan, including costs, savings projections, and commitment coverage.
+      operationId: getV1OrgByOrgIdCommitmentPlansByPlanId
+      x-operation-id-source: derived
   /v1/org/{org_id}/commitment-plans/{plan_id}/apply:
     parameters:
     - in: path
@@ -192,6 +141,8 @@ paths:
       - Commitment Plans
       summary: /commitment-plans/{plan_id}/apply
       description: Executes a commitment purchase plan, initiating the commitment purchase process. This action will mark the plan as edited and record the user who initiated the purchase. The plan will then be processed for actual commitment purchases according to the plan specifications.
+      operationId: postV1OrgByOrgIdCommitmentPlansByPlanIdApply
+      x-operation-id-source: derived
   /v1/org/{org_id}/commitment-plans/default:
     parameters:
     - in: path
@@ -348,6 +299,8 @@ paths:
       - Commitment Plans
       summary: /commitment-plans/default
       description: Retrieves the three default Archera commitment plans (High Savings, Balanced, Recommended) for the specified cloud provider. These plans are automatically generated based on the organization's usage patterns. Each plan offers different trade-offs between cost savings and flexibility.
+      operationId: getV1OrgByOrgIdCommitmentPlansDefault
+      x-operation-id-source: derived
   /v1/org/{org_id}/commitment-plans/recommended:
     parameters:
     - in: path
@@ -428,6 +381,8 @@ paths:
       - Commitment Plans
       summary: /commitment-plans/recommended
       description: Retrieves only the recommended Archera commitment plan for the specified cloud provider. This is the optimal plan automatically selected based on the organization's usage patterns, balancing cost savings with flexibility. Returns a 204 No Content response if no recommended plan is available for the specified provider.
+      operationId: getV1OrgByOrgIdCommitmentPlansRecommended
+      x-operation-id-source: derived
   /v1/org/{org_id}/commitment-plans/{plan_id}/line-items:
     parameters:
     - in: path
@@ -586,6 +541,8 @@ paths:
       - Commitment Plans
       summary: /commitment-plans/{plan_id}/line-items
       description: Retrieves line items for a specific commitment plan, including offer details, costs, and savings information. Line items represent individual commitment purchases within the plan.
+      operationId: getV1OrgByOrgIdCommitmentPlansByPlanIdLineItems
+      x-operation-id-source: derived
   /v1/org/{org_id}/commitment-plans/{plan_id}/resource-matches:
     parameters:
     - in: path
@@ -741,6 +698,8 @@ paths:
       - Commitment Plans
       summary: /commitment-plans/{plan_id}/resource-matches
       description: Retrieves resource matches for a specific commitment plan, showing how resources map to commitment purchases with cost and usage details.
+      operationId: getV1OrgByOrgIdCommitmentPlansByPlanIdResourceMatches
+      x-operation-id-source: derived
   /v1/org/{org_id}/commitment-plans/{plan_id}/comparison:
     parameters:
     - in: path
@@ -922,8 +881,44 @@ paths:
       - Commitment Plans
       summary: /commitment-plans/{plan_id}/comparison
       description: 'Returns per-line-item offer alternatives plus plan-wide rollups for each (contract_term, payment_option) hypothetical. Designed to answer ''what would the plan look like at 3-year'' in a single call: hypothetical_totals carries the rolled-up financials and delta_vs_current, with per-line-item resolution exposed for transparency. Each line item lands at the target term when available, else the longest available term <= target with the same payment option (GRI preferred within tier), else its current term. Defaults: line_item_ids=all selected, contract_terms=all distinct in candidates, payment_options=[no_upfront].'
+      operationId: getV1OrgByOrgIdCommitmentPlansByPlanIdComparison
+      x-operation-id-source: derived
 components:
   schemas:
+    CommitmentCostBreakdown:
+      type: object
+      properties:
+        cloud_provider_cost:
+          $ref: '#/components/schemas/CloudProviderCost'
+        archera_premium:
+          type: number
+          description: Archera premium — paid to Archera, equal to a portion of the savings Archera generates for this commitment (fee_rate * gross savings, only charged when gross > 0). Already included in commitment_cost.total (don't add on top). Because premium is only a fraction of gross, whenever archera_premium > 0 the commitment is net-positive after the fee. Native (non-Archera) commitments have premium = 0 and offer no such guarantee; an underutilized guaranteed commitment pre-lockin can also show net < 0 (the rebate that covers this kicks in post-lockin).
+      additionalProperties: false
+    PaginationMetadata:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of items.
+        total_pages:
+          type: integer
+          description: Total number of pages.
+        first_page:
+          type: integer
+          description: First available page number.
+        last_page:
+          type: integer
+          description: Last available page number.
+        page:
+          type: integer
+          description: Current page number.
+        previous_page:
+          type: integer
+          description: Previous page number.
+        next_page:
+          type: integer
+          description: Next page number.
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -946,147 +941,117 @@ components:
       - message
       - timestamp
       - type
-    CommitmentCostBreakdown:
+    CommitmentCost:
       type: object
       properties:
-        cloud_provider_cost:
-          $ref: '#/components/schemas/CloudProviderCost'
-        archera_premium:
+        total:
           type: number
-          description: Archera premium — paid to Archera, equal to a portion of the savings Archera generates for this commitment (fee_rate * gross savings, only charged when gross > 0). Already included in commitment_cost.total (don't add on top). Because premium is only a fraction of gross, whenever archera_premium > 0 the commitment is net-positive after the fee. Native (non-Archera) commitments have premium = 0 and offer no such guarantee; an underutilized guaranteed commitment pre-lockin can also show net < 0 (the rebate that covers this kicks in post-lockin).
+          description: Total paid (cloud_provider_cost.total + archera_premium). Headline 'cost'.
+        breakdown:
+          $ref: '#/components/schemas/CommitmentCostBreakdown'
       additionalProperties: false
-    OfferComparisonEntry:
+    CloudProviderCostBreakdown:
       type: object
       properties:
-        is_current:
-          type: boolean
-          description: True if this entry matches the line item's current offer + lease. Exactly one entry per response has this set; its `delta_vs_current` values are all zero.
-        offer_id:
+        recurring:
+          type: number
+          description: Recurring monthly payment to the cloud provider.
+        amortized_upfront:
+          type: number
+          description: Monthly share of the upfront payment, amortized over the term.
+      additionalProperties: false
+    CommitmentPlan:
+      type: object
+      properties:
+        id:
           type: string
           format: uuid
-          description: Pass to PUT as `offer_id` to switch the line item to this offer.
-        offer:
-          description: Full offer details (type, region, instance, payment_option, etc).
-          $ref: '#/components/schemas/CommitmentOffer'
-        lease_menu_item_id:
+        name:
+          type: string
+        description:
           type:
           - string
           - 'null'
+        org_id:
+          type: string
           format: uuid
-          description: Lease attached to this candidate, or null for none. Pass to PUT as `lease_menu_item_id`.
-        selected_amount:
-          type: number
-          description: Commitment amount this candidate would be sized to — unit count for RIs / unit-based CUDs, dollar-per-hour rate for Savings Plans / spend-based CUDs. Pass to PUT as `selected_amount`; the server routes it to the right underlying column based on offer type.
-        contract_term:
-          description: Effective commitment term — derived from the lease lockin hours when `lease_menu_item_id` is set (e.g. '1_year_gris'), else from the offer's own duration (e.g. 'one_year', 'three_year'). This is the real lock-in period, not the offer's raw duration — a Compute Savings Plan offer with a 3-year duration paired with a 1-year lease yields `one_year_gris`, not `three_year`. Prefer this field over `offer.duration_seconds` when describing term length.
+        created_at:
+          type: string
+          format: date-time
+        is_calculating:
+          type: boolean
+        status:
+          enum:
+          - new
+          - reviewed
+          - scheduled
+          - completed
+          - draft
+          - needs_review
+          - in_progress
+        max_term:
           type:
           - string
           - 'null'
-          enum:
-          - one_year_gris
-          - thirty_day_gris
-          - two_month_gris
-          - three_month_gris
-          - four_month_gris
-          - five_month_gris
-          - six_month_gris
-          - seven_month_gris
-          - eight_month_gris
-          - nine_month_gris
-          - ten_month_gris
-          - eleven_month_gris
-          - twelve_month_gris
-          - thirteen_month_gris
-          - fourteen_month_gris
-          - fifteen_month_gris
-          - sixteen_month_gris
-          - seventeen_month_gris
-          - eighteen_month_gris
-          - nineteen_month_gris
-          - twenty_month_gris
-          - twenty_one_month_gris
-          - twenty_two_month_gris
-          - twenty_three_month_gris
-          - twenty_four_month_gris
-          - twenty_five_month_gris
-          - twenty_six_month_gris
-          - twenty_seven_month_gris
-          - twenty_eight_month_gris
-          - twenty_nine_month_gris
-          - thirty_month_gris
-          - thirty_one_month_gris
-          - thirty_two_month_gris
-          - thirty_three_month_gris
-          - thirty_four_month_gris
-          - thirty_five_month_gris
-          - one_year
-          - two_year
-          - three_year
-          - five_year
-          - zero_day
-          - thirty_day
-          - two_month
-          - three_month
-          - four_month
-          - five_month
-          - six_month
-          - seven_month
-          - eight_month
-          - nine_month
-          - ten_month
-          - eleven_month
-          - thirteen_month
-          - fourteen_month
-          - fifteen_month
-          - sixteen_month
-          - seventeen_month
-          - eighteen_month
-          - nineteen_month
-          - twenty_month
-          - twenty_one_month
-          - twenty_two_month
-          - twenty_three_month
-          - twenty_five_month
-          - twenty_six_month
-          - twenty_seven_month
-          - twenty_eight_month
-          - twenty_nine_month
-          - thirty_month
-          - thirty_one_month
-          - thirty_two_month
-          - thirty_three_month
-          - thirty_four_month
-          - thirty_five_month
-          - null
-        discount_rate:
+        covered_ondemand_cost_hourly:
           type: number
-          description: Discount rate vs on-demand (0-1) for this candidate.
-        breakeven_days:
-          type:
-          - number
-          - 'null'
-          description: Days until this candidate pays for itself. Null if breakeven is undefined (no net savings + no amortized cost).
-        commitment_upfront_cost:
+        before_ondemand_cost_hourly:
           type: number
-          description: One-time dollars required at signing for this candidate. NOT a rate — do not sum with monthly-rate fields.
-        commitment_financials_monthly_rate:
-          description: Projected economics as 730-hour monthly rates, same shape as on line items and plans.
-          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
-        delta_vs_current:
-          description: Axis-by-axis difference vs the current offer. All zeros on the `is_current=true` entry.
-          $ref: '#/components/schemas/OfferComparisonDelta'
+        before_reserved_cost_hourly:
+          type: number
+        amortized_cost_hourly:
+          type: number
+        recurring_cost_hourly:
+          type: number
+        upfront_cost_hourly:
+          type: number
+        before_cost_hourly:
+          type: number
+        after_cost_hourly:
+          type: number
+        total_cost_hourly:
+          type: number
+        savings_hourly:
+          type: number
+        fee_hourly:
+          type: number
+        commitment_coverage:
+          type: number
+        minimum_commitment_cost:
+          type: number
+        breakeven_hours:
+          type: number
+        total_savings:
+          type: number
+        monthly_savings:
+          type: number
+        total_monthly_before_cost:
+          type: number
       required:
-      - breakeven_days
-      - commitment_financials_monthly_rate
-      - commitment_upfront_cost
-      - contract_term
-      - delta_vs_current
-      - discount_rate
-      - is_current
-      - lease_menu_item_id
-      - offer
-      - offer_id
-      - selected_amount
+      - after_cost_hourly
+      - amortized_cost_hourly
+      - before_cost_hourly
+      - before_ondemand_cost_hourly
+      - before_reserved_cost_hourly
+      - breakeven_hours
+      - commitment_coverage
+      - covered_ondemand_cost_hourly
+      - created_at
+      - fee_hourly
+      - id
+      - is_calculating
+      - max_term
+      - minimum_commitment_cost
+      - monthly_savings
+      - name
+      - org_id
+      - recurring_cost_hourly
+      - savings_hourly
+      - status
+      - total_cost_hourly
+      - total_monthly_before_cost
+      - total_savings
+      - upfront_cost_hourly
       additionalProperties: false
     LineItemOfferComparisonResponse:
       type: object
@@ -1315,49 +1280,85 @@ components:
       - total_savings
       - upfront_cost
       additionalProperties: false
-    Error:
+    CommitmentOffer:
       type: object
       properties:
-        code:
+        id:
+          type: string
+          format: uuid
+          description: Offer identifier
+        provider:
+          description: Cloud provider (aws, azure, gcp)
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        type:
+          type: string
+          description: Commitment type (e.g. 'ri', 'savings_plan', 'cud')
+        region:
+          type:
+          - string
+          - 'null'
+          description: Cloud region (e.g. 'us-east-1')
+        duration_seconds:
           type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
-    HypotheticalDelta:
-      type: object
-      properties:
-        monthly_net_savings:
-          type: number
-          description: Hypothetical's monthly net savings minus current_totals'. Positive means switching saves more than the plan does today.
-        monthly_commitment_cost:
-          type: number
-          description: Hypothetical's monthly commitment cost minus current_totals'. Positive means more dollars committed monthly.
-        upfront_cost:
-          type: number
-          description: Hypothetical's one-time upfront cost minus current_totals'. NOT a rate.
-      required:
-      - monthly_commitment_cost
-      - monthly_net_savings
-      - upfront_cost
-      additionalProperties: false
-    CloudProviderCost:
-      type: object
-      properties:
-        total:
-          type: number
-          description: Amortized cost paid to the cloud provider. Sums with archera_premium to reach cost.total.
-        breakdown:
-          description: Optional. Additive payment-cadence decomposition of total (recurring + amortized_upfront). Present only when purchase-term structure is known (individual commitment or plan).
-          $ref: '#/components/schemas/CloudProviderCostBreakdown'
+          description: Total commitment duration in seconds
+        instance_type:
+          type:
+          - string
+          - 'null'
+          description: Instance type (e.g. 'm5.xlarge'), null for Savings Plans
+        instance_family:
+          type:
+          - string
+          - 'null'
+          description: Instance family (e.g. 'm5'), null for some commitment types
+        offering_class:
+          description: Offering class (e.g. 'standard', 'convertible')
+          type:
+          - string
+          - 'null'
+          enum:
+          - standard
+          - convertible
+          - null
+        payment_option:
+          description: Payment option (e.g. 'no_upfront', 'partial_upfront', 'all_upfront')
+          type:
+          - string
+          - 'null'
+          enum:
+          - no_upfront
+          - partial_upfront
+          - all_upfront
+          - null
+        plan_type:
+          type:
+          - string
+          - 'null'
+          description: Plan type (e.g. 'Compute', 'EC2Instance')
+        product_description:
+          type:
+          - string
+          - 'null'
+          description: Product description (e.g. 'Linux/UNIX')
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable offer name
+        guaranteed_display_name:
+          type:
+          - string
+          - 'null'
+          description: Offer name when purchased as an Archera Guaranteed Commitment
+        is_flexible:
+          type:
+          - boolean
+          - 'null'
+          description: Whether the commitment has instance size flexibility
       additionalProperties: false
     PurchasePlanContractSpec:
       type: object
@@ -1598,362 +1599,6 @@ components:
       - monthly_net_savings
       - upfront_cost
       additionalProperties: false
-    HypotheticalTotal:
-      type: object
-      properties:
-        contract_term:
-          description: Target contract term for this hypothetical.
-          type:
-          - string
-          - 'null'
-          enum:
-          - one_year_gris
-          - thirty_day_gris
-          - two_month_gris
-          - three_month_gris
-          - four_month_gris
-          - five_month_gris
-          - six_month_gris
-          - seven_month_gris
-          - eight_month_gris
-          - nine_month_gris
-          - ten_month_gris
-          - eleven_month_gris
-          - twelve_month_gris
-          - thirteen_month_gris
-          - fourteen_month_gris
-          - fifteen_month_gris
-          - sixteen_month_gris
-          - seventeen_month_gris
-          - eighteen_month_gris
-          - nineteen_month_gris
-          - twenty_month_gris
-          - twenty_one_month_gris
-          - twenty_two_month_gris
-          - twenty_three_month_gris
-          - twenty_four_month_gris
-          - twenty_five_month_gris
-          - twenty_six_month_gris
-          - twenty_seven_month_gris
-          - twenty_eight_month_gris
-          - twenty_nine_month_gris
-          - thirty_month_gris
-          - thirty_one_month_gris
-          - thirty_two_month_gris
-          - thirty_three_month_gris
-          - thirty_four_month_gris
-          - thirty_five_month_gris
-          - one_year
-          - two_year
-          - three_year
-          - five_year
-          - zero_day
-          - thirty_day
-          - two_month
-          - three_month
-          - four_month
-          - five_month
-          - six_month
-          - seven_month
-          - eight_month
-          - nine_month
-          - ten_month
-          - eleven_month
-          - thirteen_month
-          - fourteen_month
-          - fifteen_month
-          - sixteen_month
-          - seventeen_month
-          - eighteen_month
-          - nineteen_month
-          - twenty_month
-          - twenty_one_month
-          - twenty_two_month
-          - twenty_three_month
-          - twenty_five_month
-          - twenty_six_month
-          - twenty_seven_month
-          - twenty_eight_month
-          - twenty_nine_month
-          - thirty_month
-          - thirty_one_month
-          - thirty_two_month
-          - thirty_three_month
-          - thirty_four_month
-          - thirty_five_month
-          - null
-        payment_option:
-          description: Target payment option for this hypothetical.
-          type: string
-          enum:
-          - no_upfront
-          - partial_upfront
-          - all_upfront
-        commitment_financials_monthly_rate:
-          description: Rolled-up monthly-rate financials assuming each line item adopts its candidate per the fallback rule. Same shape as on plans / line items.
-          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
-        commitment_upfront_cost:
-          type: number
-          description: Sum of one-time upfront dollars across the line items under this hypothetical. NOT a rate.
-        delta_vs_current:
-          description: Axis-by-axis difference vs current_totals. The headline 'should I do this' answer is delta_vs_current.monthly_net_savings.
-          $ref: '#/components/schemas/HypotheticalDelta'
-        line_items:
-          type: array
-          description: Per-line-item resolution for this hypothetical. Use to call out fallbacks ('14 of 20 line items would land at 3-year; 5 would fall back to 1-year GRI; 1 has no shorter alternative and stays at current').
-          items:
-            $ref: '#/components/schemas/HypotheticalLineItem'
-      required:
-      - commitment_financials_monthly_rate
-      - commitment_upfront_cost
-      - contract_term
-      - delta_vs_current
-      - line_items
-      - payment_option
-      additionalProperties: false
-    CommitmentCost:
-      type: object
-      properties:
-        total:
-          type: number
-          description: Total paid (cloud_provider_cost.total + archera_premium). Headline 'cost'.
-        breakdown:
-          $ref: '#/components/schemas/CommitmentCostBreakdown'
-      additionalProperties: false
-    HypotheticalLineItem:
-      type: object
-      properties:
-        line_item_id:
-          type: string
-          format: uuid
-          description: Line item ID.
-        actual_term:
-          description: The contract term this line item actually contributes to the rollup at. Equals the target term when an exact match exists; otherwise the longest available term <= target with the same payment option, or the line item's current term as a last resort.
-          type:
-          - string
-          - 'null'
-          enum:
-          - one_year_gris
-          - thirty_day_gris
-          - two_month_gris
-          - three_month_gris
-          - four_month_gris
-          - five_month_gris
-          - six_month_gris
-          - seven_month_gris
-          - eight_month_gris
-          - nine_month_gris
-          - ten_month_gris
-          - eleven_month_gris
-          - twelve_month_gris
-          - thirteen_month_gris
-          - fourteen_month_gris
-          - fifteen_month_gris
-          - sixteen_month_gris
-          - seventeen_month_gris
-          - eighteen_month_gris
-          - nineteen_month_gris
-          - twenty_month_gris
-          - twenty_one_month_gris
-          - twenty_two_month_gris
-          - twenty_three_month_gris
-          - twenty_four_month_gris
-          - twenty_five_month_gris
-          - twenty_six_month_gris
-          - twenty_seven_month_gris
-          - twenty_eight_month_gris
-          - twenty_nine_month_gris
-          - thirty_month_gris
-          - thirty_one_month_gris
-          - thirty_two_month_gris
-          - thirty_three_month_gris
-          - thirty_four_month_gris
-          - thirty_five_month_gris
-          - one_year
-          - two_year
-          - three_year
-          - five_year
-          - zero_day
-          - thirty_day
-          - two_month
-          - three_month
-          - four_month
-          - five_month
-          - six_month
-          - seven_month
-          - eight_month
-          - nine_month
-          - ten_month
-          - eleven_month
-          - thirteen_month
-          - fourteen_month
-          - fifteen_month
-          - sixteen_month
-          - seventeen_month
-          - eighteen_month
-          - nineteen_month
-          - twenty_month
-          - twenty_one_month
-          - twenty_two_month
-          - twenty_three_month
-          - twenty_five_month
-          - twenty_six_month
-          - twenty_seven_month
-          - twenty_eight_month
-          - twenty_nine_month
-          - thirty_month
-          - thirty_one_month
-          - thirty_two_month
-          - thirty_three_month
-          - thirty_four_month
-          - thirty_five_month
-          - null
-        actual_payment_option:
-          description: Payment option of the candidate this line item contributes. Equals the target payment option except when actual_term_reason='no_alternative' (falls back to current, which may have a different payment option).
-          type:
-          - string
-          - 'null'
-          enum:
-          - no_upfront
-          - partial_upfront
-          - all_upfront
-          - null
-        actual_term_reason:
-          type: string
-          enum:
-          - exact_match
-          - fallback_closest_shorter
-          - no_alternative
-          description: Why this line item landed at actual_term. exact_match = target available; fallback_closest_shorter = used the longest available term <= target with same payment option; no_alternative = nothing qualified, kept at current.
-      required:
-      - actual_payment_option
-      - actual_term
-      - actual_term_reason
-      - line_item_id
-      additionalProperties: false
-    LineItemOfferComparisonRow:
-      type: object
-      properties:
-        line_item_id:
-          type: string
-          format: uuid
-          description: Line item ID.
-        current:
-          description: The line item's current offer + lease, in the same shape as OfferComparisonEntrySchema. Its delta_vs_current is all zeros.
-          $ref: '#/components/schemas/OfferComparisonEntry'
-        candidates:
-          type: array
-          description: Alternative (offer, lease) pairs for this line item, filtered to the requested contract_terms and payment_options. Each entry carries its own contract_term and payment_option (on offer); fields offer_id, lease_menu_item_id, and selected_amount can be copied verbatim into POST /commitment-plans/{plan_id}/line-items/update (in the `updates` list) to swap the line item to that candidate.
-          items:
-            $ref: '#/components/schemas/OfferComparisonEntry'
-      required:
-      - candidates
-      - current
-      - line_item_id
-      additionalProperties: false
-    CommitmentSavings_Exclude_Rebate:
-      type: object
-      properties:
-        net:
-          type: number
-          description: Net savings after Archera premium, including any rebate. Actual bill reduction. Headline 'savings'.
-        gross:
-          type: number
-          description: Savings before Archera premium. Equals covered_ondemand_cost - commitment_cost.breakdown.cloud_provider_cost.total.
-      additionalProperties: false
-    CommitmentPlan:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        org_id:
-          type: string
-          format: uuid
-        created_at:
-          type: string
-          format: date-time
-        is_calculating:
-          type: boolean
-        status:
-          enum:
-          - new
-          - reviewed
-          - scheduled
-          - completed
-          - draft
-          - needs_review
-          - in_progress
-        max_term:
-          type:
-          - string
-          - 'null'
-        covered_ondemand_cost_hourly:
-          type: number
-        before_ondemand_cost_hourly:
-          type: number
-        before_reserved_cost_hourly:
-          type: number
-        amortized_cost_hourly:
-          type: number
-        recurring_cost_hourly:
-          type: number
-        upfront_cost_hourly:
-          type: number
-        before_cost_hourly:
-          type: number
-        after_cost_hourly:
-          type: number
-        total_cost_hourly:
-          type: number
-        savings_hourly:
-          type: number
-        fee_hourly:
-          type: number
-        commitment_coverage:
-          type: number
-        minimum_commitment_cost:
-          type: number
-        breakeven_hours:
-          type: number
-        total_savings:
-          type: number
-        monthly_savings:
-          type: number
-        total_monthly_before_cost:
-          type: number
-      required:
-      - after_cost_hourly
-      - amortized_cost_hourly
-      - before_cost_hourly
-      - before_ondemand_cost_hourly
-      - before_reserved_cost_hourly
-      - breakeven_hours
-      - commitment_coverage
-      - covered_ondemand_cost_hourly
-      - created_at
-      - fee_hourly
-      - id
-      - is_calculating
-      - max_term
-      - minimum_commitment_cost
-      - monthly_savings
-      - name
-      - org_id
-      - recurring_cost_hourly
-      - savings_hourly
-      - status
-      - total_cost_hourly
-      - total_monthly_before_cost
-      - total_savings
-      - upfront_cost_hourly
-      additionalProperties: false
     LineItemOfferComparisonTotals:
       type: object
       properties:
@@ -2069,52 +1714,427 @@ components:
       - type
       - upfront_cost
       additionalProperties: false
-    CommitmentOffer:
+    Error:
       type: object
       properties:
-        id:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+    CloudProviderCost:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Amortized cost paid to the cloud provider. Sums with archera_premium to reach cost.total.
+        breakdown:
+          description: Optional. Additive payment-cadence decomposition of total (recurring + amortized_upfront). Present only when purchase-term structure is known (individual commitment or plan).
+          $ref: '#/components/schemas/CloudProviderCostBreakdown'
+      additionalProperties: false
+    LineItemOfferComparisonRow:
+      type: object
+      properties:
+        line_item_id:
           type: string
           format: uuid
-          description: Offer identifier
-        provider:
-          description: Cloud provider (aws, azure, gcp)
-          type: string
-          enum:
-          - aws
-          - azure
-          - gcp
-        type:
-          type: string
-          description: Commitment type (e.g. 'ri', 'savings_plan', 'cud')
-        region:
-          type:
-          - string
-          - 'null'
-          description: Cloud region (e.g. 'us-east-1')
-        duration_seconds:
-          type: integer
-          description: Total commitment duration in seconds
-        instance_type:
-          type:
-          - string
-          - 'null'
-          description: Instance type (e.g. 'm5.xlarge'), null for Savings Plans
-        instance_family:
-          type:
-          - string
-          - 'null'
-          description: Instance family (e.g. 'm5'), null for some commitment types
-        offering_class:
-          description: Offering class (e.g. 'standard', 'convertible')
+          description: Line item ID.
+        current:
+          description: The line item's current offer + lease, in the same shape as OfferComparisonEntrySchema. Its delta_vs_current is all zeros.
+          $ref: '#/components/schemas/OfferComparisonEntry'
+        candidates:
+          type: array
+          description: Alternative (offer, lease) pairs for this line item, filtered to the requested contract_terms and payment_options. Each entry carries its own contract_term and payment_option (on offer); fields offer_id, lease_menu_item_id, and selected_amount can be copied verbatim into POST /commitment-plans/{plan_id}/line-items/update (in the `updates` list) to swap the line item to that candidate.
+          items:
+            $ref: '#/components/schemas/OfferComparisonEntry'
+      required:
+      - candidates
+      - current
+      - line_item_id
+      additionalProperties: false
+    HypotheticalTotal:
+      type: object
+      properties:
+        contract_term:
+          description: Target contract term for this hypothetical.
           type:
           - string
           - 'null'
           enum:
-          - standard
-          - convertible
+          - one_year_gris
+          - thirty_day_gris
+          - two_month_gris
+          - three_month_gris
+          - four_month_gris
+          - five_month_gris
+          - six_month_gris
+          - seven_month_gris
+          - eight_month_gris
+          - nine_month_gris
+          - ten_month_gris
+          - eleven_month_gris
+          - twelve_month_gris
+          - thirteen_month_gris
+          - fourteen_month_gris
+          - fifteen_month_gris
+          - sixteen_month_gris
+          - seventeen_month_gris
+          - eighteen_month_gris
+          - nineteen_month_gris
+          - twenty_month_gris
+          - twenty_one_month_gris
+          - twenty_two_month_gris
+          - twenty_three_month_gris
+          - twenty_four_month_gris
+          - twenty_five_month_gris
+          - twenty_six_month_gris
+          - twenty_seven_month_gris
+          - twenty_eight_month_gris
+          - twenty_nine_month_gris
+          - thirty_month_gris
+          - thirty_one_month_gris
+          - thirty_two_month_gris
+          - thirty_three_month_gris
+          - thirty_four_month_gris
+          - thirty_five_month_gris
+          - one_year
+          - two_year
+          - three_year
+          - five_year
+          - zero_day
+          - thirty_day
+          - two_month
+          - three_month
+          - four_month
+          - five_month
+          - six_month
+          - seven_month
+          - eight_month
+          - nine_month
+          - ten_month
+          - eleven_month
+          - thirteen_month
+          - fourteen_month
+          - fifteen_month
+          - sixteen_month
+          - seventeen_month
+          - eighteen_month
+          - nineteen_month
+          - twenty_month
+          - twenty_one_month
+          - twenty_two_month
+          - twenty_three_month
+          - twenty_five_month
+          - twenty_six_month
+          - twenty_seven_month
+          - twenty_eight_month
+          - twenty_nine_month
+          - thirty_month
+          - thirty_one_month
+          - thirty_two_month
+          - thirty_three_month
+          - thirty_four_month
+          - thirty_five_month
           - null
         payment_option:
-          description: Payment option (e.g. 'no_upfront', 'partial_upfront', 'all_upfront')
+          description: Target payment option for this hypothetical.
+          type: string
+          enum:
+          - no_upfront
+          - partial_upfront
+          - all_upfront
+        commitment_financials_monthly_rate:
+          description: Rolled-up monthly-rate financials assuming each line item adopts its candidate per the fallback rule. Same shape as on plans / line items.
+          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
+        commitment_upfront_cost:
+          type: number
+          description: Sum of one-time upfront dollars across the line items under this hypothetical. NOT a rate.
+        delta_vs_current:
+          description: Axis-by-axis difference vs current_totals. The headline 'should I do this' answer is delta_vs_current.monthly_net_savings.
+          $ref: '#/components/schemas/HypotheticalDelta'
+        line_items:
+          type: array
+          description: Per-line-item resolution for this hypothetical. Use to call out fallbacks ('14 of 20 line items would land at 3-year; 5 would fall back to 1-year GRI; 1 has no shorter alternative and stays at current').
+          items:
+            $ref: '#/components/schemas/HypotheticalLineItem'
+      required:
+      - commitment_financials_monthly_rate
+      - commitment_upfront_cost
+      - contract_term
+      - delta_vs_current
+      - line_items
+      - payment_option
+      additionalProperties: false
+    CommitmentFinancialsNoRebate:
+      type: object
+      properties:
+        commitment_cost:
+          $ref: '#/components/schemas/CommitmentCost'
+        commitment_savings:
+          $ref: '#/components/schemas/CommitmentSavings_Exclude_Rebate'
+        covered_ondemand_cost:
+          type: number
+          description: On-demand cost of usage covered by commitments — baseline for savings. NOT a cost paid by the user. Equals commitment_cost.breakdown.cloud_provider_cost.total + commitment_savings.gross.
+      additionalProperties: false
+    OfferComparisonEntry:
+      type: object
+      properties:
+        is_current:
+          type: boolean
+          description: True if this entry matches the line item's current offer + lease. Exactly one entry per response has this set; its `delta_vs_current` values are all zero.
+        offer_id:
+          type: string
+          format: uuid
+          description: Pass to PUT as `offer_id` to switch the line item to this offer.
+        offer:
+          description: Full offer details (type, region, instance, payment_option, etc).
+          $ref: '#/components/schemas/CommitmentOffer'
+        lease_menu_item_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Lease attached to this candidate, or null for none. Pass to PUT as `lease_menu_item_id`.
+        selected_amount:
+          type: number
+          description: Commitment amount this candidate would be sized to — unit count for RIs / unit-based CUDs, dollar-per-hour rate for Savings Plans / spend-based CUDs. Pass to PUT as `selected_amount`; the server routes it to the right underlying column based on offer type.
+        contract_term:
+          description: Effective commitment term — derived from the lease lockin hours when `lease_menu_item_id` is set (e.g. '1_year_gris'), else from the offer's own duration (e.g. 'one_year', 'three_year'). This is the real lock-in period, not the offer's raw duration — a Compute Savings Plan offer with a 3-year duration paired with a 1-year lease yields `one_year_gris`, not `three_year`. Prefer this field over `offer.duration_seconds` when describing term length.
+          type:
+          - string
+          - 'null'
+          enum:
+          - one_year_gris
+          - thirty_day_gris
+          - two_month_gris
+          - three_month_gris
+          - four_month_gris
+          - five_month_gris
+          - six_month_gris
+          - seven_month_gris
+          - eight_month_gris
+          - nine_month_gris
+          - ten_month_gris
+          - eleven_month_gris
+          - twelve_month_gris
+          - thirteen_month_gris
+          - fourteen_month_gris
+          - fifteen_month_gris
+          - sixteen_month_gris
+          - seventeen_month_gris
+          - eighteen_month_gris
+          - nineteen_month_gris
+          - twenty_month_gris
+          - twenty_one_month_gris
+          - twenty_two_month_gris
+          - twenty_three_month_gris
+          - twenty_four_month_gris
+          - twenty_five_month_gris
+          - twenty_six_month_gris
+          - twenty_seven_month_gris
+          - twenty_eight_month_gris
+          - twenty_nine_month_gris
+          - thirty_month_gris
+          - thirty_one_month_gris
+          - thirty_two_month_gris
+          - thirty_three_month_gris
+          - thirty_four_month_gris
+          - thirty_five_month_gris
+          - one_year
+          - two_year
+          - three_year
+          - five_year
+          - zero_day
+          - thirty_day
+          - two_month
+          - three_month
+          - four_month
+          - five_month
+          - six_month
+          - seven_month
+          - eight_month
+          - nine_month
+          - ten_month
+          - eleven_month
+          - thirteen_month
+          - fourteen_month
+          - fifteen_month
+          - sixteen_month
+          - seventeen_month
+          - eighteen_month
+          - nineteen_month
+          - twenty_month
+          - twenty_one_month
+          - twenty_two_month
+          - twenty_three_month
+          - twenty_five_month
+          - twenty_six_month
+          - twenty_seven_month
+          - twenty_eight_month
+          - twenty_nine_month
+          - thirty_month
+          - thirty_one_month
+          - thirty_two_month
+          - thirty_three_month
+          - thirty_four_month
+          - thirty_five_month
+          - null
+        discount_rate:
+          type: number
+          description: Discount rate vs on-demand (0-1) for this candidate.
+        breakeven_days:
+          type:
+          - number
+          - 'null'
+          description: Days until this candidate pays for itself. Null if breakeven is undefined (no net savings + no amortized cost).
+        commitment_upfront_cost:
+          type: number
+          description: One-time dollars required at signing for this candidate. NOT a rate — do not sum with monthly-rate fields.
+        commitment_financials_monthly_rate:
+          description: Projected economics as 730-hour monthly rates, same shape as on line items and plans.
+          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
+        delta_vs_current:
+          description: Axis-by-axis difference vs the current offer. All zeros on the `is_current=true` entry.
+          $ref: '#/components/schemas/OfferComparisonDelta'
+      required:
+      - breakeven_days
+      - commitment_financials_monthly_rate
+      - commitment_upfront_cost
+      - contract_term
+      - delta_vs_current
+      - discount_rate
+      - is_current
+      - lease_menu_item_id
+      - offer
+      - offer_id
+      - selected_amount
+      additionalProperties: false
+    HypotheticalDelta:
+      type: object
+      properties:
+        monthly_net_savings:
+          type: number
+          description: Hypothetical's monthly net savings minus current_totals'. Positive means switching saves more than the plan does today.
+        monthly_commitment_cost:
+          type: number
+          description: Hypothetical's monthly commitment cost minus current_totals'. Positive means more dollars committed monthly.
+        upfront_cost:
+          type: number
+          description: Hypothetical's one-time upfront cost minus current_totals'. NOT a rate.
+      required:
+      - monthly_commitment_cost
+      - monthly_net_savings
+      - upfront_cost
+      additionalProperties: false
+    CommitmentSavings_Exclude_Rebate:
+      type: object
+      properties:
+        net:
+          type: number
+          description: Net savings after Archera premium, including any rebate. Actual bill reduction. Headline 'savings'.
+        gross:
+          type: number
+          description: Savings before Archera premium. Equals covered_ondemand_cost - commitment_cost.breakdown.cloud_provider_cost.total.
+      additionalProperties: false
+    HypotheticalLineItem:
+      type: object
+      properties:
+        line_item_id:
+          type: string
+          format: uuid
+          description: Line item ID.
+        actual_term:
+          description: The contract term this line item actually contributes to the rollup at. Equals the target term when an exact match exists; otherwise the longest available term <= target with the same payment option, or the line item's current term as a last resort.
+          type:
+          - string
+          - 'null'
+          enum:
+          - one_year_gris
+          - thirty_day_gris
+          - two_month_gris
+          - three_month_gris
+          - four_month_gris
+          - five_month_gris
+          - six_month_gris
+          - seven_month_gris
+          - eight_month_gris
+          - nine_month_gris
+          - ten_month_gris
+          - eleven_month_gris
+          - twelve_month_gris
+          - thirteen_month_gris
+          - fourteen_month_gris
+          - fifteen_month_gris
+          - sixteen_month_gris
+          - seventeen_month_gris
+          - eighteen_month_gris
+          - nineteen_month_gris
+          - twenty_month_gris
+          - twenty_one_month_gris
+          - twenty_two_month_gris
+          - twenty_three_month_gris
+          - twenty_four_month_gris
+          - twenty_five_month_gris
+          - twenty_six_month_gris
+          - twenty_seven_month_gris
+          - twenty_eight_month_gris
+          - twenty_nine_month_gris
+          - thirty_month_gris
+          - thirty_one_month_gris
+          - thirty_two_month_gris
+          - thirty_three_month_gris
+          - thirty_four_month_gris
+          - thirty_five_month_gris
+          - one_year
+          - two_year
+          - three_year
+          - five_year
+          - zero_day
+          - thirty_day
+          - two_month
+          - three_month
+          - four_month
+          - five_month
+          - six_month
+          - seven_month
+          - eight_month
+          - nine_month
+          - ten_month
+          - eleven_month
+          - thirteen_month
+          - fourteen_month
+          - fifteen_month
+          - sixteen_month
+          - seventeen_month
+          - eighteen_month
+          - nineteen_month
+          - twenty_month
+          - twenty_one_month
+          - twenty_two_month
+          - twenty_three_month
+          - twenty_five_month
+          - twenty_six_month
+          - twenty_seven_month
+          - twenty_eight_month
+          - twenty_nine_month
+          - thirty_month
+          - thirty_one_month
+          - thirty_two_month
+          - thirty_three_month
+          - thirty_four_month
+          - thirty_five_month
+          - null
+        actual_payment_option:
+          description: Payment option of the candidate this line item contributes. Equals the target payment option except when actual_term_reason='no_alternative' (falls back to current, which may have a different payment option).
           type:
           - string
           - 'null'
@@ -2123,31 +2143,18 @@ components:
           - partial_upfront
           - all_upfront
           - null
-        plan_type:
-          type:
-          - string
-          - 'null'
-          description: Plan type (e.g. 'Compute', 'EC2Instance')
-        product_description:
-          type:
-          - string
-          - 'null'
-          description: Product description (e.g. 'Linux/UNIX')
-        display_name:
-          type:
-          - string
-          - 'null'
-          description: Human-readable offer name
-        guaranteed_display_name:
-          type:
-          - string
-          - 'null'
-          description: Offer name when purchased as an Archera Guaranteed Commitment
-        is_flexible:
-          type:
-          - boolean
-          - 'null'
-          description: Whether the commitment has instance size flexibility
+        actual_term_reason:
+          type: string
+          enum:
+          - exact_match
+          - fallback_closest_shorter
+          - no_alternative
+          description: Why this line item landed at actual_term. exact_match = target available; fallback_closest_shorter = used the longest available term <= target with same payment option; no_alternative = nothing qualified, kept at current.
+      required:
+      - actual_payment_option
+      - actual_term
+      - actual_term_reason
+      - line_item_id
       additionalProperties: false
     ResourceSKU:
       type: object
@@ -2352,67 +2359,21 @@ components:
       - usage_end
       - usage_start
       additionalProperties: false
-    CommitmentFinancialsNoRebate:
-      type: object
-      properties:
-        commitment_cost:
-          $ref: '#/components/schemas/CommitmentCost'
-        commitment_savings:
-          $ref: '#/components/schemas/CommitmentSavings_Exclude_Rebate'
-        covered_ondemand_cost:
-          type: number
-          description: On-demand cost of usage covered by commitments — baseline for savings. NOT a cost paid by the user. Equals commitment_cost.breakdown.cloud_provider_cost.total + commitment_savings.gross.
-      additionalProperties: false
-    CloudProviderCostBreakdown:
-      type: object
-      properties:
-        recurring:
-          type: number
-          description: Recurring monthly payment to the cloud provider.
-        amortized_upfront:
-          type: number
-          description: Monthly share of the upfront payment, amortized over the term.
-      additionalProperties: false
-    PaginationMetadata:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of items.
-        total_pages:
-          type: integer
-          description: Total number of pages.
-        first_page:
-          type: integer
-          description: First available page number.
-        last_page:
-          type: integer
-          description: Last available page number.
-        page:
-          type: integer
-          description: Current page number.
-        previous_page:
-          type: integer
-          description: Previous page number.
-        next_page:
-          type: integer
-          description: Next page number.
-      additionalProperties: false
+  headers:
+    PAGINATION:
+      description: Pagination metadata
+      schema:
+        $ref: '#/components/schemas/PaginationMetadata'
   responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     UNPROCESSABLE_CONTENT:
       description: Unprocessable Content
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  headers:
-    PAGINATION:
-      description: Pagination metadata
-      schema:
-        $ref: '#/components/schemas/PaginationMetadata'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

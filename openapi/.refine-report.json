@@ -1,15 +1,7 @@
 {
   "provider": "archera",
   "sources": [
-    "archera-commitment-plans-api-openapi.yml",
-    "archera-commitments-api-openapi.yml",
-    "archera-exchanges-api-openapi.yml",
-    "archera-metrics-api-openapi.yml",
-    "archera-oauth-api-openapi.yml",
-    "archera-orgs-api-openapi.yml",
-    "archera-resources-api-openapi.yml",
-    "archera-uploads-api-openapi.yml",
-    "archera-well-known-api-openapi.yml"
+    "_original/archera-openapi-original.json"
   ],
   "outputs": [
     "archera-commitment-plans-api-openapi.yml",
@@ -22,9 +14,26 @@
     "archera-uploads-api-openapi.yml",
     "archera-well-known-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "archera-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: archera-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 10 total)"
+  ],
+  "skipped": [
+    "archera-commitment-plans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-commitments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-exchanges-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-orgs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-resources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-uploads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-well-known-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

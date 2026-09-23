@@ -1,60 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '### Welcome to the Archera.ai API documentation.
-
-    Archera.ai empowers organizations to optimize cloud costs and automate cloud financial operations. Our API enables seamless integration with your internal tools, workflows, and reporting systems. With this API, you can programmatically access commitment plans, metrics, and more, unlocking the full potential of your cloud data.
-
-
-    Whether you''re building custom dashboards, automating cost management, or integrating with third-party platforms, the Archera.ai API provides secure and reliable endpoints to help you achieve your goals.
-
-
-    If you have questions or need support, please contact our team at support@archera.ai.
-
-
-    ## API Key Access
-
-
-    To use this API, you need an API key.
-
-
-    ### How to Create an API Key
-
-    1. Log in to the Archera.ai web application.
-
-    2. Navigate to **User Settings > API Access**.
-
-    <a href="https://app.archera.ai/settings?tab=api&section=user" target="_blank" rel="noopener noreferrer">Open Settings</a>
-
-    3. Click **Create New API Key**.
-
-    4. Copy and securely store your new API key.
-
-
-    ### How to Use Your API Key
-
-    Use the `x-api-key` header:
-
-
-    ```bash
-
-    curl -H ''x-api-key: YOUR_API_KEY'' https://api.archera.ai/v1/org/{org_id}/metrics?provider=aws
-
-    ```
-
-
-    Keep your API key secure. If you believe your key has been compromised, deactivate it in the web application and generate a new one.
-
-    ### How to find your Organization ID
-
-    1. Log in to the Archera.ai web application.
-
-    2. Navigate to **User Settings > Organization**.
-
-    3. Your Organization ID is displayed at the top of the page. You can also find it in the URL when visiting the Archera app `&orgId=<org_id>`
-
-
-    '
-  title: Archera.ai Commitment Plans Metrics API
+  description: '### Welcome to the Archera.ai API documentation.'
+  title: Archera.ai Metrics API
   version: v1.0.0
 tags:
 - name: Metrics
@@ -138,7 +85,22 @@ paths:
       - Metrics
       summary: /metrics
       description: Retrieves key performance metrics for cloud commitments (RIs/SPs) for the specified provider. Returns financial data including lifetime and month-to-date savings, automation status, potential missed savings opportunities, commitment coverage, and utilization rates. This endpoint provides a comprehensive overview of commitment performance and automation status.
+      operationId: getV1OrgByOrgIdMetrics
+      x-operation-id-source: derived
 components:
+  responses:
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     ApiErrorResponse:
       type: object
@@ -241,16 +203,3 @@ components:
           description: Errors
           additionalProperties: {}
       additionalProperties: false
-  responses:
-    UNPROCESSABLE_CONTENT:
-      description: Unprocessable Content
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
