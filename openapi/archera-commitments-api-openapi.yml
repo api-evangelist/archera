@@ -436,6 +436,29 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    LeaseMenuItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        fee_type:
+          type: string
+        fee_rate:
+          type: number
+        is_rebate:
+          type: boolean
+        lockin_months:
+          type: integer
+        term_months:
+          type: integer
+      required:
+      - fee_rate
+      - fee_type
+      - is_rebate
+      - lockin_months
+      - term_months
+      additionalProperties: false
     PaginationMetadata:
       type: object
       properties:
@@ -729,28 +752,14 @@ components:
       - upfront_cost
       - utilization
       additionalProperties: false
-    ApiErrorResponse:
+    PubChartResponse:
       type: object
       properties:
-        message:
-          type: string
-        detail: {}
-        code:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        timestamp:
-          type: string
-        type:
-          type: string
-      required:
-      - message
-      - timestamp
-      - type
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPoint'
+      additionalProperties: false
     DataPoint:
       type: object
       properties:
@@ -783,6 +792,55 @@ components:
       - unlocked_commit
       - unutilized_commit
       - utilization
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+    IdsResponse:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+      required:
+      - ids
       additionalProperties: false
     DailyUtilization:
       type: object
@@ -823,64 +881,6 @@ components:
       - running_hours
       - savings
       - unutilized_commit
-      additionalProperties: false
-    PubChartResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataPoint'
-      additionalProperties: false
-    LeaseMenuItem:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        fee_type:
-          type: string
-        fee_rate:
-          type: number
-        is_rebate:
-          type: boolean
-        lockin_months:
-          type: integer
-        term_months:
-          type: integer
-      required:
-      - fee_rate
-      - fee_type
-      - is_rebate
-      - lockin_months
-      - term_months
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
-    IdsResponse:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-      required:
-      - ids
       additionalProperties: false
   responses:
     UNPROCESSABLE_CONTENT:

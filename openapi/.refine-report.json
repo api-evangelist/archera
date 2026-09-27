@@ -14,23 +14,20 @@
     "archera-uploads-api-openapi.yml",
     "archera-well-known-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "archera-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "superseded outputs removed: archera-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 10 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "archera-commitment-plans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "archera-commitments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "archera-exchanges-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "archera-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "archera-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "archera-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "archera-orgs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "archera-resources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "archera-uploads-api-openapi.yml: previously refined output, superseded by openapi/_original/",

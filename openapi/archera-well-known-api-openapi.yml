@@ -123,6 +123,46 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    JWK:
+      type: object
+      properties:
+        kty:
+          type: string
+          description: Key type (e.g., 'RSA')
+        use:
+          type: string
+          description: Public key use (e.g., 'sig' for signature)
+        kid:
+          type: string
+          description: Key ID for identifying the key
+        alg:
+          type: string
+          description: Algorithm (e.g., 'RS256')
+        n:
+          type: string
+          description: RSA modulus (base64url encoded)
+        e:
+          type: string
+          description: RSA public exponent (base64url encoded)
+      required:
+      - alg
+      - e
+      - kid
+      - kty
+      - n
+      - use
+      additionalProperties: false
+    JWKS:
+      type: object
+      properties:
+        keys:
+          type: array
+          description: Array of JSON Web Keys
+          items:
+            $ref: '#/components/schemas/JWK'
+      required:
+      - keys
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -145,16 +185,22 @@ components:
       - message
       - timestamp
       - type
-    JWKS:
+    Error:
       type: object
       properties:
-        keys:
-          type: array
-          description: Array of JSON Web Keys
-          items:
-            $ref: '#/components/schemas/JWK'
-      required:
-      - keys
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
       additionalProperties: false
     OAuthMetadata:
       type: object
@@ -217,52 +263,6 @@ components:
       - scopes_supported
       - token_endpoint
       - token_endpoint_auth_methods_supported
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
-    JWK:
-      type: object
-      properties:
-        kty:
-          type: string
-          description: Key type (e.g., 'RSA')
-        use:
-          type: string
-          description: Public key use (e.g., 'sig' for signature)
-        kid:
-          type: string
-          description: Key ID for identifying the key
-        alg:
-          type: string
-          description: Algorithm (e.g., 'RS256')
-        n:
-          type: string
-          description: RSA modulus (base64url encoded)
-        e:
-          type: string
-          description: RSA public exponent (base64url encoded)
-      required:
-      - alg
-      - e
-      - kid
-      - kty
-      - n
-      - use
       additionalProperties: false
   responses:
     DEFAULT_ERROR:
