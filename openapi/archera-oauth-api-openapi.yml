@@ -531,38 +531,30 @@ paths:
       operationId: postOauthRegister
       x-operation-id-source: derived
 components:
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    OAuthSessionResponse:
+    Error:
       type: object
       properties:
-        token_id:
-          type: string
-          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\Z'
-        client_name:
-          type: string
-        client_id:
-          type: string
-        created_at:
+        code:
           type: integer
-        scope:
+          description: Error code
+        status:
           type: string
-      required:
-      - client_id
-      - client_name
-      - created_at
-      - scope
-      - token_id
-      additionalProperties: false
-    RevokeAllSessionsResponse:
-      type: object
-      properties:
+          description: Error name
         message:
           type: string
-        count:
-          type: integer
-      required:
-      - count
-      - message
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
       additionalProperties: false
     ApiErrorResponse:
       type: object
@@ -586,27 +578,35 @@ components:
       - message
       - timestamp
       - type
-    Error:
+    RevokeAllSessionsResponse:
       type: object
       properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
         message:
           type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
+        count:
+          type: integer
+      required:
+      - count
+      - message
       additionalProperties: false
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    OAuthSessionResponse:
+      type: object
+      properties:
+        token_id:
+          type: string
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\Z'
+        client_name:
+          type: string
+        client_id:
+          type: string
+        created_at:
+          type: integer
+        scope:
+          type: string
+      required:
+      - client_id
+      - client_name
+      - created_at
+      - scope
+      - token_id
+      additionalProperties: false

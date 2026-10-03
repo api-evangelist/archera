@@ -181,34 +181,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ApplyExchangeRecommendationsArgs:
-      type: object
-      properties:
-        provider:
-          description: Cloud provider (aws, azure, gcp)
-          example: aws
-          type: string
-          enum:
-          - aws
-          - azure
-          - gcp
-        purchases:
-          type: array
-          minItems: 1
-          description: Explicit purchase-side line items for one exchange recommendation.
-          items:
-            $ref: '#/components/schemas/ApplyExchangePurchase'
-        returns:
-          type: array
-          minItems: 1
-          description: Explicit return-side line items for one exchange recommendation.
-          items:
-            $ref: '#/components/schemas/ApplyExchangeReturn'
-      required:
-      - provider
-      - purchases
-      - returns
-      additionalProperties: false
     ApplyExchangeRecommendationsResponse:
       type: object
       properties:
@@ -222,24 +194,98 @@ components:
       - recommendation_count
       - status
       additionalProperties: false
-    CloudProviderCost:
+    ExchangeRecommendationDelta:
       type: object
       properties:
-        total:
+        monthly_net_savings:
           type: number
-          description: Amortized cost paid to the cloud provider. Sums with archera_premium to reach cost.total.
-        breakdown:
-          description: Optional. Additive payment-cadence decomposition of total (recurring + amortized_upfront). Present only when purchase-term structure is known (individual commitment or plan).
-          $ref: '#/components/schemas/CloudProviderCostBreakdown'
+          description: Purchase monthly net savings minus returned commitments' monthly net savings. Positive means the exchange purchase saves more per 730-hour month.
+        monthly_commitment_cost:
+          type: number
+          description: Purchase monthly commitment cost minus returned commitments' monthly commitment cost. Positive means more monthly commitment spend.
+        purchase_upfront_cost:
+          type: number
+          description: Purchase-side one-time upfront cost only. Not netted against returned commitments because returned financials are monthly-rate utilization actuals and have no upfront component. NOT a rate.
+      required:
+      - monthly_commitment_cost
+      - monthly_net_savings
+      - purchase_upfront_cost
       additionalProperties: false
-    CommitmentCost:
+    ExchangeReturnedCommitmentDailyUtilization:
       type: object
       properties:
-        total:
+        date:
+          type: string
+          format: date
+          description: DailyUtilization date.
+        utilization:
           type: number
-          description: Total paid (cloud_provider_cost.total + archera_premium). Headline 'cost'.
-        breakdown:
-          $ref: '#/components/schemas/CommitmentCostBreakdown'
+          description: Whole-commitment utilization of the returned commitments for this date (0-1), dollar weighted by each return's commitment cost.
+      required:
+      - date
+      - utilization
+      additionalProperties: false
+    ExchangeRecommendationsResponse:
+      type: object
+      properties:
+        current_utilization_lookback_days:
+          type: integer
+          description: Number of trailing days of DailyUtilization used for returned-commitment utilization and financials.
+        data:
+          type: array
+          description: Azure exchange recommendations.
+          items:
+            $ref: '#/components/schemas/ExchangeRecommendation'
+      required:
+      - current_utilization_lookback_days
+      - data
+      additionalProperties: false
+    ExchangeReturn:
+      type: object
+      properties:
+        commitment:
+          description: Azure commitment proposed to return in the exchange.
+          $ref: '#/components/schemas/Commitment'
+        quantity:
+          type: integer
+          description: Quantity of this commitment proposed for return.
+        remaining_lifetime_commitment:
+          type: number
+          description: Remaining Azure commitment value returned for this commitment quantity. This is lifetime exchange value, not a monthly rate.
+        utilization:
+          type: number
+          description: Whole-commitment utilization of the returned commitment over the DailyUtilization period (0-1).
+        underutilized_commitment_cost:
+          type: number
+          description: Estimated underutilized commitment cost over the DailyUtilization period. This is a period total, not a monthly rate.
+        utilization_days:
+          type: integer
+          description: Number of DailyUtilization days behind the utilization fields.
+        reservation_resource_id:
+          type: string
+          description: Azure reservation resource ID required by Azure exchange APIs.
+        commitment_financials_monthly_rate:
+          description: Returned commitment economics as a 730-hour monthly rate for the selected integer return quantity. Cost comes from DailyUtilization commitment cost for the response period, scaled to the returned quantity. Savings are computed after assigning as much utilization as possible to the quantity that remains committed, so returned fully-utilized quantities can have positive savings and underutilized quantities have negative savings. Archera premium and rebate are excluded from exchange recommendations and are not included in net savings.
+          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
+      required:
+      - commitment
+      - commitment_financials_monthly_rate
+      - quantity
+      - remaining_lifetime_commitment
+      - reservation_resource_id
+      - underutilized_commitment_cost
+      - utilization
+      - utilization_days
+      additionalProperties: false
+    CommitmentSavings_Exclude_Rebate:
+      type: object
+      properties:
+        net:
+          type: number
+          description: Net savings after Archera premium, including any rebate. Actual bill reduction. Headline 'savings'.
+        gross:
+          type: number
+          description: Savings before Archera premium. Equals covered_ondemand_cost - commitment_cost.breakdown.cloud_provider_cost.total.
       additionalProperties: false
     Commitment:
       type: object
@@ -464,78 +510,117 @@ components:
       - id
       - provider
       additionalProperties: false
-    ExchangeReturn:
+    ApplyExchangeReturn:
       type: object
       properties:
-        commitment:
-          description: Azure commitment proposed to return in the exchange.
-          $ref: '#/components/schemas/Commitment'
-        quantity:
-          type: integer
-          description: Quantity of this commitment proposed for return.
-        remaining_lifetime_commitment:
-          type: number
-          description: Remaining Azure commitment value returned for this commitment quantity. This is lifetime exchange value, not a monthly rate.
-        utilization:
-          type: number
-          description: Whole-commitment utilization of the returned commitment over the DailyUtilization period (0-1).
-        underutilized_commitment_cost:
-          type: number
-          description: Estimated underutilized commitment cost over the DailyUtilization period. This is a period total, not a monthly rate.
-        utilization_days:
-          type: integer
-          description: Number of DailyUtilization days behind the utilization fields.
-        reservation_resource_id:
-          type: string
-          description: Azure reservation resource ID required by Azure exchange APIs.
-        commitment_financials_monthly_rate:
-          description: Returned commitment economics as a 730-hour monthly rate for the selected integer return quantity. Cost comes from DailyUtilization commitment cost for the response period, scaled to the returned quantity. Savings are computed after assigning as much utilization as possible to the quantity that remains committed, so returned fully-utilized quantities can have positive savings and underutilized quantities have negative savings. Archera premium and rebate are excluded from exchange recommendations and are not included in net savings.
-          $ref: '#/components/schemas/CommitmentFinancialsNoRebate'
-      required:
-      - commitment
-      - commitment_financials_monthly_rate
-      - quantity
-      - remaining_lifetime_commitment
-      - reservation_resource_id
-      - underutilized_commitment_cost
-      - utilization
-      - utilization_days
-      additionalProperties: false
-    ApplyExchangePurchase:
-      type: object
-      properties:
-        offer_id:
+        commitment_id:
           type: string
           format: uuid
-          description: Azure reservation offer ID to purchase.
+          description: Existing Azure commitment ID to return.
         quantity:
           type: integer
           minimum: 1
-          description: Quantity of this offer to purchase.
+          description: Quantity of this commitment to return.
       required:
-      - offer_id
+      - commitment_id
       - quantity
       additionalProperties: false
-    CommitmentSavings_Exclude_Rebate:
+    CommitmentOffer:
       type: object
       properties:
-        net:
-          type: number
-          description: Net savings after Archera premium, including any rebate. Actual bill reduction. Headline 'savings'.
-        gross:
-          type: number
-          description: Savings before Archera premium. Equals covered_ondemand_cost - commitment_cost.breakdown.cloud_provider_cost.total.
+        id:
+          type: string
+          format: uuid
+          description: Offer identifier
+        provider:
+          description: Cloud provider (aws, azure, gcp)
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        type:
+          type: string
+          description: Commitment type (e.g. 'ri', 'savings_plan', 'cud')
+        region:
+          type:
+          - string
+          - 'null'
+          description: Cloud region (e.g. 'us-east-1')
+        duration_seconds:
+          type: integer
+          description: Total commitment duration in seconds
+        instance_type:
+          type:
+          - string
+          - 'null'
+          description: Instance type (e.g. 'm5.xlarge'), null for Savings Plans
+        instance_family:
+          type:
+          - string
+          - 'null'
+          description: Instance family (e.g. 'm5'), null for some commitment types
+        offering_class:
+          description: Offering class (e.g. 'standard', 'convertible')
+          type:
+          - string
+          - 'null'
+          enum:
+          - standard
+          - convertible
+          - null
+        payment_option:
+          description: Payment option (e.g. 'no_upfront', 'partial_upfront', 'all_upfront')
+          type:
+          - string
+          - 'null'
+          enum:
+          - no_upfront
+          - partial_upfront
+          - all_upfront
+          - null
+        plan_type:
+          type:
+          - string
+          - 'null'
+          description: Plan type (e.g. 'Compute', 'EC2Instance')
+        product_description:
+          type:
+          - string
+          - 'null'
+          description: Product description (e.g. 'Linux/UNIX')
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable offer name
+        guaranteed_display_name:
+          type:
+          - string
+          - 'null'
+          description: Offer name when purchased as an Archera Guaranteed Commitment
+        is_flexible:
+          type:
+          - boolean
+          - 'null'
+          description: Whether the commitment has instance size flexibility
       additionalProperties: false
-    CommitmentFinancialsNoRebate:
+    Error:
       type: object
       properties:
-        commitment_cost:
-          $ref: '#/components/schemas/CommitmentCost'
-        commitment_savings:
-          $ref: '#/components/schemas/CommitmentSavings_Exclude_Rebate'
-        covered_ondemand_cost:
-          type: number
-          description: On-demand cost of usage covered by commitments — baseline for savings. NOT a cost paid by the user. Equals commitment_cost.breakdown.cloud_provider_cost.total + commitment_savings.gross.
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
       additionalProperties: false
     ApiErrorResponse:
       type: object
@@ -559,22 +644,77 @@ components:
       - message
       - timestamp
       - type
-    Error:
+    CloudProviderCost:
       type: object
       properties:
-        code:
+        total:
+          type: number
+          description: Amortized cost paid to the cloud provider. Sums with archera_premium to reach cost.total.
+        breakdown:
+          description: Optional. Additive payment-cadence decomposition of total (recurring + amortized_upfront). Present only when purchase-term structure is known (individual commitment or plan).
+          $ref: '#/components/schemas/CloudProviderCostBreakdown'
+      additionalProperties: false
+    CloudProviderCostBreakdown:
+      type: object
+      properties:
+        recurring:
+          type: number
+          description: Recurring monthly payment to the cloud provider.
+        amortized_upfront:
+          type: number
+          description: Monthly share of the upfront payment, amortized over the term.
+      additionalProperties: false
+    ApplyExchangeRecommendationsArgs:
+      type: object
+      properties:
+        provider:
+          description: Cloud provider (aws, azure, gcp)
+          example: aws
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+        purchases:
+          type: array
+          minItems: 1
+          description: Explicit purchase-side line items for one exchange recommendation.
+          items:
+            $ref: '#/components/schemas/ApplyExchangePurchase'
+        returns:
+          type: array
+          minItems: 1
+          description: Explicit return-side line items for one exchange recommendation.
+          items:
+            $ref: '#/components/schemas/ApplyExchangeReturn'
+      required:
+      - provider
+      - purchases
+      - returns
+      additionalProperties: false
+    ApplyExchangePurchase:
+      type: object
+      properties:
+        offer_id:
+          type: string
+          format: uuid
+          description: Azure reservation offer ID to purchase.
+        quantity:
           type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
+          minimum: 1
+          description: Quantity of this offer to purchase.
+      required:
+      - offer_id
+      - quantity
+      additionalProperties: false
+    CommitmentCostBreakdown:
+      type: object
+      properties:
+        cloud_provider_cost:
+          $ref: '#/components/schemas/CloudProviderCost'
+        archera_premium:
+          type: number
+          description: Archera premium — paid to Archera, equal to a portion of the savings Archera generates for this commitment (fee_rate * gross savings, only charged when gross > 0). Already included in commitment_cost.total (don't add on top). Because premium is only a fraction of gross, whenever archera_premium > 0 the commitment is net-positive after the fee. Native (non-Archera) commitments have premium = 0 and offer no such guarantee; an underutilized guaranteed commitment pre-lockin can also show net < 0 (the rebate that covers this kicks in post-lockin).
       additionalProperties: false
     ExchangePurchase:
       type: object
@@ -689,34 +829,14 @@ components:
       - offer
       - quantity
       additionalProperties: false
-    ExchangeReturnedCommitmentDailyUtilization:
+    CommitmentCost:
       type: object
       properties:
-        date:
-          type: string
-          format: date
-          description: DailyUtilization date.
-        utilization:
+        total:
           type: number
-          description: Whole-commitment utilization of the returned commitments for this date (0-1), dollar weighted by each return's commitment cost.
-      required:
-      - date
-      - utilization
-      additionalProperties: false
-    ApplyExchangeReturn:
-      type: object
-      properties:
-        commitment_id:
-          type: string
-          format: uuid
-          description: Existing Azure commitment ID to return.
-        quantity:
-          type: integer
-          minimum: 1
-          description: Quantity of this commitment to return.
-      required:
-      - commitment_id
-      - quantity
+          description: Total paid (cloud_provider_cost.total + archera_premium). Headline 'cost'.
+        breakdown:
+          $ref: '#/components/schemas/CommitmentCostBreakdown'
       additionalProperties: false
     ExchangeRecommendation:
       type: object
@@ -766,136 +886,16 @@ components:
       - returned_lifetime_commitment
       - returns
       additionalProperties: false
-    ExchangeRecommendationsResponse:
+    CommitmentFinancialsNoRebate:
       type: object
       properties:
-        current_utilization_lookback_days:
-          type: integer
-          description: Number of trailing days of DailyUtilization used for returned-commitment utilization and financials.
-        data:
-          type: array
-          description: Azure exchange recommendations.
-          items:
-            $ref: '#/components/schemas/ExchangeRecommendation'
-      required:
-      - current_utilization_lookback_days
-      - data
-      additionalProperties: false
-    CloudProviderCostBreakdown:
-      type: object
-      properties:
-        recurring:
+        commitment_cost:
+          $ref: '#/components/schemas/CommitmentCost'
+        commitment_savings:
+          $ref: '#/components/schemas/CommitmentSavings_Exclude_Rebate'
+        covered_ondemand_cost:
           type: number
-          description: Recurring monthly payment to the cloud provider.
-        amortized_upfront:
-          type: number
-          description: Monthly share of the upfront payment, amortized over the term.
-      additionalProperties: false
-    ExchangeRecommendationDelta:
-      type: object
-      properties:
-        monthly_net_savings:
-          type: number
-          description: Purchase monthly net savings minus returned commitments' monthly net savings. Positive means the exchange purchase saves more per 730-hour month.
-        monthly_commitment_cost:
-          type: number
-          description: Purchase monthly commitment cost minus returned commitments' monthly commitment cost. Positive means more monthly commitment spend.
-        purchase_upfront_cost:
-          type: number
-          description: Purchase-side one-time upfront cost only. Not netted against returned commitments because returned financials are monthly-rate utilization actuals and have no upfront component. NOT a rate.
-      required:
-      - monthly_commitment_cost
-      - monthly_net_savings
-      - purchase_upfront_cost
-      additionalProperties: false
-    CommitmentOffer:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Offer identifier
-        provider:
-          description: Cloud provider (aws, azure, gcp)
-          type: string
-          enum:
-          - aws
-          - azure
-          - gcp
-        type:
-          type: string
-          description: Commitment type (e.g. 'ri', 'savings_plan', 'cud')
-        region:
-          type:
-          - string
-          - 'null'
-          description: Cloud region (e.g. 'us-east-1')
-        duration_seconds:
-          type: integer
-          description: Total commitment duration in seconds
-        instance_type:
-          type:
-          - string
-          - 'null'
-          description: Instance type (e.g. 'm5.xlarge'), null for Savings Plans
-        instance_family:
-          type:
-          - string
-          - 'null'
-          description: Instance family (e.g. 'm5'), null for some commitment types
-        offering_class:
-          description: Offering class (e.g. 'standard', 'convertible')
-          type:
-          - string
-          - 'null'
-          enum:
-          - standard
-          - convertible
-          - null
-        payment_option:
-          description: Payment option (e.g. 'no_upfront', 'partial_upfront', 'all_upfront')
-          type:
-          - string
-          - 'null'
-          enum:
-          - no_upfront
-          - partial_upfront
-          - all_upfront
-          - null
-        plan_type:
-          type:
-          - string
-          - 'null'
-          description: Plan type (e.g. 'Compute', 'EC2Instance')
-        product_description:
-          type:
-          - string
-          - 'null'
-          description: Product description (e.g. 'Linux/UNIX')
-        display_name:
-          type:
-          - string
-          - 'null'
-          description: Human-readable offer name
-        guaranteed_display_name:
-          type:
-          - string
-          - 'null'
-          description: Offer name when purchased as an Archera Guaranteed Commitment
-        is_flexible:
-          type:
-          - boolean
-          - 'null'
-          description: Whether the commitment has instance size flexibility
-      additionalProperties: false
-    CommitmentCostBreakdown:
-      type: object
-      properties:
-        cloud_provider_cost:
-          $ref: '#/components/schemas/CloudProviderCost'
-        archera_premium:
-          type: number
-          description: Archera premium — paid to Archera, equal to a portion of the savings Archera generates for this commitment (fee_rate * gross savings, only charged when gross > 0). Already included in commitment_cost.total (don't add on top). Because premium is only a fraction of gross, whenever archera_premium > 0 the commitment is net-positive after the fee. Native (non-Archera) commitments have premium = 0 and offer no such guarantee; an underutilized guaranteed commitment pre-lockin can also show net < 0 (the rebate that covers this kicks in post-lockin).
+          description: On-demand cost of usage covered by commitments — baseline for savings. NOT a cost paid by the user. Equals commitment_cost.breakdown.cloud_provider_cost.total + commitment_savings.gross.
       additionalProperties: false
   responses:
     DEFAULT_ERROR:
