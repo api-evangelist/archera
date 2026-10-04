@@ -80,37 +80,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Org:
-      type: object
-      properties:
-        org_id:
-          type: string
-          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\Z'
-          description: Unique organization identifier
-        name:
-          type: string
-          description: Organization name
-        role:
-          type: string
-          enum:
-          - user
-          - admin
-          - support
-          - cloud_rep
-          - restricted_user
-          description: User's role in the organization (e.g., admin, user, support, cloud_rep, restricted_user)
-        kind:
-          description: 'Type of membership: ''direct'' (direct member), ''partnership'' (via partner org), ''staff'' (Archera staff)'
-          enum:
-          - direct
-          - staff
-          - partnership
-      required:
-      - kind
-      - name
-      - org_id
-      - role
-      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -149,6 +118,37 @@ components:
           type: object
           description: Errors
           additionalProperties: {}
+      additionalProperties: false
+    Org:
+      type: object
+      properties:
+        org_id:
+          type: string
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\Z'
+          description: Unique organization identifier
+        name:
+          type: string
+          description: Organization name
+        role:
+          type: string
+          enum:
+          - user
+          - admin
+          - support
+          - cloud_rep
+          - restricted_user
+          description: User's role in the organization (e.g., admin, user, support, cloud_rep, restricted_user)
+        kind:
+          description: 'Type of membership: ''direct'' (direct member), ''partnership'' (via partner org), ''staff'' (Archera staff)'
+          enum:
+          - direct
+          - staff
+          - partnership
+      required:
+      - kind
+      - name
+      - org_id
+      - role
       additionalProperties: false
   responses:
     DEFAULT_ERROR:

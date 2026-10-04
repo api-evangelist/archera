@@ -88,19 +88,6 @@ paths:
       operationId: getV1OrgByOrgIdMetrics
       x-operation-id-source: derived
 components:
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UNPROCESSABLE_CONTENT:
-      description: Unprocessable Content
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -203,3 +190,16 @@ components:
       - message
       - timestamp
       - type
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

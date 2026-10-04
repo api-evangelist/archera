@@ -268,19 +268,6 @@ paths:
       operationId: getV1OrgByOrgIdResourcesByResourceIdDailyUsage
       x-operation-id-source: derived
 components:
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UNPROCESSABLE_CONTENT:
-      description: Unprocessable Content
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -298,6 +285,63 @@ components:
           type: object
           description: Errors
           additionalProperties: {}
+      additionalProperties: false
+    SKUUsageDaily:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        usage_account_id:
+          readOnly: true
+          deprecated: true
+          type: string
+        sub_account_id:
+          type: string
+        usage:
+          type: number
+        reservation_usage:
+          type: number
+        free_tier_usage:
+          type: number
+        ondemand_cost:
+          type: number
+        reserved_cost:
+          type: number
+        if_all_ondemand_cost:
+          type: number
+        spot_cost:
+          type: number
+        free_tier_savings:
+          type: number
+        usage_type:
+          type:
+          - string
+          - 'null'
+        common_usage_type:
+          type:
+          - string
+          - 'null'
+        covered_usage:
+          type: number
+        uptime:
+          type: number
+      required:
+      - common_usage_type
+      - covered_usage
+      - date
+      - free_tier_savings
+      - free_tier_usage
+      - if_all_ondemand_cost
+      - ondemand_cost
+      - reservation_usage
+      - reserved_cost
+      - spot_cost
+      - sub_account_id
+      - uptime
+      - usage
+      - usage_account_id
+      - usage_type
       additionalProperties: false
     ResourceSKU:
       type: object
@@ -524,63 +568,6 @@ components:
       - message
       - timestamp
       - type
-    SKUUsageDaily:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        usage_account_id:
-          readOnly: true
-          deprecated: true
-          type: string
-        sub_account_id:
-          type: string
-        usage:
-          type: number
-        reservation_usage:
-          type: number
-        free_tier_usage:
-          type: number
-        ondemand_cost:
-          type: number
-        reserved_cost:
-          type: number
-        if_all_ondemand_cost:
-          type: number
-        spot_cost:
-          type: number
-        free_tier_savings:
-          type: number
-        usage_type:
-          type:
-          - string
-          - 'null'
-        common_usage_type:
-          type:
-          - string
-          - 'null'
-        covered_usage:
-          type: number
-        uptime:
-          type: number
-      required:
-      - common_usage_type
-      - covered_usage
-      - date
-      - free_tier_savings
-      - free_tier_usage
-      - if_all_ondemand_cost
-      - ondemand_cost
-      - reservation_usage
-      - reserved_cost
-      - spot_cost
-      - sub_account_id
-      - uptime
-      - usage
-      - usage_account_id
-      - usage_type
-      additionalProperties: false
     PaginationMetadata:
       type: object
       properties:
@@ -611,3 +598,16 @@ components:
       description: Pagination metadata
       schema:
         $ref: '#/components/schemas/PaginationMetadata'
+  responses:
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

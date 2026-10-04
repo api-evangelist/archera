@@ -154,20 +154,24 @@ paths:
       operationId: getV1OrgByOrgIdUploadsByUploadId
       x-operation-id-source: derived
 components:
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UNPROCESSABLE_CONTENT:
-      description: Unprocessable Content
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
     PublicUpload:
       type: object
       properties:
@@ -237,22 +241,22 @@ components:
       - source
       - upload_status
       additionalProperties: false
-    Error:
+    CreatePublicUpload:
       type: object
       properties:
-        code:
-          type: integer
-          description: Error code
-        status:
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          description: Optional partner-supplied context for the uploaded billing file
+        file:
+          writeOnly: true
+          description: Billing PDF or CSV file to upload for savings analysis
           type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
+          format: binary
+      required:
+      - file
       additionalProperties: false
     ApiErrorResponse:
       type: object
@@ -276,20 +280,16 @@ components:
       - message
       - timestamp
       - type
-    CreatePublicUpload:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          description: Optional partner-supplied context for the uploaded billing file
-        file:
-          writeOnly: true
-          description: Billing PDF or CSV file to upload for savings analysis
-          type: string
-          format: binary
-      required:
-      - file
-      additionalProperties: false
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

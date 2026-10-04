@@ -531,13 +531,6 @@ paths:
       operationId: postOauthRegister
       x-operation-id-source: derived
 components:
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -556,28 +549,6 @@ components:
           description: Errors
           additionalProperties: {}
       additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        detail: {}
-        code:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        timestamp:
-          type: string
-        type:
-          type: string
-      required:
-      - message
-      - timestamp
-      - type
     RevokeAllSessionsResponse:
       type: object
       properties:
@@ -610,3 +581,32 @@ components:
       - scope
       - token_id
       additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

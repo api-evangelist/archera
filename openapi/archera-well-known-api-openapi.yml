@@ -122,13 +122,6 @@ paths:
       operationId: getWellKnownOauthAuthorizationServer
       x-operation-id-source: derived
 components:
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -157,6 +150,35 @@ components:
             $ref: '#/components/schemas/JWK'
       required:
       - keys
+      additionalProperties: false
+    JWK:
+      type: object
+      properties:
+        kty:
+          type: string
+          description: Key type (e.g., 'RSA')
+        use:
+          type: string
+          description: Public key use (e.g., 'sig' for signature)
+        kid:
+          type: string
+          description: Key ID for identifying the key
+        alg:
+          type: string
+          description: Algorithm (e.g., 'RS256')
+        n:
+          type: string
+          description: RSA modulus (base64url encoded)
+        e:
+          type: string
+          description: RSA public exponent (base64url encoded)
+      required:
+      - alg
+      - e
+      - kid
+      - kty
+      - n
+      - use
       additionalProperties: false
     OAuthMetadata:
       type: object
@@ -242,32 +264,10 @@ components:
       - message
       - timestamp
       - type
-    JWK:
-      type: object
-      properties:
-        kty:
-          type: string
-          description: Key type (e.g., 'RSA')
-        use:
-          type: string
-          description: Public key use (e.g., 'sig' for signature)
-        kid:
-          type: string
-          description: Key ID for identifying the key
-        alg:
-          type: string
-          description: Algorithm (e.g., 'RS256')
-        n:
-          type: string
-          description: RSA modulus (base64url encoded)
-        e:
-          type: string
-          description: RSA public exponent (base64url encoded)
-      required:
-      - alg
-      - e
-      - kid
-      - kty
-      - n
-      - use
-      additionalProperties: false
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

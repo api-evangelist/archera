@@ -435,198 +435,7 @@ paths:
       operationId: getV1OrgByOrgIdCommitmentsChart
       x-operation-id-source: derived
 components:
-  responses:
-    DEFAULT_ERROR:
-      description: Default error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UNPROCESSABLE_CONTENT:
-      description: Unprocessable Content
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
-    IdsResponse:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-      required:
-      - ids
-      additionalProperties: false
-    PubChartResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataPoint'
-      additionalProperties: false
-    DailyUtilization:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        reservation_utilization:
-          type: number
-        covered_cost:
-          type: number
-        cost:
-          type: number
-        potential_savings:
-          type:
-          - number
-          - 'null'
-        running_hours:
-          type:
-          - number
-          - 'null'
-        savings:
-          type: number
-        unutilized_commit:
-          type: number
-        gri_fees:
-          type: number
-        net_savings:
-          type: number
-      required:
-      - cost
-      - covered_cost
-      - date
-      - gri_fees
-      - net_savings
-      - potential_savings
-      - reservation_utilization
-      - running_hours
-      - savings
-      - unutilized_commit
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        detail: {}
-        code:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        timestamp:
-          type: string
-        type:
-          type: string
-      required:
-      - message
-      - timestamp
-      - type
-    LeaseMenuItem:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        fee_type:
-          type: string
-        fee_rate:
-          type: number
-        is_rebate:
-          type: boolean
-        lockin_months:
-          type: integer
-        term_months:
-          type: integer
-      required:
-      - fee_rate
-      - fee_type
-      - is_rebate
-      - lockin_months
-      - term_months
-      additionalProperties: false
-    DataPoint:
-      type: object
-      properties:
-        date:
-          type: string
-        remaining_commit:
-          type: number
-        locked_commit:
-          type: number
-        unlocked_commit:
-          type: number
-        savings:
-          type: number
-        net_savings:
-          type: number
-        utilization:
-          type: number
-        unutilized_commit:
-          type: number
-        is_projection:
-          type: boolean
-          description: Indicates whether this data point is a projection based on current commitment utilization patterns. Historical data (is_projection=false) reflects actual recorded metrics, while projected data (is_projection=true) represents estimated future values assuming commitments continue with their current utilization rates.
-      required:
-      - date
-      - is_projection
-      - locked_commit
-      - net_savings
-      - remaining_commit
-      - savings
-      - unlocked_commit
-      - unutilized_commit
-      - utilization
-      additionalProperties: false
-    PaginationMetadata:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of items.
-        total_pages:
-          type: integer
-          description: Total number of pages.
-        first_page:
-          type: integer
-          description: First available page number.
-        last_page:
-          type: integer
-          description: Last available page number.
-        page:
-          type: integer
-          description: Current page number.
-        previous_page:
-          type: integer
-          description: Previous page number.
-        next_page:
-          type: integer
-          description: Next page number.
-      additionalProperties: false
     PublicCommitment:
       type: object
       properties:
@@ -895,8 +704,199 @@ components:
       - upfront_cost
       - utilization
       additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
+    DataPoint:
+      type: object
+      properties:
+        date:
+          type: string
+        remaining_commit:
+          type: number
+        locked_commit:
+          type: number
+        unlocked_commit:
+          type: number
+        savings:
+          type: number
+        net_savings:
+          type: number
+        utilization:
+          type: number
+        unutilized_commit:
+          type: number
+        is_projection:
+          type: boolean
+          description: Indicates whether this data point is a projection based on current commitment utilization patterns. Historical data (is_projection=false) reflects actual recorded metrics, while projected data (is_projection=true) represents estimated future values assuming commitments continue with their current utilization rates.
+      required:
+      - date
+      - is_projection
+      - locked_commit
+      - net_savings
+      - remaining_commit
+      - savings
+      - unlocked_commit
+      - unutilized_commit
+      - utilization
+      additionalProperties: false
+    PubChartResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPoint'
+      additionalProperties: false
+    PaginationMetadata:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of items.
+        total_pages:
+          type: integer
+          description: Total number of pages.
+        first_page:
+          type: integer
+          description: First available page number.
+        last_page:
+          type: integer
+          description: Last available page number.
+        page:
+          type: integer
+          description: Current page number.
+        previous_page:
+          type: integer
+          description: Previous page number.
+        next_page:
+          type: integer
+          description: Next page number.
+      additionalProperties: false
+    LeaseMenuItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        fee_type:
+          type: string
+        fee_rate:
+          type: number
+        is_rebate:
+          type: boolean
+        lockin_months:
+          type: integer
+        term_months:
+          type: integer
+      required:
+      - fee_rate
+      - fee_type
+      - is_rebate
+      - lockin_months
+      - term_months
+      additionalProperties: false
+    IdsResponse:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+      required:
+      - ids
+      additionalProperties: false
+    DailyUtilization:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        reservation_utilization:
+          type: number
+        covered_cost:
+          type: number
+        cost:
+          type: number
+        potential_savings:
+          type:
+          - number
+          - 'null'
+        running_hours:
+          type:
+          - number
+          - 'null'
+        savings:
+          type: number
+        unutilized_commit:
+          type: number
+        gri_fees:
+          type: number
+        net_savings:
+          type: number
+      required:
+      - cost
+      - covered_cost
+      - date
+      - gri_fees
+      - net_savings
+      - potential_savings
+      - reservation_utilization
+      - running_hours
+      - savings
+      - unutilized_commit
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
   headers:
     PAGINATION:
       description: Pagination metadata
       schema:
         $ref: '#/components/schemas/PaginationMetadata'
+  responses:
+    DEFAULT_ERROR:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
