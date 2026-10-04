@@ -1,0 +1,58 @@
+slug: archera
+provider: Archera
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Commitment Plans
+  spec_file: archera-commitment-plans-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.85
+  evidence: GET /commitment-plans/recommended; POST /commitment-plans/{plan_id}/apply; schemas CommitmentSavings_Exclude_Rebate,
+    CloudProviderCostBreakdown, CommitmentCost
+  reason: 'Operations recommend, compare and apply cloud commitment (savings plan / reserved instance)
+    purchase plans with cost and savings breakdowns — i.e. cloud spend and IT cost optimisation, which
+    is IT Financial Management. Not treasury or procurement: the objects are cloud provider cost plans,
+    not corporate funding or POs.'
+- tag: Commitments
+  spec_file: archera-commitments-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.8
+  evidence: GET /v1/org/{org_id}/commitments; GET /commitments/chart; schemas DailyUtilization, PublicCommitment
+  reason: Inventory and utilisation charting of cloud commitments owned by the organisation, feeding cloud
+    cost optimisation — IT spend/cost optimisation under IT Financial Management. Slight ambiguity only
+    because the tag is read-only reporting over the commitment estate.
+- tag: Exchanges
+  spec_file: archera-exchanges-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.8
+  evidence: GET /v1/org/{org_id}/exchanges/recommendations — "Get Azure exchange recommendations"; schemas
+    ExchangeRecommendationDelta, CommitmentSavings_Exclude_Rebate
+  reason: Recommends and applies exchanges of Azure cloud commitments to improve savings — cloud cost
+    optimisation activity, i.e. IT Financial Management. Despite the trading-sounding tag, the operations
+    concern cloud commitment exchanges, not financial market exchanges.
+- tag: Uploads
+  spec_file: archera-uploads-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.7
+  evidence: POST /v1/org/{org_id}/uploads  'Upload a billing file for savings analysis'
+  reason: Although the tag is a file-upload surface, the stated purpose is ingesting cloud billing files
+    for savings analysis, which is IT financial management (cloud spend/cost optimisation). Confidence
+    held back because the operations themselves are upload/status plumbing.

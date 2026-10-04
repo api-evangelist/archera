@@ -63,6 +63,7 @@ tags:
 - AWS
 - Azure
 - Google Cloud
+- Reserved Instances
 apis:
 - name: Archera Partner API
   description: >-
@@ -201,6 +202,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/archera-capability-edges.yml
+  name: Archera Business Capability Map
 - type: Overlay
   url: overlays/archera-openapi-overlay.yaml
 - type: Website
