@@ -61,3 +61,21 @@ deployment:
   probe: gated
   checked: '2026-08-12'
   source: catalog MCP census
+rfc9728:
+  endpoint: https://mcp.archera.ai/mcp
+  metadata_url: https://mcp.archera.ai/.well-known/oauth-protected-resource/mcp
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.archera.ai/mcp
+    authorization_servers:
+    - https://api.archera.ai
+    scopes_supported:
+    - archera:read
+    - archera:write
+    - archera:admin
+    - archera:analytics
+    bearer_methods_supported:
+    - header
