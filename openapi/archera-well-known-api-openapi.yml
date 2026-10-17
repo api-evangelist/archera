@@ -123,23 +123,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
+    ApiErrorResponse:
       type: object
       properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
         message:
           type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
     JWKS:
       type: object
       properties:
@@ -242,28 +247,23 @@ components:
       - token_endpoint
       - token_endpoint_auth_methods_supported
       additionalProperties: false
-    ApiErrorResponse:
+    Error:
       type: object
       properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
         message:
           type: string
-        detail: {}
-        code:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        timestamp:
-          type: string
-        type:
-          type: string
-      required:
-      - message
-      - timestamp
-      - type
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
   responses:
     DEFAULT_ERROR:
       description: Default error response

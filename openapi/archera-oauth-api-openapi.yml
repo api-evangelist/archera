@@ -532,34 +532,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
-    RevokeAllSessionsResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        count:
-          type: integer
-      required:
-      - count
-      - message
-      additionalProperties: false
     OAuthSessionResponse:
       type: object
       properties:
@@ -603,6 +575,34 @@ components:
       - message
       - timestamp
       - type
+    RevokeAllSessionsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        count:
+          type: integer
+      required:
+      - count
+      - message
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
   responses:
     DEFAULT_ERROR:
       description: Default error response

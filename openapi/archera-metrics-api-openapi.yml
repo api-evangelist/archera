@@ -89,23 +89,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
+    ApiErrorResponse:
       type: object
       properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
         message:
           type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
+        detail: {}
+        code:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+      - message
+      - timestamp
+      - type
     PublicMetrics:
       type: object
       properties:
@@ -168,37 +173,32 @@ components:
       - total_daily_missed_savings
       - utilization
       additionalProperties: false
-    ApiErrorResponse:
+    Error:
       type: object
       properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
         message:
           type: string
-        detail: {}
-        code:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-        timestamp:
-          type: string
-        type:
-          type: string
-      required:
-      - message
-      - timestamp
-      - type
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
+      additionalProperties: false
   responses:
-    DEFAULT_ERROR:
-      description: Default error response
+    UNPROCESSABLE_CONTENT:
+      description: Unprocessable Content
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UNPROCESSABLE_CONTENT:
-      description: Unprocessable Content
+    DEFAULT_ERROR:
+      description: Default error response
       content:
         application/json:
           schema:

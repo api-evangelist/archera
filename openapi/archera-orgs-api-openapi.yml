@@ -102,23 +102,6 @@ components:
       - message
       - timestamp
       - type
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Error code
-        status:
-          type: string
-          description: Error name
-        message:
-          type: string
-          description: Error message
-        errors:
-          type: object
-          description: Errors
-          additionalProperties: {}
-      additionalProperties: false
     Org:
       type: object
       properties:
@@ -149,6 +132,23 @@ components:
       - name
       - org_id
       - role
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        status:
+          type: string
+          description: Error name
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Errors
+          additionalProperties: {}
       additionalProperties: false
   responses:
     DEFAULT_ERROR:
