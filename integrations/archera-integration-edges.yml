@@ -18,8 +18,8 @@ edges:
   apps:
   - Archera - Subscription
   - Archera Custom Reporting
-  - Migration & AI/ML Rate Optimization
   - Archera
+  - Migration & AI/ML Rate Optimization
   - Archera Visibility and Commitment Management Solution
   seller_name: Archera
   detected_by: sweep-cloud-marketplaces.py
