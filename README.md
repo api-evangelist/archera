@@ -64,6 +64,144 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Archera is a company surfaced as a portfolio company of amplify-partners and added to the API Evangelist network as a stub for enrichment. Sector: developer-tools. This profile is a lead awaiting the enrichment pipeline.
+Archera is a cloud financial operations (FinOps) platform that helps organizations reduce cloud spend by 20-30% through intelligent commitment management and insured, short-term cloud commitments across AWS, Azure, and Google Cloud. Its Guaranteed Commitments (Guaranteed Savings Plans, Guaranteed Reserved Instances, and Guaranteed Committed Use Discounts) provide flexible terms as short as 30 days with risk protection for unused capacity. The Archera Public API exposes commitment plans, commitments, exchanges, metrics, resources, orgs, and uploads over a REST v1 interface authenticated with an API key or OAuth 2.0 (Authorization Code + PKCE), and Archera operates a hosted remote MCP server so AI assistants can query cloud cost data and optimization recommendations directly. A Partner API supports onboarding customers and creating marketplace offers via AWS CPPO, Microsoft MPO, and Google MCPO.
 
-Backed by: amplify-partners — https://archera.ai
+**Areas:** Company · Developer Tools · FinOps · Cloud Cost Management · Cloud Commitments · Cost Optimization · MCP · AWS · Microsoft Azure · Google Cloud · Reserved Instances
+
+## Archera on APIs.io
+
+Everything profiled for Archera is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/archera/](https://apis.io/providers/archera/)** — or go straight to one of the APIs or properties below.
+
+### APIs (10)
+
+- [Archera Partner API](https://apis.io/apis/archera/archera-partner-api/) — Partner API for onboarding customers, managing their optimization strategies, and creating marketplace offers through AWS CPPO, Microsoft MPO / ISV-to-CSP…
+- [Archera Commitment Plans API](https://apis.io/apis/archera/archera-commitment-plans-api/) — API for managing commitment plans
+- [Archera Commitments API](https://apis.io/apis/archera/archera-commitments-api/) — API for retrieving and analyzing cloud commitment inventory, including Reserved Instances, Savings Plans, and Azure Reserved VM Instances. Provides access…
+- [Archera Exchanges API](https://apis.io/apis/archera/archera-exchanges-api/) — API for commitment exchange recommendations
+- [Archera Metrics API](https://apis.io/apis/archera/archera-metrics-api/) — High level metrics to track commitment performance.
+- [Archera Orgs API](https://apis.io/apis/archera/archera-orgs-api/) — Endpoints for organizations accessible to the authenticated user
+- [Archera Resources API](https://apis.io/apis/archera/archera-resources-api/) — API for retrieving and analyzing infrastructure resources
+- [Archera Uploads API](https://apis.io/apis/archera/archera-uploads-api/) — API for uploading billing files for savings analysis
+- [Archera Well-Known API](https://apis.io/apis/archera/archera-well-known-api/) — OAuth 2.0 discovery endpoints (JWKS and Authorization Server Metadata)
+- [Archera O Auth API](https://apis.io/apis/archera/archera-oauth-api/) — OAuth 2.0 authorization endpoints for third-party integrations
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [archera](https://apis.io/servers/archera/archera/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Archera Agentic Access](https://apis.io/agentic-access/archera/archera-agentic-access/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [Archera.ai Commitment Plans API](https://apis.io/collections/archera/open-archera-commitment-plans-api/)
+- [Archera.ai Commitment Plans Commitments API](https://apis.io/collections/archera/open-archera-commitments-api/)
+- [Archera.ai Commitment Plans Exchanges API](https://apis.io/collections/archera/open-archera-exchanges-api/)
+- [Archera.ai Commitment Plans Metrics API](https://apis.io/collections/archera/open-archera-metrics-api/)
+- [Archera.ai Commitment Plans OAuth API](https://apis.io/collections/archera/open-archera-oauth-api/)
+- [Archera.ai Commitment Plans Orgs API](https://apis.io/collections/archera/open-archera-orgs-api/)
+- [Archera.ai Commitment Plans Resources API](https://apis.io/collections/archera/open-archera-resources-api/)
+- [Archera.ai Commitment Plans Uploads API](https://apis.io/collections/archera/open-archera-uploads-api/)
+- [Archera.ai Commitment Plans Well-Known API](https://apis.io/collections/archera/open-archera-well-known-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Archera Openapi Overlay](https://apis.io/overlays/archera/archera-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Archera Authentication](https://apis.io/security/archera/archera-authentication/)
+- [Archera Domain Security](https://apis.io/security/archera/archera-domain-security/)
+- [Archera Trust Center](https://apis.io/security/archera/archera-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Archera Scopes](https://apis.io/scopes/archera/archera-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://archera.ai)
+- [Documentation](https://docs.archera.ai)
+- [Getting started](https://docs.archera.ai/getting-started/how-to-sign-up-with-archera)
+- [API reference](https://docs.archera.ai/api-reference)
+- [Pricing](https://www.archera.ai/pricing)
+- [Sign up](https://app.archera.ai/signup)
+- [Support](https://help.archera.ai)
+- [Blog](https://www.archera.ai/blog)
+- [Compliance](https://www.archera.ai/trust)
+- [Terms of service](https://www.archera.ai/terms)
+- [Privacy policy](https://www.archera.ai/privacy)
+
+## API Evangelist rating
+
+**Kin Score 44.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 40.1 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 54.2 |
+| Access clarity | 53.9 |
+
+**Agent readiness 50.5** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 39.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/archera/](https://apis.io/providers/archera/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Archera: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/archera/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
